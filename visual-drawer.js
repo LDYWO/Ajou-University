@@ -27,17 +27,31 @@ var CsvUrl = function( csvUrl ) {
                 inputlist.exit().remove();
 
                 var groups = inputlist.enter().append("g");
-                groups.append("p");
+                groups.append("button");
 
-                inputlist.select("p")
+                inputlist.select("button")
                     .attr({
                         "value":function(d){return d},
                         "label":function(d){return d},
                         "draggable":true,
                         "id":function(d){return d},
+                    })
+                    .style({
+                        "background-color": "#757475",
+                        "border": "none",
+                        "color": "white",
+                        "display": "inline-block",
+                        "font-size": "7px",
+                        "line-height": "normal",
+                        "text-align": "center",
+                        "cursor": "pointer",
+                        "border-radius": ".25em",
+                        "margin":"2%",
+                        "padding": ".5em .75em",
+                        "height":"20px",
                     });
 
-                inputlist.select("p").text(function(d){return d}).append("p");
+                inputlist.select("button").text(function(d){return d}).append("p");
             };
 
             var numericProps = [];
@@ -74,23 +88,6 @@ var CsvUrl = function( csvUrl ) {
         });
 }
 function fileRead() {
-    $(document).ready(function(){
-        var fileTarget = $('.filebox .upload-hidden');
-
-        fileTarget.on('change', function(){
-            if(window.FileReader){
-                // 파일명 추출
-                var filename = $(this)[0].files[0].name;
-            }
-            else {
-                // Old IE 파일명 추출
-                var filename = $(this).val().split('/').pop().split('\\').pop();
-            };
-
-            $(this).siblings('.upload-name').val(filename);
-        });
-    });
-
     var file = document.getElementById("csv").files[0];
     if (file) {
         var reader = new FileReader();
@@ -125,3 +122,19 @@ document.ondrop = function(event) {
     console.log(document.getElementById(data));
     event.target.appendChild(document.getElementById(data));
 };
+$(document).ready(function(){
+    var fileTarget = $('.filebox .upload-hidden');
+
+    fileTarget.on('change', function(){
+        if(window.FileReader){
+            // 파일명 추출
+            var filename = $(this)[0].files[0].name;
+        }
+        else {
+            // Old IE 파일명 추출
+            var filename = $(this).val().split('/').pop().split('\\').pop();
+        };
+
+        $(this).siblings('.upload-name').val(filename);
+    });
+});
