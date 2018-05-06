@@ -1,20 +1,4 @@
 var groupcount = 0;
-$(document).ready(function(){
-    var fileTarget = $('.filebox .upload-hidden');
-   
-    fileTarget.on('change', function(){
-        if(window.FileReader){
-            // 파일명 추출
-            var filename = $(this)[0].files[0].name;
-        }
-        else {
-            // Old IE 파일명 추출
-            var filename = $(this).val().split('/').pop().split('\\').pop();
-        };
-
-        $(this).siblings('.upload-name').val(filename);
-    });
-});
 var allValuesOf = function(data, variable) {
     var values = [];
     for (var i=0; i<data.length; i++){
@@ -36,22 +20,20 @@ var CsvUrl = function( csvUrl ) {
                 return !isNaN(parseFloat(n)) && isFinite(n);
             }
 
-            var addToTable = function(propertyList, parent, name, type) {
+            var addToDimensions = function(propertyList, parent) {
 
                 var inputlist = d3.select(parent).selectAll("g").data(propertyList);
 
                 inputlist.exit().remove();
 
                 var groups = inputlist.enter().append("g");
-                groups.append("input");
                 groups.append("text");
 
-                inputlist.select("input")
+                inputlist.select("text")
                     .attr({
-                        "type":type,
                         "value":function(d){return d},
                         "label":function(d){return d},
-                        "name":name
+                        "name":name,
                     });
 
                 inputlist.select("text").text(function(d){return d}).append("p");
@@ -61,13 +43,14 @@ var CsvUrl = function( csvUrl ) {
             for (property in dataset[0]) {
                 if (isNumeric(dataset[0][property])) {
                     numericProps.push(property);
-                    console.log(property);
                 }
             }
+            console.log(numericProps);
+
             d3.select(".dimensions-box")
                 .style("display","block");
 
-            addToTable(numericProps, "#numeric", "numericAttribute", "checkbox");
+            addToDimensions(numericProps, ".dimensions-box");
 
             //adding all data attributes to tooltip table
             //addToTable(Object.keys(dataset[0]), "#tooltip", "tooltipAttribute", "checkbox");
@@ -81,7 +64,7 @@ var CsvUrl = function( csvUrl ) {
                 }
             }
 
-            addToTable(categoricalVars, "#colorGroup", "colorAttribute", "radio");
+           // addToTable(categoricalVars, "#colorGroup", "colorAttribute", "radio");
             /*
             vis.loadData(dataset);
             vis.setVars([]);
@@ -90,6 +73,23 @@ var CsvUrl = function( csvUrl ) {
         });
 }
 function fileRead() {
+    $(document).ready(function(){
+        var fileTarget = $('.filebox .upload-hidden');
+
+        fileTarget.on('change', function(){
+            if(window.FileReader){
+                // 파일명 추출
+                var filename = $(this)[0].files[0].name;
+            }
+            else {
+                // Old IE 파일명 추출
+                var filename = $(this).val().split('/').pop().split('\\').pop();
+            };
+
+            $(this).siblings('.upload-name').val(filename);
+        });
+    });
+
     var file = document.getElementById("csv").files[0];
     if (file) {
         var reader = new FileReader();
