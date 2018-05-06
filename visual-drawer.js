@@ -27,16 +27,17 @@ var CsvUrl = function( csvUrl ) {
                 inputlist.exit().remove();
 
                 var groups = inputlist.enter().append("g");
-                groups.append("text");
+                groups.append("p");
 
-                inputlist.select("text")
+                inputlist.select("p")
                     .attr({
                         "value":function(d){return d},
                         "label":function(d){return d},
-                        "name":name,
+                        "draggable":true,
+                        "id":function(d){return d},
                     });
 
-                inputlist.select("text").text(function(d){return d}).append("p");
+                inputlist.select("p").text(function(d){return d}).append("p");
             };
 
             var numericProps = [];
@@ -108,3 +109,19 @@ function AddGroup() {
         .attr("class","group"+groupcount);
     groupcount++;
 }
+/* Event fired on the drag target */
+document.ondragstart = function(event) {
+    event.dataTransfer.setData("Text", event.target.id);
+};
+
+/* Events fired on the drop target */
+document.ondragover = function(event) {
+    event.preventDefault();
+};
+
+document.ondrop = function(event) {
+    event.preventDefault();
+    var data = event.dataTransfer.getData("Text");
+    console.log(document.getElementById(data));
+    event.target.appendChild(document.getElementById(data));
+};
