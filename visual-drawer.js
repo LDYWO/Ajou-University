@@ -177,7 +177,47 @@ document.ondrop = function(event) {
             break
     }
 
-    Vis.updateDimensionLabel(data,groupid,dimensionnames);
+    Vis.updateDimensionLabel(groupid,dimensionnames);
+
+    var group0_dmnames =  [];
+    var group1_dmnames =  [];
+    var group2_dmnames =  [];
+    var group3_dmnames =  [];
+    var group4_dmnames =  [];
+    var group5_dmnames =  [];
+
+    for(var i=0;i<6;i++){
+        $('.group'+i).children().each(function(){
+            switch (i){
+                case 0:
+                    group0_dmnames[group0_dmnames.length] = $(this).attr('id');
+                    break
+                case 1:
+                    group1_dmnames[group1_dmnames.length] = $(this).attr('id');
+                    break
+                case 2:
+                    group2_dmnames[group2_dmnames.length] = $(this).attr('id');
+                    break
+                case 3:
+                    group3_dmnames[group3_dmnames.length] = $(this).attr('id');
+                    break
+                case 4:
+                    group4_dmnames[group4_dmnames.length] = $(this).attr('id');
+                    break
+                case 5:
+                    group5_dmnames[group5_dmnames.length] = $(this).attr('id');
+                    break
+            }
+        });
+    }
+
+    Vis.updateDimensionLabel(0,group0_dmnames);
+    Vis.updateDimensionLabel(1,group1_dmnames);
+    Vis.updateDimensionLabel(2,group2_dmnames);
+    Vis.updateDimensionLabel(3,group3_dmnames);
+    Vis.updateDimensionLabel(4,group4_dmnames);
+    Vis.updateDimensionLabel(5,group5_dmnames);
+
 
 };
 $(document).ready(function(){
@@ -223,7 +263,7 @@ var Vis = new function () {
             .attr("transform","translate(" + $('svg').width()/2 + ", " + $('svg').height()/2 + ")");
     };
 
-    this.updateDimensionLabel = function (name, groupid, dimensionnames) {
+    this.updateDimensionLabel = function (groupid, dimensionnames) {
         var r = $('svg').height()/2-15 - groupid * 20;
 
         var theta = 0;
