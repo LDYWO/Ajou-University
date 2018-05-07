@@ -164,3 +164,11 @@
     background-color: #FC2D28;
     margin:2%;
 }
+#renderer{
+    width: 100%;
+    height:100%;
+}
+svg{
+    width: 100%;
+    height:100%;
+}

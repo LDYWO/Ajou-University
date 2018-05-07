@@ -1,6 +1,14 @@
+var root = d3.select('#renderer').append('svg');
+var windowWidth = $(window).width();
+var windowHeight = $(window).height();
+
+var pi = Math.PI;
+var twoPi = pi * 2;
+
 var re = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\(\=]/gi;
 var groupcount = 0;
 var current_available_dimensions=[];
+
 var allValuesOf = function(data, variable) {
     var values = [];
     for (var i=0; i<data.length; i++){
@@ -87,14 +95,10 @@ var CsvUrl = function( csvUrl ) {
                 }
             }
 
-           // addToTable(categoricalVars, "#colorGroup", "colorAttribute", "radio");
-            /*
-            vis.loadData(dataset);
-            vis.setVars([]);
-            vis.setTooltipVars([]);
-            vis();*/
+            Vis.appendNodes(dataset);
         });
 }
+
 function fileRead() {
     var file = document.getElementById("csv").files[0];
     if (file) {
@@ -131,6 +135,7 @@ function removeDimensionGroups() {
     d3.select('.dimension-groups-box')
         .style('display','none');
 }
+
 /* Event fired on the drag target */
 document.ondragstart = function(event) {
     event.dataTransfer.setData("Text", event.target.id);
@@ -144,9 +149,20 @@ document.ondrop = function(event) {
     var data = event.dataTransfer.getData("Text");
     event.target.appendChild(document.getElementById(data));
 
-    switch($('.group0').children().length){
+    var groupname = $('.dimension-groups-box').find('#'+data).parent().prop('className');
+    var groupid = $('.dimension-groups-box').find('#'+data).parent().prop('id');
+
+    var dimensionnames =  [];
+
+    $('.'+groupname).children().each(function(){
+        dimensionnames[dimensionnames.length] = $(this).attr('id');
+    });
+
+    switch($('.'+groupname).children().length){
         case 0:
         case 1:
+            Vis.drawDimension(data,groupid,groupname);
+            break
         case 2:
         case 3:
             d3.select('.group0')
@@ -160,6 +176,9 @@ document.ondrop = function(event) {
                 .style("height",60+4*($('.group0').children().length)+"px");
             break
     }
+
+    Vis.updateDimensionLabel(data,groupid,dimensionnames);
+
 };
 $(document).ready(function(){
     var fileTarget = $('.filebox .upload-hidden');
@@ -177,3 +196,172 @@ $(document).ready(function(){
         $(this).siblings('.upload-name').val(filename);
     });
 });
+
+var Vis = new function () {
+
+    this.redrawdimensions = [];
+    this.dimensions = [];
+    this.Weightdimensions = [];
+    var that = this;
+    var parentG = root.append('g');
+    var dimensionCount = 0;
+
+    this.drawDimension = function (name, groupid, groupname) {
+
+        var g = root.append('g');
+        var r = $('svg').height()/2-15 - groupid * 20;
+
+        var arc = d3.svg.arc()
+            .innerRadius(r-5)
+            .outerRadius(r)
+            .startAngle(0)
+            .endAngle(twoPi);
+        g.append("path")
+            .attr("d", arc)
+            .attr('id',groupname)
+            .attr("fill", $('.'+groupname).css("background-color"))
+            .attr("transform","translate(" + $('svg').width()/2 + ", " + $('svg').height()/2 + ")");
+    };
+
+    this.updateDimensionLabel = function (name, groupid, dimensionnames) {
+        var r = $('svg').height()/2-15 - groupid * 20;
+
+        var theta = 0;
+        for(var j=0;j<dimensionnames.length;j++){
+            d3.select("#"+dimensionnames[j]+'label').remove();
+            theta = j/dimensionnames.length * twoPi;
+
+            x = Math.sin((Math.PI * 2)* j / length+(dimensionnames.length)) * r;
+            y = -Math.cos((Math.PI * 2)* j/ length+(dimensionnames.length)) * r;
+
+            var x = $('svg').width()/2 + Math.cos(theta) * (r + 2);
+            var y = $('svg').height()/2 + Math.sin(theta) * -(r + 2);
+
+            var labelX = $('svg').width()/2 +  Math.cos(theta) * (r + 8);
+            var labelY = ($('svg').height()/2 - (Math.sin(theta) * (r+ 8)));
+
+            root.append('g').append("text")
+                .attr("x", labelX)
+                .attr("y", labelY)
+                .attr("fill", "black")
+                .attr('id',dimensionnames[j]+'label')
+                .style("font-family", "verdana")
+                .style("font-size", 8)
+                .attr("text-anchor", "middle")
+                .text(dimensionnames[j]);
+        }
+
+    }
+
+    this.updateDimensionData = function (keys, rotate) {
+        for (var i=0; i<that.dimensions.length; i++) {
+            for (var j=0; j<that.dimensions[i].length; j++) {
+                if (that.dimensions[i][j].array_name[0]==keys[0]){
+                    that.dimensions[i][j].x = that.dimensions[i][j].x*Math.cos(rotate*Math.PI/180) - that.dimensions[i][j].y*Math.sin(rotate*Math.PI/180);
+                    that.dimensions[i][j].y =  that.dimensions[i][j].x*Math.sin(rotate*Math.PI/180) + that.dimensions[i][j].y*Math.cos(rotate*Math.PI/180);
+                    that.Weightdimensions[i][j].x = that.Weightdimensions[i][j].x*Math.cos(rotate*Math.PI/180) - that.Weightdimensions[i][j].y*Math.sin(rotate*Math.PI/180);
+                    that.Weightdimensions[i][j].y =  that.Weightdimensions[i][j].x*Math.sin(rotate*Math.PI/180) + that.Weightdimensions[i][j].y*Math.cos(rotate*Math.PI/180);
+                }
+            }
+        }
+    };
+
+    this.appendNodes = function (nodes) {
+        parentG.append('circle').attr({
+            cx:0,
+            cy:0,
+            r:220,
+            fill:"#fff",
+            id:"pointsgroup",
+        });
+        points = _.map(nodes, function (n) {
+            return {
+                circle: parentG.append('circle').attr({
+                    cx: 0,
+                    cy: 0,
+                    r: 2,
+                    fill: '#000',
+                    id:'points',
+                }),
+                data: n,
+
+            };
+        });
+        that.updateNodes();
+    };
+
+    this.updateNodes = function () {
+        var maxDist = 0;
+        _.forEach(points, function (n) {
+            var x = 0;
+            var y = 0;
+
+            _.forEach(that.dimensions, function (dimension) {
+                _.forEach(dimension, function (d) {
+                    x += d.x * n.data[d.name];
+                    y += d.y * n.data[d.name];
+                })
+            });
+
+            var dist = Math.sqrt(x * x + y * y);
+            if (maxDist < dist) maxDist = dist;
+        });
+
+        _.forEach(points, function (p) {
+            var x = 0, y = 0;
+
+            _.forEach(that.dimensions, function (dimension) {
+                _.forEach(dimension, function (d) {
+                    x += d.x * p.data[d.name];
+                    y += d.y * p.data[d.name];
+                })
+            });
+            p.circle.transition().duration(1000).attr({
+                cx: x / maxDist * ((windowWidth-150)/7-20),
+                cy: y / maxDist * ((windowWidth-150)/7-20),
+            });
+            if(dimensionCount==0)
+                p.circle.attr({
+                    r:0,
+                });
+            else {
+                p.circle.attr({
+                    r:2,
+                });
+            }
+        });
+    };
+
+    this.removeDimension = function (keys,name) {
+
+        d3.select('.selection').remove();
+        d3.selectAll('#selectList #perfume-list').remove();
+
+        var rmindex = 0;
+        _.forEach(that.dimensions, function (dimension) {
+            _.forEach(dimension, function (d) {
+                _.forEach(keys, function (key) {
+                    if(d.name==key){
+                        rmindex = that.dimensions.indexOf(dimension);
+                    }
+                })
+            })
+        });
+
+        that.dimensions.splice(rmindex,1);
+
+        dimensionCount--;
+        for(e in keys){
+            root.selectAll("#"+keys[e]).remove();
+            root.selectAll("#"+name).remove();
+        }
+
+        if(dimensionCount>=1){
+            that.redraw();
+        }
+
+        that.updateNodes();
+    };
+
+    return this;
+};
