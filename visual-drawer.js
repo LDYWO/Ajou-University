@@ -1,4 +1,6 @@
+var re = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\(\=]/gi;
 var groupcount = 0;
+var current_available_dimensions=[];
 var allValuesOf = function(data, variable) {
     var values = [];
     for (var i=0; i<data.length; i++){
@@ -34,7 +36,7 @@ var CsvUrl = function( csvUrl ) {
                         "value":function(d){return d},
                         "label":function(d){return d},
                         "draggable":true,
-                        "id":function(d){return d},
+                        "id":function(d){return d.replace(re, "");},
                     })
                     .style({
                         "background-color": "#757475",
@@ -61,6 +63,12 @@ var CsvUrl = function( csvUrl ) {
                 }
             }
             console.log(numericProps);
+
+            current_available_dimensions=[];
+            for(var i=0;i<numericProps.length;i++){
+                current_available_dimensions[i] = numericProps[i].replace(re, "");
+            }
+            console.log(current_available_dimensions);
 
             d3.select(".dimensions-box")
                 .style("display","block");
@@ -98,29 +106,60 @@ function fileRead() {
         };
         reader.readAsDataURL(file);
     }
+    removeDimensionsButtons();
+    removeDimensionGroups();
+    groupcount=0;
 }
 function AddGroup() {
     d3.select(".dimension-groups-box")
         .style("display","block")
         .append("div")
-        .attr("class","group"+groupcount);
+        .attr("class","group"+groupcount)
+        .attr("id",groupcount);
     groupcount++;
+}
+function removeDimensionsButtons(){
+    $('#0').empty();
+    $('#1').empty();
+    $('#2').empty();
+    $('#3').empty();
+    $('#4').empty();
+    $('#5').empty();
+}
+function removeDimensionGroups() {
+    $('.dimension-groups-box').empty();
+    d3.select('.dimension-groups-box')
+        .style('display','none');
 }
 /* Event fired on the drag target */
 document.ondragstart = function(event) {
     event.dataTransfer.setData("Text", event.target.id);
 };
-
 /* Events fired on the drop target */
 document.ondragover = function(event) {
     event.preventDefault();
 };
-
 document.ondrop = function(event) {
     event.preventDefault();
     var data = event.dataTransfer.getData("Text");
-    console.log(document.getElementById(data));
     event.target.appendChild(document.getElementById(data));
+
+    switch($('.group0').children().length){
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+            d3.select('.group0')
+            .style("height","30px");
+            break
+        case 4:
+            d3.select('.group0')
+            .style("height",30+6*($('.group0').children().length)+"px");
+        case 7:
+            d3.select('.group0')
+                .style("height",60+4*($('.group0').children().length)+"px");
+            break
+    }
 };
 $(document).ready(function(){
     var fileTarget = $('.filebox .upload-hidden');

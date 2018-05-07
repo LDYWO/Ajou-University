@@ -136,31 +136,31 @@
 }
 .group1{
     width:96%;
-    height:30px;
+    min-height:30px;
     background-color: #63d297;
     margin:2%;
 }
 .group2{
     width:96%;
-    height:30px;
+    min-height:30px;
     background-color: #00b9d8;
     margin:2%;
 }
 .group3{
     width:96%;
-    height:30px;
+    min-height:30px;
     background-color: #EF3C79;
     margin:2%;
 }
 .group4{
     width:96%;
-    height:30px;
+    min-height:30px;
     background-color: #FFA361;
     margin:2%;
 }
 .group5{
     width:96%;
-    height:30px;
+    min-height:30px;
     background-color: #FC2D28;
     margin:2%;
 }
