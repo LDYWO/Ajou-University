@@ -268,17 +268,24 @@ var Vis = new function () {
 
         var theta = 0;
         for(var j=0;j<dimensionnames.length;j++){
-            d3.select("#"+dimensionnames[j]+'label').remove();
+            d3.selectAll("#"+dimensionnames[j]+'label').remove();
             theta = j/dimensionnames.length * twoPi;
-
-            x = Math.sin((Math.PI * 2)* j / length+(dimensionnames.length)) * r;
-            y = -Math.cos((Math.PI * 2)* j/ length+(dimensionnames.length)) * r;
 
             var x = $('svg').width()/2 + Math.cos(theta) * (r + 2);
             var y = $('svg').height()/2 + Math.sin(theta) * -(r + 2);
 
             var labelX = $('svg').width()/2 +  Math.cos(theta) * (r + 8);
             var labelY = ($('svg').height()/2 - (Math.sin(theta) * (r+ 8)));
+            var circlelabelX = $('svg').width()/2 +  Math.cos(theta) * (r-2);
+            var circlelabelY = ($('svg').height()/2 - (Math.sin(theta) * (r-2)));
+
+            root.append("g")
+                .append("circle")
+                .attr('id',dimensionnames[j]+'label')
+                .attr("cx", circlelabelX)
+                .attr("cy", circlelabelY)
+                .attr("r", 4)
+                .attr("fill","#757475");
 
             root.append('g').append("text")
                 .attr("x", labelX)
