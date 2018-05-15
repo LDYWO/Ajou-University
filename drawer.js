@@ -778,6 +778,7 @@ var Vis = new function () {
     };
 
     this.updateNodes = function () {
+        console.log(that.dimensions)
         var maxDist = 0;
         _.forEach(points, function (n) {
             var x = 0;
