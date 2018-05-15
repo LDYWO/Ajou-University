@@ -5,10 +5,12 @@ var windowHeight = $(window).height();
 var pi = Math.PI;
 var twoPi = pi * 2;
 
-var re = /[ \{\}\[\]\/?.,;:|\)*~`!^\-_+┼<>@\#$%&\'\"\\(\=]/gi;
+var re = /[ \{\}\[\]\/?.,;:|\)*~`!^\-+┼<>@\#$%&\'\"\\(\=]/gi;
 var groupcount = 0;
 var current_available_dimensions=[];
 var points = [];
+var colorVar;
+var color;
 
 var allValuesOf = function(data, variable) {
     var values = [];
@@ -65,38 +67,60 @@ var CsvUrl = function( csvUrl ) {
                 inputlist.select("button").text(function(d){return d}).append("p");
             };
 
+
+            d3.select(".dimensions-box")
+                .style("display","block");
+
             var numericProps = [];
+            var categoricalVars = [];
+            d3.selectAll("option").remove();
+            d3.select("#color-select").append("option").text("Color");
+
             for (property in dataset[0]) {
-                if (isNumeric(dataset[0][property])) {
-                    numericProps.push(property);
+                if (allValuesOf(dataset, property).length <= 5) {
+                    categoricalVars.push(property);
+                    var option = document.createElement("option");
+                    option.text = property;
+                    option.value=allValuesOf(dataset, property).length;
+                    option.id=property;
+                    var select = document.getElementById("color-select");
+                    select.appendChild(option);
+                }
+                else{
+
+                    if (isNumeric(dataset[0][property])) {
+                        numericProps.push(property);
+                    }
+
                 }
             }
-            console.log(numericProps);
 
             current_available_dimensions=[];
             for(var i=0;i<numericProps.length;i++){
                 current_available_dimensions[i] = numericProps[i].replace(re, "");
             }
-            console.log(current_available_dimensions);
-
-            d3.select(".dimensions-box")
-                .style("display","block");
 
             addToDimensions(numericProps, ".dimensions-box");
 
-            //adding all data attributes to tooltip table
-            //addToTable(Object.keys(dataset[0]), "#tooltip", "tooltipAttribute", "checkbox");
 
-            //find categorical vars
-            var categoricalVars = [];
-            for (property in dataset[0]) {
-                if (allValuesOf(dataset, property).length <= 10) {
-                    categoricalVars.push(property);
-                    console.log(property);
+            var springConstants = numericProps.map(function(){return d3.scale.linear().range([0, 1]);});
+            springConstants.forEach(function(element, index, array){
+                element.domain(d3.extent(dataset, function(d){return +d[numericProps[index]];}));
+            });
+            var list=[];
+            _.forEach(dataset,function (d) {
+                list = springConstants.map(function(element, index, array){
+                    return element(d[numericProps[index]]);
+                });
+
+                for(var i =0;i<numericProps.length;i++){
+                    d[numericProps[i]] = list[i];
                 }
-            }
+
+            });
 
             Vis.appendNodes(dataset);
+            Vis.removeNodesColorInfor();
         });
 }
 
@@ -196,6 +220,7 @@ document.ondrop = function(event) {
                 else if(i==5){
                     Vis.group5_points=[];
                 }
+                Vis.removeDimension('group'+i);
                 break
             case 1:
                 d3.select('.group'+i)
@@ -260,8 +285,6 @@ document.ondrop = function(event) {
         });
     }
 
-    console.log(name);
-
     Vis.updateDimensionAnchor(0,group0_dmnames,name);
     Vis.updateDimensionAnchor(1,group1_dmnames,name);
     Vis.updateDimensionAnchor(2,group2_dmnames,name);
@@ -313,13 +336,6 @@ var Vis = new function () {
         var dm_point=[];
         var r = $('svg').height()/2-15 - groupid * 20;
         var theta = 0;
-
-
-
-        var found = dimensionnames.find(function(element) {
-            if(element == dsanchor)
-                return dimensionnames;
-        });
 
         if(dimensionnames.length!=0){
             for(var j=0;j<dimensionnames.length;j++){
@@ -427,8 +443,6 @@ var Vis = new function () {
         for (var i = index.length -1; i >= 0; i--)
             that.dimensions.splice(index[i],1);
 
-        console.log(that.dimensions);
-
         var maxDist = 0;
         _.forEach(points, function (n) {
             var x = 0;
@@ -441,11 +455,12 @@ var Vis = new function () {
                             y += dma.y * n.data[dma.name];
                         })
                     })
-            });
 
+            });
             var dist = Math.sqrt(x * x + y * y);
             if (maxDist < dist) maxDist = dist;
         });
+
 
         _.forEach(points, function (p) {
             var x = 0, y = 0;
@@ -486,6 +501,26 @@ var Vis = new function () {
                     .classed("selected", true)
                     .attr("r", 8);
 
+                if (colorVar.length!=0) {
+
+                    if(colorVar!="Color"){
+                        var colorCategory = info.select("#colorCategory").selectAll("p").data([colorVar]);
+                        colorCategory.exit().remove();
+                        colorCategory.enter().append("p");
+
+                        colorCategory
+                            .text(function (varName) {
+                            return varName + ":  " + p.data[varName]
+                            })
+                            .style("color", function (varName) {
+                                return color(p.data[varName]);
+                            });
+                    }
+                    else{
+                        info.select("#colorCategory").selectAll("p").remove();
+                    }
+                }
+
                 _.forEach(that.dimensions, function (dimension) {
                     _.forEach(dimension, function (d) {
                         _.forEach(d,function (dma) {
@@ -522,36 +557,77 @@ var Vis = new function () {
         });
     };
 
-    this.removeDimension = function (keys,name) {
+    this.updateNodeColor = function (keys) {
+        colorVar = keys;
+        color = d3.scale.category10();
 
-        d3.select('.selection').remove();
-        d3.selectAll('#selectList #perfume-list').remove();
-
-        var rmindex = 0;
-        _.forEach(that.dimensions, function (dimension) {
-            _.forEach(dimension, function (d) {
-                _.forEach(keys, function (key) {
-                    if(d.name==key){
-                        rmindex = that.dimensions.indexOf(dimension);
-                    }
-                })
-            })
-        });
-
-        that.dimensions.splice(rmindex,1);
-
-        dimensionCount--;
-        for(e in keys){
-            root.selectAll("#"+keys[e]).remove();
-            root.selectAll("#"+name).remove();
+        if(colorVar!="Color"){
+            _.forEach(points, function (p) {
+                p.circle
+                    .style("fill", function(d) { return color(p.data[colorVar]); });
+            });
+            that.appendNodesColorInfor();
+        }
+        else{
+            _.forEach(points, function (p) {
+                p.circle
+                    .style("fill", "#000");
+            });
+            that.removeNodesColorInfor();
         }
 
-        if(dimensionCount>=1){
-            that.redraw();
-        }
-
-        that.updateNodes();
     };
 
+    this.appendNodesColorInfor = function () {
+
+        d3.select("#node-colorInfor").remove();
+
+        var translate = $('svg').height()-100;
+        var color_g = root.append("g")
+            .attr("transform","translate(0," +translate+ ")")
+            .attr("id","node-colorInfor");
+        var legend_names=[];
+
+        _.forEach(points, function (p) {
+            legend_names[legend_names.length]=p.data[colorVar];
+        });
+        legend_names=legend_names.reduce(function(a,b){if(a.indexOf(b)<0)a.push(b);return a;},[]);
+
+        for(var i=0;i<$("#color-select").val();i++){
+            var shift =i*20+10;
+                color_g
+                    .append("circle")
+                    .attr({
+                        cx:2,
+                        cy:2,
+                        r:5,
+                    })
+                    .attr("transform","translate(20," +shift+ ")")
+                    .style("fill",function(d) { return color(legend_names[i]); });
+            shift=i*20+15;
+            color_g
+                .append('text')
+                .text(legend_names[i])
+                .attr("transform","translate(30," +shift+ ")")
+
+        }
+    }
+
+    this.removeNodesColorInfor = function () {
+        d3.select("#node-colorInfor").remove();
+    }
+
+    this.removeDimension = function (groupname) {
+        d3.select("#"+groupname+"path").remove();
+        d3.select("."+groupname).remove();
+        groupcount=$('.dimension-groups-box').children().length;
+    }
     return this;
 };
+
+$("select").on("change", function(){
+    $( ".select-box option:selected" ).each(function() {
+        var keys = $( this ).text();
+        Vis.updateNodeColor(keys);
+    });
+}).trigger( "change" );

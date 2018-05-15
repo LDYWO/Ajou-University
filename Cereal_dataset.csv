@@ -76,9 +76,3 @@ Wheat Chex,R,C,100,3,1,230,3,17,3,1,115,25,1,0.67
 Maypo,A,H,100,4,1,0,0,16,3,2,95,25,1,-1
 Cream of Wheat (Quick),N,H,100,3,0,80,1,21,0,2,-1,0,1,1
 Quaker Oatmeal,Q,H,100,5,2,0,2.7,-1,-1,1,110,0,1,0.67
-,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,
-,,,,,,,,,,,,,,
-"The Manufacturer is a one letter code with the expected mapping (Q-Quaker Oats, P-Post, G-General Mills, K-Kelloggs, R-Ralston Purina, N-Nabisco) and Type is C (cold) or H (hot).",,,,,,,,,,,,,,

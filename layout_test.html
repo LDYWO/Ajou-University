@@ -71,6 +71,16 @@
                 <button class="add-button" onclick="AddGroup()">Add Group</button>
                 <div class="mdl-layout-spacer"></div>
             </div>
+            <div class="mdl-card__actions mdl-card--border">
+                <text>Color of nodes</text>
+                <div class="mdl-layout-spacer"></div>
+                <div class="color-box">
+                    <select id="color-select" class="select-box">
+                        <option selected>Color</option>
+                    </select>
+                </div>
+                <div class="mdl-layout-spacer"></div>
+            </div>
         </div>
     </div>
     <div class="mdl-cell mdl-cell--7-col">
@@ -78,7 +88,6 @@
             <div id="renderer"></div>
             <div id="info" class="hidden">
                 <div style="text-align:left">
-                    <g id="brand"></g>
                     <g id="colorCategory"></g>
                     <g id="name"></g>
                     <g id="numeric"></g>
