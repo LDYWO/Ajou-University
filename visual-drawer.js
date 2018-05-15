@@ -270,6 +270,7 @@ document.ondrop = function(event) {
     Vis.updateDimensionAnchor(5,group5_dmnames,name);
 
     Vis.updateNodes();
+    Vis.appendNodesInfor();
 
 };
 
@@ -471,6 +472,54 @@ var Vis = new function () {
             }
         });
 
+    };
+
+    this.appendNodesInfor = function () {
+
+        var info = d3.select("#info");
+        var name =[];
+
+        _.forEach(points, function (p) {
+
+            p.circle.on("mouseover", function (d) {
+                d3.select(this)
+                    .classed("selected", true)
+                    .attr("r", 8);
+
+                _.forEach(that.dimensions, function (dimension) {
+                    _.forEach(dimension, function (d) {
+                        _.forEach(d,function (dma) {
+                            name[name.length] = dma.name;
+                            var n = info.select("#numeric").selectAll("p").data(name);
+                            n.exit().remove();
+                            n.enter().append("p");
+                            n.text(function (d) {
+                                return d + ":  " + p.data[d]
+                            });
+                        });
+                    });
+                });
+                name =[];
+
+                var coordinates = d3.mouse(root.node());
+                var bbox = root.node().getBoundingClientRect();
+                coordinates[0] += bbox.left;
+                coordinates[1] += bbox.top;
+
+                info.style({
+                    left: (coordinates[0] + 25) + "px",
+                    top: (coordinates[1] ) + "px",
+                }).classed("hidden", false);
+            })
+                .on("mouseout", function (d) {
+                    d3.select(this)
+                        .classed("selected", false)
+                        .attr("r", 2);
+
+                    var info = d3.select("#info");
+                    info.classed("hidden", true);
+                });
+        });
     };
 
     this.removeDimension = function (keys,name) {
