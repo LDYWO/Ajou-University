@@ -335,56 +335,6 @@ var Vis = new function () {
         var dm_point=[];
         var r = $('svg').height()/2-15 - groupid * 20;
         var theta = 0;
-        var rotate = 0;
-
-        function cross(a, b) {
-            return a[0] * b[1] - a[1] * b[0];
-        }
-
-        function dot(a, b) {
-            return a[0] * b[0] + a[1] * b[1];
-        }
-
-        function mouse(e) {
-            return [e.pageX-$('svg').width()/2, e.pageY-$('svg').height()/2];
-        }
-
-        function mousedown() {
-            m0 = mouse(d3.event);
-            d3.event.preventDefault();
-        }
-
-        function mousemove() {
-            if (m0) {
-                var m1 = mouse(d3.event),
-                    dm = Math.atan2(cross(m0, m1), dot(m0, m1)) * 180 / Math.PI;
-
-                console.log(dm);
-                setState(dm);
-            }
-        }
-
-        function mouseup() {
-            if (m0) {
-                var m1 = mouse(d3.event),
-                    dm = Math.atan2(cross(m0, m1), dot(m0, m1)) * 180 / Math.PI;
-                rotate += dm;
-
-                if(rotate>360) rotate -=360;
-                else if (rotate < 0) rotate += 360;
-                m0 = null;
-
-                g.style("-webkit-transform", null);
-                g.attr('transform', 'translate('+$('svg').width()/2+','+$('svg').height()/2+') rotate(' + rotate + ')');
-                console.log("dm:"+dm);
-                console.log("rotate:"+rotate);
-            }
-            console.log("rotate:"+rotate);
-        }
-
-        function setState(dm){
-            g.attr('transform', 'translate('+$('svg').width()/2+','+$('svg').height()/2+') rotate(' + (rotate + dm) + ')');
-        }
 
         if(dimensionnames.length!=0){
             for(var j=0;j<dimensionnames.length;j++){
@@ -407,10 +357,7 @@ var Vis = new function () {
                     .attr("cy", circlelabelY)
                     .attr("r", 4)
                     .attr("fill","#757475")
-                    .style("cursor", "move")
-                    .on('mousedown',mousedown)
-                    .on('mousemove',mousemove)
-                    .on('mouseup',mouseup);
+                    .style("cursor", "move");
 
                 g.append("text")
                     .attr("x", labelX)
@@ -421,10 +368,7 @@ var Vis = new function () {
                     .style("font-size", 8)
                     .style("cursor", "move")
                     .attr("text-anchor", "middle")
-                    .text(dimensionnames[j])
-                    .on('mousedown',mousedown)
-                    .on('mousemove',mousemove)
-                    .on('mouseup',mouseup);
+                    .text(dimensionnames[j]);
 
                 dm_point[dm_point.length]={"x":circlelabelX,"y":circlelabelY,"name":dimensionnames[dm_point.length],"dimension_name":"group"+groupid,}
 
