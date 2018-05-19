@@ -61,12 +61,12 @@
             <div class="mdl-card__actions mdl-card--border">
                 <text>Available Dimensions</text>
                 <div class="mdl-layout-spacer"></div>
-                <div class="dimensions-box"></div>
+                <div class="dimensions-box" ondragstart="onDragStart(event)"></div>
             </div>
             <div class="mdl-card__actions mdl-card--border">
                 <text>Dimension Groups</text>
                 <div class="mdl-layout-spacer"></div>
-                <div class="dimension-groups-box"></div>
+                <div class="dimension-groups-box" ondragstart="onDragStart(event)" ondragover="onDragOver(event)" ondrop="onDrop(event)"></div>
                 <div class="mdl-layout-spacer"></div>
                 <button class="add-button" onclick="AddGroup()">Add Group</button>
                 <div class="mdl-layout-spacer"></div>

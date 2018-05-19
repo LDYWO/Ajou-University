@@ -1,4 +1,5 @@
 var root = d3.select('#renderer').append('svg');
+var parentG = root.append('g').attr("transform","translate(" + $('svg').width()/2 + ", " + $('svg').height()/2 + ")");
 var windowWidth = $(window).width();
 var windowHeight = $(window).height();
 
@@ -40,7 +41,7 @@ var CsvUrl = function( csvUrl ) {
                 inputlist.exit().remove();
 
                 var groups = inputlist.enter().append("g");
-                groups.append("button");
+                groups.attr("id","dimension-box").append("button");
 
                 inputlist.select("button")
                     .attr({
@@ -118,10 +119,10 @@ var CsvUrl = function( csvUrl ) {
                 }
 
             });
-
-            Vis.appendNodes(dataset);
-            Vis.removeNodesColorInfor();
+            dimension.appendNodes(dataset);
+            dimension.removeNodesColorInfor();
         });
+
 }
 
 function fileRead() {
@@ -188,118 +189,45 @@ function onDragOver(event) {
 function onDrop(event) {
     event.preventDefault();
     var data = event.dataTransfer.getData("Text");
+    var predatanodeid = document.getElementById(data).parentNode.id;
+    console.log(predatanodeid)
+    var predatanodegroupname=document.getElementById(data).parentNode.className;
+    var predatanodechild = document.getElementById(data).parentNode.childNodes;
+
     event.target.appendChild(document.getElementById(data));
 
     var groupname = $('.dimension-groups-box').find('#'+data).parent().prop('className');
     var groupid = $('.dimension-groups-box').find('#'+data).parent().prop('id');
 
+
     var dimensionnames =  [];
+    var predimensionnames = [];
 
     $('.'+groupname).children().each(function(){
         dimensionnames[dimensionnames.length] = $(this).attr('id');
     });
 
-    for(var i=0;i<6;i++){
-        switch($('.group'+i).children().length){
-            case 0:
-                if(i==0){
-                    Vis.group0_points=[];
-                }
-                else if(i==1){
-                    Vis.group1_points=[];
-                }
-                else if(i==2){
-                    Vis.group2_points=[];
-                }
-                else if(i==3){
-                    Vis.group3_points=[];
-                }
-                else if(i==4){
-                    Vis.group4_points=[];
-                }
-                else if(i==5){
-                    Vis.group5_points=[];
-                }
-                Vis.removeDimension('group'+i);
-                break
-            case 1:
-                d3.select('.group'+i)
-                    .style("height","30px");
-                Vis.drawDimension(data,groupid,groupname);
-                break
-            case 2:
-                d3.select('.group'+i)
-                    .style("height","30px");
-                break
-            case 3:
-            case 4:
-                d3.select('.group'+i)
-                    .style("height","60px");
-                break
-            case 5:
-            case 6:
-            case 7:
-                d3.select('.group'+i)
-                    .style("height","90px");
-                break
-        }
+    for(var i=0;i<predatanodechild.length;i++){
+        predimensionnames[predimensionnames.length]=predatanodechild[i].id;
     }
 
-    var group0_dmnames =  [];
-    var group1_dmnames =  [];
-    var group2_dmnames =  [];
-    var group3_dmnames =  [];
-    var group4_dmnames =  [];
-    var group5_dmnames =  [];
+    for(var i=0;i<6;i++)
+    if($('.group'+i).children().length==0)
+        dimension.removeDimension('group'+i);
 
-    var name="";
+    dimension.drawDimension(groupid,groupname,dimensionnames);
 
-    for(var i=0;i<6;i++){
-        $('.group'+i).children().each(function(){
-            switch (i){
-                case 0:
-                    name=$(this).attr('id');
-                    group0_dmnames[group0_dmnames.length] = $(this).attr('id');
-                    break
-                case 1:
-                    name=$(this).attr('id');
-                    group1_dmnames[group1_dmnames.length] = $(this).attr('id');
-                    break
-                case 2:
-                    name=$(this).attr('id');
-                    group2_dmnames[group2_dmnames.length] = $(this).attr('id');
-                    break
-                case 3:
-                    name=$(this).attr('id');
-                    group3_dmnames[group3_dmnames.length] = $(this).attr('id');
-                    break
-                case 4:
-                    name=$(this).attr('id');
-                    group4_dmnames[group4_dmnames.length] = $(this).attr('id');
-                    break
-                case 5:
-                    name=$(this).attr('id');
-                    group5_dmnames[group5_dmnames.length] = $(this).attr('id');
-                    break
-            }
-        });
+    if(predatanodeid!=groupid&&predatanodeid!="dimension-box"){
+        dimension.drawDimension(predatanodeid,predatanodegroupname,predimensionnames);
     }
 
-    Vis.updateDimensionAnchor(0,group0_dmnames);
-    Vis.updateDimensionAnchor(1,group1_dmnames);
-    Vis.updateDimensionAnchor(2,group2_dmnames);
-    Vis.updateDimensionAnchor(3,group3_dmnames);
-    Vis.updateDimensionAnchor(4,group4_dmnames);
-    Vis.updateDimensionAnchor(5,group5_dmnames);
-
-    Vis.updateNodes();
-    Vis.appendNodesInfor();
+    dimension.updateNodes();
+    dimension.appendNodesInfor();
 
 };
 
-var Vis = new function () {
+var dimension = new function () {
 
-    this.redrawdimensions = [];
     this.dimensions = [];
     this.group0_points=[];
     this.group1_points=[];
@@ -308,11 +236,10 @@ var Vis = new function () {
     this.group4_points=[];
     this.group5_points=[];
     var that = this;
-    var parentG = root.append('g').attr("transform","translate(" + $('svg').width()/2 + ", " + $('svg').height()/2 + ")");
-    var g = root.append('g').append('g').attr("transform","translate(" + $('svg').width()/2 + ", " + $('svg').height()/2 + ")");
-    var m0=0;
 
-    this.drawDimension = function (name, groupid, groupname) {
+    this.drawDimension =function(groupid,groupname,dimensionnames) {
+
+        var g = root.append('g').attr("transform","translate(" + $('svg').width()/2 + ", " + $('svg').height()/2 + ")");
 
         var r = $('svg').height()/2-15 - groupid * 20;
 
@@ -328,65 +255,11 @@ var Vis = new function () {
             .attr("d", arc)
             .attr('id',groupname+"path")
             .attr("fill", $('.'+groupname).css("background-color"));
-    };
-
-    this.updateDimensionAnchor = function (groupid, dimensionnames) {
 
         var dm_point=[];
         var r = $('svg').height()/2-15 - groupid * 20;
         var theta = 0;
-        var rotate = 0;
 
-        function cross(a, b) {
-            return a[0] * b[1] - a[1] * b[0];
-        }
-
-        function dot(a, b) {
-            return a[0] * b[0] + a[1] * b[1];
-        }
-
-        function mouse(e) {
-            return [e.pageX-$('svg').width()/2, e.pageY-$('svg').height()/2];
-        }
-
-        function mousedown() {
-            m0 = mouse(d3.event);
-            d3.event.preventDefault();
-        }
-
-        function mousemove() {
-            if (m0) {
-                var m1 = mouse(d3.event),
-                    dm = Math.atan2(cross(m0, m1), dot(m0, m1)) * 180 / Math.PI;
-
-                console.log(dm);
-                setState(dm);
-            }
-        }
-
-        function mouseup() {
-            if (m0) {
-                var m1 = mouse(d3.event),
-                    dm = Math.atan2(cross(m0, m1), dot(m0, m1)) * 180 / Math.PI;
-                rotate += dm;
-
-                if(rotate>360) rotate -=360;
-                else if (rotate < 0) rotate += 360;
-                m0 = null;
-
-                g.style("-webkit-transform", null);
-                g.attr('transform', 'translate('+$('svg').width()/2+','+$('svg').height()/2+') rotate(' + rotate + ')');
-                console.log("dm:"+dm);
-                console.log("rotate:"+rotate);
-            }
-            console.log("rotate:"+rotate);
-        }
-
-        function setState(dm){
-            g.attr('transform', 'translate('+$('svg').width()/2+','+$('svg').height()/2+') rotate(' + (rotate + dm) + ')');
-        }
-
-        if(dimensionnames.length!=0){
             for(var j=0;j<dimensionnames.length;j++){
 
                 d3.selectAll("#"+dimensionnames[j]+'label').remove();
@@ -407,10 +280,7 @@ var Vis = new function () {
                     .attr("cy", circlelabelY)
                     .attr("r", 4)
                     .attr("fill","#757475")
-                    .style("cursor", "move")
-                    .on('mousedown',mousedown)
-                    .on('mousemove',mousemove)
-                    .on('mouseup',mouseup);
+                    .style("cursor", "move");
 
                 g.append("text")
                     .attr("x", labelX)
@@ -421,49 +291,45 @@ var Vis = new function () {
                     .style("font-size", 8)
                     .style("cursor", "move")
                     .attr("text-anchor", "middle")
-                    .text(dimensionnames[j])
-                    .on('mousedown',mousedown)
-                    .on('mousemove',mousemove)
-                    .on('mouseup',mouseup);
+                    .text(dimensionnames[j]);
 
                 dm_point[dm_point.length]={"x":circlelabelX,"y":circlelabelY,"name":dimensionnames[dm_point.length],"dimension_name":"group"+groupid,}
 
-            }
+                console.log(dm_point)
 
-            if(groupid==0)
-            {
-                that.group0_points=[];
-                that.group0_points.push(dm_point);
             }
-            else if(groupid==1)
-            {
-                that.group1_points=[];
-                that.group1_points.push(dm_point);
-            }
-            else if(groupid==2)
-            {
-                that.group2_points=[];
-                that.group2_points.push(dm_point);
-            }
-            else if(groupid==3)
-            {
-                that.group3_points=[];
-                that.group3_points.push(dm_point);
-            }
-            else if(groupid==4)
-            {
-                that.group4_points=[];
-                that.group4_points.push(dm_point);
-            }
-            else if(groupid==5)
-            {
-                that.group5_points=[];
-                that.group5_points.push(dm_point);
-            }
-
-            that.dimensions=[that.group0_points,that.group1_points,that.group2_points,that.group3_points,that.group4_points,that.group5_points]
+        if(groupid==0)
+        {
+            that.group0_points=[];
+            that.group0_points.push(dm_point);
+        }
+        else if(groupid==1)
+        {
+            that.group1_points=[];
+            that.group1_points.push(dm_point);
+        }
+        else if(groupid==2)
+        {
+            that.group2_points=[];
+            that.group2_points.push(dm_point);
+        }
+        else if(groupid==3)
+        {
+            that.group3_points=[];
+            that.group3_points.push(dm_point);
+        }
+        else if(groupid==4)
+        {
+            that.group4_points=[];
+            that.group4_points.push(dm_point);
+        }
+        else if(groupid==5)
+        {
+            that.group5_points=[];
+            that.group5_points.push(dm_point);
         }
 
+        that.dimensions=[that.group0_points,that.group1_points,that.group2_points,that.group3_points,that.group4_points,that.group5_points]
     }
 
     this.appendNodes = function (nodes) {
@@ -506,12 +372,12 @@ var Vis = new function () {
             var y = 0;
 
             _.forEach(that.dimensions, function (dimension) {
-                    _.forEach(dimension, function (d) {
-                        _.forEach(d,function (dma) {
-                            x += dma.x * n.data[dma.name];
-                            y += dma.y * n.data[dma.name];
-                        })
+                _.forEach(dimension, function (d) {
+                    _.forEach(d,function (dma) {
+                        x += dma.x * n.data[dma.name];
+                        y += dma.y * n.data[dma.name];
                     })
+                })
 
             });
             var dist = Math.sqrt(x * x + y * y);
@@ -522,12 +388,12 @@ var Vis = new function () {
         _.forEach(points, function (p) {
             var x = 0, y = 0;
             _.forEach(that.dimensions, function (dimension) {
-                    _.forEach(dimension, function (d) {
-                        _.forEach(d,function (dma) {
-                            x += dma.x * p.data[dma.name];
-                            y += dma.y * p.data[dma.name];
-                        })
+                _.forEach(dimension, function (d) {
+                    _.forEach(d,function (dma) {
+                        x += dma.x * p.data[dma.name];
+                        y += dma.y * p.data[dma.name];
                     })
+                })
             });
             p.circle.transition().duration(1000).attr({
                 cx: x/ maxDist * ($('svg').height()/2-25*groupcount),
@@ -567,7 +433,7 @@ var Vis = new function () {
 
                         colorCategory
                             .text(function (varName) {
-                            return varName + ":  " + p.data[varName]
+                                return varName + ":  " + p.data[varName]
                             })
                             .style("color", function (varName) {
                                 return color(p.data[varName]);
@@ -652,15 +518,15 @@ var Vis = new function () {
 
         for(var i=0;i<$("#color-select").val();i++){
             var shift =i*20+10;
-                color_g
-                    .append("circle")
-                    .attr({
-                        cx:2,
-                        cy:2,
-                        r:5,
-                    })
-                    .attr("transform","translate(20," +shift+ ")")
-                    .style("fill",function(d) { return color(legend_names[i]); });
+            color_g
+                .append("circle")
+                .attr({
+                    cx:2,
+                    cy:2,
+                    r:5,
+                })
+                .attr("transform","translate(20," +shift+ ")")
+                .style("fill",function(d) { return color(legend_names[i]); });
             shift=i*20+15;
             color_g
                 .append('text')
@@ -680,12 +546,10 @@ var Vis = new function () {
         groupcount=$('.dimension-groups-box').children().length;
     }
 
-    return this;
-};
+}
 
 $("select").on("change", function(){
     $( ".select-box option:selected" ).each(function() {
         var keys = $( this ).text();
-        Vis.updateNodeColor(keys);
     });
 }).trigger( "change" );
