@@ -54,8 +54,53 @@ setupDragBehaviour = function(rvInst,dimensionnames) {
         });
 
     _.forEach(dimensionnames,function (name) {
-        d3.selectAll('#'+ name + 'labelcircle').call(dragInst);
+        d3.selectAll('#'+ name + 'labelcircle')
+            .call(dragInst)
+            .on("click",clicked);
+        // .on("mouseover",appendDatooltip)
+        // .on("mouseout", mouseout);
+
     });
+
+    function clicked(d, i) {
+        if (d3.event.defaultPrevented) return;
+
+        d3.select(this).transition()
+            .style("fill", "white")
+            .attr("r", 24)
+            .transition()
+            .attr("r", 7)
+            .style("fill", "black");
+    }
+
+    function appendDatooltip() {
+
+        var datooltip = d3.select("#datooltip");
+
+        d3.select(this)
+            .classed("selected", true);
+
+        var coordinates = d3.mouse(parentG.node());
+        var bbox = parentG.node().getBoundingClientRect();
+
+        coordinates[0] += bbox.left;
+        coordinates[1] += bbox.top;
+
+        datooltip.style({
+            left: (coordinates[0] + 25) + "px",
+            top: (coordinates[1] ) + "px",
+        }).classed("hidden", false);
+
+    }
+
+    function mouseout() {
+        d3.select(this)
+            .classed("selected", false);
+
+        var datooltip = d3.select("#datooltip");
+        datooltip.classed("hidden", true);
+    }
+
 }
 
 createDragBehaviour = function(rv, circle, i) {
