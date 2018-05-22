@@ -465,7 +465,7 @@ function onDrop(event) {
         }
         else
         {rv0.updateInst(false,dimensionnames,rv0);}
-        setupDragBehaviour(rv0,data);
+        setupDragBehaviour(rv0,dimensionnames);
     }
     else if(groupid==1){
         rv1.color = $('.'+groupname).css("background-color");
@@ -480,7 +480,7 @@ function onDrop(event) {
         }
         else
             rv1.updateInst(false,rv1);
-        setupDragBehaviour(rv1,data);
+        setupDragBehaviour(rv1,dimensionnames);
     }
     else if(groupid==2){
         rv2.color = $('.'+groupname).css("background-color");
@@ -495,7 +495,7 @@ function onDrop(event) {
         }
         else
             rv2.updateInst(false,rv2);
-        setupDragBehaviour(rv2,data);
+        setupDragBehaviour(rv2,dimensionnames);
     }
     else if(groupid==3){
         rv3.color = $('.'+groupname).css("background-color");
@@ -510,7 +510,7 @@ function onDrop(event) {
         }
         else
             rv3.updateInst(false,rv3);
-        setupDragBehaviour(rv3,data);
+        setupDragBehaviour(rv3,dimensionnames);
     }
     else if(groupid==4){
         rv4.color = $('.'+groupname).css("background-color");
@@ -525,7 +525,7 @@ function onDrop(event) {
         }
         else
             rv4.updateInst(false,rv4);
-        setupDragBehaviour(rv4,data);
+        setupDragBehaviour(rv4,dimensionnames);
     }
     else if(groupid==5){
         rv5.color = $('.'+groupname).css("background-color");
@@ -540,7 +540,7 @@ function onDrop(event) {
         }
         else
             rv5.updateInst(false,rv5);
-        setupDragBehaviour(rv5,data);
+        setupDragBehaviour(rv5,dimensionnames);
     }
 };
 

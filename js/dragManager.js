@@ -1,7 +1,7 @@
 /**
  * Created by igorcorrea on 03/12/2015.
  */
-setupDragBehaviour = function(rvInst,name) {
+setupDragBehaviour = function(rvInst,dimensionnames) {
 
     var dragInst = d3.behavior.drag()
         .origin(function(d) { return d; })
@@ -53,14 +53,9 @@ setupDragBehaviour = function(rvInst,name) {
             }
         });
 
-
-
-
-    d3.select('#'+ name + 'labelcircle').call(dragInst);
-    d3.select('#'+ name + 'labeltext').call(dragInst);
-    //rvInst.daGroup.selectAll('circle').call(dragInst);
-    //rvInst.daLabelGroup.selectAll("text").call(dragInst);
-
+    _.forEach(dimensionnames,function (name) {
+        d3.selectAll('#'+ name + 'labelcircle').call(dragInst);
+    });
 }
 
 createDragBehaviour = function(rv, circle, i) {
