@@ -57,8 +57,6 @@ setupDragBehaviour = function(rvInst,dimensionnames) {
         d3.selectAll('#'+ name + 'labelcircle')
             .call(dragInst)
             .on("click",clicked);
-        // .on("mouseover",appendDatooltip)
-        // .on("mouseout", mouseout);
 
     });
 
@@ -71,9 +69,6 @@ setupDragBehaviour = function(rvInst,dimensionnames) {
             .transition()
             .attr("r", 7)
             .style("fill", "black");
-    }
-
-    function appendDatooltip() {
 
         var datooltip = d3.select("#datooltip");
 
@@ -87,18 +82,9 @@ setupDragBehaviour = function(rvInst,dimensionnames) {
         coordinates[1] += bbox.top;
 
         datooltip.style({
-            left: (coordinates[0] + 25) + "px",
-            top: (coordinates[1] ) + "px",
+            left: (coordinates[0] + 180) + "px",
+            top: (coordinates[1] + 180) + "px",
         }).classed("hidden", false);
-
-    }
-
-    function mouseout() {
-        d3.select(this)
-            .classed("selected", false);
-
-        var datooltip = d3.select("#datooltip");
-        datooltip.classed("hidden", true);
     }
 
 }

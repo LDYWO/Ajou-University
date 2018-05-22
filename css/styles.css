@@ -260,6 +260,51 @@ svg{
     font-weight: bold;
 }
 
+#datooltip{
+    position:fixed;
+    width:200px;
+    height:auto;
+    padding:10px;
+    background-color:white;
+    border-radius:10px;
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.4);
+}
+
+#datooltip.hidden{
+    display:none;
+}
+
+#datooltip p{
+    margin:0px;
+    font-size:12px;
+    font-weight: bold;
+}
+
+#datooltip_close {
+    background: #ddd;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    float: left;
+    height: 200px;
+    margin: 20px;
+    position: relative;
+    width: 150px;
+}
+
+[class*='close-'] {
+    color: #777;
+    font: 14px/100% arial, sans-serif;
+    position: absolute;
+    right: 5px;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #fff;
+    top: 5px;
+}
+
+.close-thik:after {
+    content: '✖'; /* UTF-8 symbol */
+}
+
 .select-box{
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
     font-size: 8px;
