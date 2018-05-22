@@ -98,6 +98,9 @@ function RvCircle() {
     }
     this.createDaGroup = function (groupname,name) {
 
+        d3.selectAll("#" + name + "labelcircle").remove();
+        d3.selectAll("#" + name + "labeltext").remove();
+
         d3.selectAll("." + groupname + "labelcircle").remove();
         d3.selectAll("." + groupname + "labeltext").remove();
 

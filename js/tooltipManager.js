@@ -11,10 +11,10 @@ setupTooltip = function(headers, headersClass, csv) {
     tooltip.append("div")
         .attr("class", "label");
 
-    var pc = createParCoords(csv, headers);
-    pc.colorAll = true;
+    //var pc = createParCoords(csv, headers);
+    //pc.colorAll = true;
 
-    rvInst.instGroup.selectAll("circle").on("mouseover", function (d) {
+    instGroup.selectAll("circle").on("mouseover", function (d) {
 
         d.mouseOver = 1;
         tooltip.html(getInstanceStr(d, headers, headersClass));
@@ -31,27 +31,26 @@ setupTooltip = function(headers, headersClass, csv) {
         d3.select(this).attr("stroke-width", 3);
 
         colorAll = false;
-        pc.data(csv).alpha(1).render();
+        //pc.data(csv).alpha(1).render();
     });
 
-    rvInst.instGroup.selectAll("circle").on("mouseout", function (d) {
+    instGroup.selectAll("circle").on("mouseout", function (d) {
         d.mouseOver = 0;
         d3.select(this).attr("stroke-width", 0);
         tooltip.transition().duration(150).style("opacity", 0);
         tooltip.style("display", "none");
         colorAll = true;
-        pc.data(csv).alpha(0.4).render();
+        //pc.data(csv).alpha(0.4).render();
     });
 
 
-    rvInst.instGroup.selectAll("circle").on("mousemove", function (d) {
+    instGroup.selectAll("circle").on("mousemove", function (d) {
         var x = parseInt(d3.select(this).attr("cx"));
         var y = parseInt(d3.select(this).attr("cy"));
 
         tooltip.style("top", (y + 10) + "px")
             .style("left", (x + 10) + "px");
     });
-    return pc;
 }
 
 getInstanceStr = function (d, headers, headersClass) {
@@ -65,7 +64,7 @@ getInstanceStr = function (d, headers, headersClass) {
     return str;
 }
 
-createParCoords = function(csv, headers){
+/*createParCoords = function(csv, headers){
 
     var dataAttributes = csv.map(function(d){
         var e = {};
@@ -103,4 +102,4 @@ createParCoords = function(csv, headers){
         .reorderable();
 
     return parcoords;
-}
+}*/

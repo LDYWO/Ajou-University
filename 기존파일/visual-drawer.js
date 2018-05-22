@@ -628,6 +628,7 @@ var Vis = new function () {
         groupcount=$('.dimension-groups-box').children().length;
     }
 
+
     this.dragRect = function () {
 
         var selectionRect = {

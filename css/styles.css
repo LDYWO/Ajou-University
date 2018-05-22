@@ -294,9 +294,9 @@ rect.selection {
 }
 
 #selectList{
-    height: 180px;
+    height: 150px;
     width:100%;
-    margin:-5px;
+    margin: 2%;
     font-size: 10pt;
     overflow-y: auto;
     overflow-x: hidden;
