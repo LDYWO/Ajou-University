@@ -102,10 +102,17 @@
                 <text>Data Detail</text>
             </div>
             <div class="mdl-card__actions mdl-card--border">
-                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                    Add something
-                </a>
+                <div class="comparison-group">
+                    <text>Selected</text>
+                    <text id="count" style="padding-left:0px; float: right; border-bottom: 1px groove #bababa;">0</text>
+                </div>
+                <div id="selectList">
+                </div>
                 <div class="mdl-layout-spacer"></div>
+                <div class="radar-container">
+                    <div class="radar-chart"></div>
+                </div>
+                <div id="barchart"></div>
             </div>
         </div>
     </div>

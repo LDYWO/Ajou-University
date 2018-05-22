@@ -11,6 +11,7 @@ var current_available_dimensions=[];
 var points = [];
 var colorVar;
 var color;
+var categoricalVars=[];
 
 var allValuesOf = function(data, variable) {
     var values = [];
@@ -19,6 +20,7 @@ var allValuesOf = function(data, variable) {
             values.push(data[i][variable]);
         }
     }
+    console.log(values);
     return values;
 };
 var CsvUrl = function( csvUrl ) {
@@ -72,7 +74,8 @@ var CsvUrl = function( csvUrl ) {
                 .style("display","block");
 
             var numericProps = [];
-            var categoricalVars = [];
+            categoricalVars = [];
+
             d3.selectAll("option").remove();
             d3.select("#color-select").append("option").text("Color");
 
@@ -299,6 +302,7 @@ function onDrop(event) {
 
 var Vis = new function () {
 
+
     this.redrawdimensions = [];
     this.dimensions = [];
     this.group0_points=[];
@@ -487,7 +491,7 @@ var Vis = new function () {
                 });
             }
         });
-
+        that.dragRect();
     };
 
     this.appendNodesInfor = function () {
@@ -622,6 +626,276 @@ var Vis = new function () {
         d3.select("#"+groupname+"path").remove();
         d3.select("."+groupname).remove();
         groupcount=$('.dimension-groups-box').children().length;
+    }
+
+    this.dragRect = function () {
+
+        var selectionRect = {
+            element			: null,
+            previousElement : null,
+            currentY		: 0,
+            currentX		: 0,
+            originX			: 0,
+            originY			: 0,
+            id              :"select_rect",
+            setElement: function(ele) {
+                this.previousElement = this.element;
+                this.element = ele;
+            },
+            getNewAttributes: function() {
+                var x = this.currentX<this.originX?this.currentX:this.originX;
+                var y = this.currentY<this.originY?this.currentY:this.originY;
+                var width = Math.abs(this.currentX - this.originX);
+                var height = Math.abs(this.currentY - this.originY);
+
+                if(width>100)
+                    width=100;
+                if(height>100)
+                    height=100;
+
+                return {
+                    x       : x,
+                    y       : y,
+                    width  	: width,
+                    height  : height
+                };
+            },
+            getCurrentAttributes: function() {
+                // use plus sign to convert string into number
+                var x = +this.element.attr("x");
+                var y = +this.element.attr("y");
+                var width = +this.element.attr("width");
+                var height = +this.element.attr("height");
+
+                if(width>100)
+                    width=100;
+                if(height>100)
+                    height=100;
+
+                return {
+                    x1  : x,
+                    y1	: y,
+                    x2  : x + width,
+                    y2  : y + height
+                };
+            },
+            getCurrentAttributesAsText: function() {
+                var attrs = this.getCurrentAttributes();
+                return "x1: " + attrs.x1 + " x2: " + attrs.x2 + " y1: " + attrs.y1 + " y2: " + attrs.y2;
+            },
+            init: function(newX, newY) {
+                var rectElement = parentG.append("rect")
+                    .attr({
+                        rx      : 4,
+                        ry      : 4,
+                        x       : 0,
+                        y       : 0,
+                        width   : 0,
+                        height  : 0
+                    })
+                    .classed("selection", true);
+                this.setElement(rectElement);
+                this.originX = newX;
+                this.originY = newY;
+                this.update(newX, newY);
+            },
+            update: function(newX, newY) {
+                this.currentX = newX;
+                this.currentY = newY;
+                this.element.attr(this.getNewAttributes());
+            },
+            focus: function() {
+                this.element
+                    .style("background-color","#ffffff")
+                    .style("opacity","0.5")
+                    .style("stroke", "#888888")
+                    .style("stroke-dasharray","5")
+                    .style("stroke-width", "2");
+            },
+            remove: function() {
+                this.element.remove();
+                this.element = null;
+            },
+            removePrevious: function() {
+                if(this.previousElement) {
+                    this.previousElement.remove();
+                }
+            }
+        };
+
+        var svg = d3.select("#pointsgroup");
+        var clickTime = d3.select("#clicktime");
+        var attributesText = d3.select("#attributestext");
+
+        var count = 0;
+
+        function add_item(p){
+            // pre_set 에 있는 내용을 읽어와서 처리..
+            var div = document.createElement('div');
+            var ul = document.createElement('ul');
+            var li = document.createElement('li');
+            var span1 = document.createElement('span');
+            var span3 = document.createElement('span');
+            var span4 = document.createElement('span');
+            var div2 = document.createElement('div');
+            var label = document.createElement('label');
+            var input = document.createElement('input');
+
+            document.getElementById('count').textContent = count+1;
+
+            ul.id ="item-list";
+            ul.setAttribute("data",p.data);
+            ul.className ="demo-list-control mdl-list";
+            ul.style.height = "0.5%";
+            ul.style.width="100%";
+            ul.style.padding = "3px";
+            ul.style.boxShadow=" 0 1px 5px 0 rgba(0,0,0,.12)";
+            if(count==0){
+                ul.style.marginTop ="-5px";
+            }
+            else{
+                ul.style.marginTop ="-10px";
+            }
+
+            li.className ="mdl-list__item";
+            li.style.padding = "0px";
+
+
+            span1.className ="mdl-list__item-primary-content";
+            span4.className="mdl-list__item-sub-title";
+
+            console.log(categoricalVars)
+
+            var keys = Object.keys(p.data);
+            var content = [];
+
+            for ( var i in keys) {
+                content[content.length]= "key="+keys[i]+ ",  data="+ p.data[keys[i]];
+            }
+
+            span3.textContent = content;
+           // span3.textContent = p.data;
+            //span4.textContent = p.data["Designer"];
+
+            span3.style.marginLeft="15px";
+
+            input.id = "checkbox"+count;
+            input.type ="checkbox";
+            input.setAttribute('onclick','selectPerfume(this)');
+            input.setAttribute('class','not-checked');
+            input.setAttribute('perfumeName',p.data);
+
+            div2.className ="md-checkbox";
+            label.htmlFor = "checkbox"+count;
+
+            div2.style.marginTop="-5px";
+
+            div2.appendChild(input);
+            div2.appendChild(label);
+
+            span1.appendChild(span3);
+            span3.appendChild(span4);
+
+            li.appendChild(span1);
+            li.appendChild(div2);
+            ul.appendChild(li);
+            div.appendChild(ul);
+
+            document.getElementById('selectList').appendChild(div);
+
+            count++;
+        }
+
+        function remove_item(obj){
+            // obj.parentNode 를 이용하여 삭제
+            document.getElementById('selectList').removeChild(obj.parentNode);
+        }
+
+        function dragStart() {
+            console.log("dragStart");
+            document.getElementById('count').textContent = 0;
+            count=0;
+            pre_seleted_perfume_id=[];
+            perfume_name_list=[];
+            select_perfume_count=0;
+            d3.selectAll("#img").style("display","none");
+            d3.selectAll("#img0").style("display","none");
+            d3.selectAll("#img1").style("display","none");
+            d3.selectAll("#img2").style("display","none");
+            d3.selectAll("#img3").style("display","none");
+            d3.selectAll("#img4").style("display","none");
+            d3.selectAll('#selectList #item-list').remove();
+            d3.select("#barchart").remove();
+            d3.select("#radarChart").remove();
+            d3.select(".comparison-select-box").style("display","none");
+            var p = d3.mouse(this);
+            if(p[0]>-200&&p[1]<200
+                &&p[0]<200&&p[1]>-200)
+            {
+                selectionRect.init(p[0], p[1]);
+                selectionRect.removePrevious();
+            }
+        }
+
+        function dragMove() {
+            console.log("dragMove");
+            var p = d3.mouse(this);
+            if(p[0]>-200&&p[1]<200
+                &&p[0]<200&&p[1]>-200)
+            {
+                selectionRect.update(p[0], p[1]);
+            }
+            attributesText
+                .text(selectionRect.getCurrentAttributesAsText());
+        }
+
+        function dragEnd() {
+            console.log("dragEnd");
+            var finalAttributes = selectionRect.getCurrentAttributes();
+            console.dir(finalAttributes);
+
+            _.forEach(points, function (p) {
+                if(finalAttributes.x1<p.circle[0][0].getAttribute("cx")&&p.circle[0][0].getAttribute("cx")<finalAttributes.x2
+                    &&finalAttributes.y1<p.circle[0][0].getAttribute("cy")&&p.circle[0][0].getAttribute("cy")<finalAttributes.y2)
+                {
+                    add_item(p);
+                }
+            });
+
+            if(finalAttributes.x2 - finalAttributes.x1 > 1 && finalAttributes.y2 - finalAttributes.y1 > 1){
+                console.log("range selected");
+                // range selected
+                d3.event.sourceEvent.preventDefault();
+                selectionRect.focus();
+            }
+            else {
+                console.log("single point");
+                // single point selected
+                selectionRect.remove();
+                d3.selectAll('#selectList #item-list').remove();
+                document.getElementById('count').textContent = 0;
+                count=0;
+                if($('ul').hasClass('clicked')){
+                    $(this).removeClass('clicked');
+                }
+                // trigger click event manually
+                clicked();
+            }
+        }
+
+        var dragBehavior = d3.behavior.drag()
+            .on("drag", dragMove)
+            .on("dragstart", dragStart)
+            .on("dragend", dragEnd);
+
+        svg.call(dragBehavior);
+
+        function clicked() {
+            var d = new Date();
+            clickTime
+                .text("Clicked at " + d.toTimeString().substr(0,8) + ":" + d.getMilliseconds());
+        }
+
     }
 
     return this;

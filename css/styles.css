@@ -1,3 +1,59 @@
+.tooltip {
+
+    background: #eee;
+    box-shadow: 0 0 5px #999999;
+    color: #333;
+
+    display: none;
+    opacity: 1;
+    font-size: 12px;
+    left: 130px;
+    padding: 10px;
+    position: absolute;
+    text-align: left;
+    top: 95px;
+    width: 200px;
+    z-index: 10;
+}
+
+#classContribSlider {
+    height: 10px;
+    width: 300px;
+
+    /*left: -.25em;*/
+
+    margin-left: 0;
+    margin-bottom: -.6em;
+
+}
+
+.brush .extent {
+    stroke: #000;
+    stroke-width: 1.5px;
+    fill: #000;
+    fill-opacity: 0.1;
+}
+
+.legendRect {
+    x: 5px;
+    width: 20px;
+    height: 20px;
+    rx: 5px;
+    ry: 5px;
+}
+
+.legendText {
+    width: 80px;
+    height: 20px;
+//text-align: left;
+    font-size: 12px;
+}
+
+circle.selected {
+    stroke: black;
+    stroke-width: 2;
+}
+
 .card-title{
     padding:0%;
     height: 5%;
@@ -175,6 +231,10 @@
     width: 100%;
     height:100%;
 }
+#chart{
+    width: 100%;
+    height:100%;
+}
 svg{
     width: 100%;
     height:100%;
@@ -217,4 +277,142 @@ svg{
 .select-box option{
     color: rgba(0, 0, 0, 0.54);
     background: rgba(255, 255, 255, 0.56);
+}
+rect.selection {
+    cursor: move !important;
+    -webkit-touch-callout: none !important;
+    -webkit-user-select: none !important;
+    -khtml-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+    stroke: #545454;
+    stroke-width: 2px;
+    stroke-opacity: 1;
+    fill: white;
+    fill-opacity: 0.5;
+}
+
+#selectList{
+    height: 180px;
+    width:100%;
+    margin:-5px;
+    font-size: 10pt;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.md-checkbox {
+    position: relative;
+    margin: 16px 0;
+}
+.md-checkbox label {
+    cursor: pointer;
+}
+.md-checkbox label:before, .md-checkbox label:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.md-checkbox label:before {
+    width: 10px;
+    height: 10px;
+    background: #fff;
+    border: 2px solid rgba(0, 0, 0, 0.54);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background .3s;
+}
+.md-checkbox input[type="checkbox"] {
+    outline: 0;
+    margin-right: 5px;
+}
+.md-checkbox input[type="checkbox"]:checked + label:before {
+    background: rgb(3,169,244);
+    border: 2px solid rgb(3,169,244);
+}
+.md-checkbox input[type="checkbox"]:checked + label:after {
+    transform: rotate(-45deg);
+    top: 4px;
+    left: 3px;
+    width: 7px;
+    height: 3px;
+    border: 2px solid #fff;
+    border-top-style: none;
+    border-right-style: none;
+}
+
+.comparison-select-box{
+    display: none;
+    float: right;
+    margin-right: 50%;
+    margin-top: 10px;
+    width: 20%;
+    height: 10%;
+    position: relative;
+    z-index: 2;
+    font-size: 8pt;
+    background: #ffffff;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    cursor: pointer;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.56);
+    left: 10px;
+    border:0px;
+}
+
+.comparison-select-box option{
+    color: rgba(0, 0, 0, 0.54);
+    background: rgba(255, 255, 255, 0.56);
+}
+
+.radar-container{
+    float: left;
+    width:200px;
+    height:200px;
+    font-size: 5px;
+    background-color:white;
+}
+
+.radar-chart{
+    width:200px;
+    height:200px;
+    font-size: 5pt;
+}
+
+.radar-chart .area {
+    fill-opacity: 0.7;
+}
+
+.radar-chart.focus .area {
+    fill-opacity: 0.3;
+}
+
+.radar-chart.focus .area.focused {
+    fill-opacity: 0.9;
+}
+
+.area.germany, .germany .circle {
+    fill: #FFD700;
+    stroke: none;
+}
+
+.area.argentina, .argentina .circle {
+    fill: #ADD8E6;
+    stroke: none;
+}
+
+.radar-chart .axis .legend {
+    font-family: sans-serif;
+    font-size: 7px;
+    font-weight: bold;
+    background-color: white;
+}
+
+.radar-chart .tooltip {
+    font-family: sans-serif;
+    font-size: 5px;
+    transition: opacity 200ms;
+    opacity: 0;
 }
