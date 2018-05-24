@@ -61,6 +61,7 @@ setupDragBehaviour = function(rvInst,dimensionnames) {
     });
 
     function clicked(d, i) {
+
         if (d3.event.defaultPrevented) return;
 
         d3.select(this).transition()
@@ -82,9 +83,10 @@ setupDragBehaviour = function(rvInst,dimensionnames) {
         coordinates[1] += bbox.top;
 
         datooltip.style({
-            left: (coordinates[0] + 180) + "px",
-            top: (coordinates[1] + 180) + "px",
+            left: (coordinates[0] + 100) + "px",
+            top: (coordinates[1] + 120) + "px",
         }).classed("hidden", false);
+
     }
 
 }

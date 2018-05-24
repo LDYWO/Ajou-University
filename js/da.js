@@ -16,6 +16,7 @@ function Da(){
     this.r;
     this.dimensionnames;
     this.anchorname;
+    //this.weight;
 
     this.updateBasedOnNewArc = function(rv) {
         //console.log(super);

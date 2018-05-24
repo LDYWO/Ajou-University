@@ -97,7 +97,8 @@
                 </div>
             </div>
             <div id="datooltip" class="hidden">
-                <a href="#" class="close-thik"></a>
+                <button class="close-icon" onclick="CloseTooltip()"></button>
+                <input class="mdl-slider mdl-js-slider" type="range" min="-5" max="5" value="3" tabindex="0" onmousedown='testfunc(this)'>
             </div>
         </div>
     </div>
@@ -123,7 +124,7 @@
         </div>
     </div>
 </div>
-</body>
+
 <script src="js/lodash.min.js"></script>
 <script src="js/jquery.min.js"></script>
 <script src="js/drawer.js"></script>
@@ -139,5 +140,6 @@
 <script type="text/javascript" src="js/dragManager.js"></script>
 <script type="text/javascript" src="js/tooltipManager.js"></script>
 <script type="text/javascript" src="js/loadFile.js"></script>
+</body>
 
 </html>

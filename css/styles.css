@@ -262,12 +262,12 @@ svg{
 
 #datooltip{
     position:fixed;
-    width:200px;
-    height:auto;
-    padding:10px;
-    background-color:white;
-    border-radius:10px;
-    box-shadow: 4px 4px 10px rgba(0,0,0,0.4);
+    width: 210px;
+    height: 50px;
+    opacity: 0.8;
+    border-radius: 4px;
+    background-color: #efefef;
+    border: solid 1px #b7b7b7;
 }
 
 #datooltip.hidden{
@@ -291,18 +291,33 @@ svg{
     width: 150px;
 }
 
-[class*='close-'] {
-    color: #777;
-    font: 14px/100% arial, sans-serif;
-    position: absolute;
-    right: 5px;
-    text-decoration: none;
-    text-shadow: 0 1px 0 #fff;
-    top: 5px;
+.close-icon {
+    border:1px solid transparent;
+    background-color: transparent;
+    display: inline-block;
+    vertical-align: middle;
+    outline: 0;
+    cursor: pointer;
 }
-
-.close-thik:after {
-    content: '✖'; /* UTF-8 symbol */
+.close-icon:after {
+    content: "X";
+    display: block;
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    background-color: rgb(117, 116, 117);
+    z-index:1;
+    right: 5px;
+    top: 0;
+    bottom: 30px;
+    margin: auto;
+    border-radius: 50%;
+    text-align: center;
+    color: white;
+    font-weight: normal;
+    font-size: 8px;
+    box-shadow: 0 0 2px #efefef;
+    cursor: pointer;
 }
 
 .select-box{

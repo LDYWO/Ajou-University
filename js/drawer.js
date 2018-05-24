@@ -63,6 +63,12 @@ var allValuesOf = function(data, variable) {
 var isNumeric = function( n ) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 }
+
+CloseTooltip = function() {
+    console.log("hello!");
+    alert("hello");
+};
+
 function destroyCurrent(){
     svgContainer.selectAll("*").remove();
 
@@ -76,6 +82,7 @@ function destroyCurrent(){
         .style("height","350px");
 
 }
+
 function startRadviz(fileName) {
 
     rv0 = new RvCircle();
@@ -248,6 +255,7 @@ function startRadviz(fileName) {
     });
 
 }
+
 function fileRead() {
     var file = document.getElementById("csv").files[0];
     if (file) {
