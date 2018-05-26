@@ -40,6 +40,7 @@
     <link rel="stylesheet" href="css/d3.parcoords.css" />
     <link rel="stylesheet" href="css/d3.slider.css" />
     <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/tooltip.css" />
 </head>
 <body>
 <div class="mdl-grid card-title">
@@ -96,10 +97,6 @@
                     <g id="numeric"></g>
                 </div>
             </div>
-            <div id="datooltip" class="hidden">
-                <button class="close-icon" onclick="CloseTooltip()"></button>
-                <input class="mdl-slider mdl-js-slider" type="range" min="-5" max="5" value="3" tabindex="0" onmousedown='testfunc(this)'>
-            </div>
         </div>
     </div>
     <div class="mdl-cell mdl-cell--3-col">
@@ -125,6 +122,12 @@
     </div>
 </div>
 
+<div style="display:none;">
+    <div id="datooltip">
+        <input id="weightRange" class="mdl-slider mdl-js-slider" type="range" min="-5" max="5" value="3" tabindex="0" onmousedown='updateWeight(this)'>
+    </div>
+</div>
+
 <script src="js/lodash.min.js"></script>
 <script src="js/jquery.min.js"></script>
 <script src="js/drawer.js"></script>
@@ -138,8 +141,11 @@
 <script type="text/javascript" src="js/rvCircle.js"></script>
 <script type="text/javascript" src="js/legend.js"></script>
 <script type="text/javascript" src="js/dragManager.js"></script>
+<script type="text/javascript" src="js/tooltip.js"></script>
 <script type="text/javascript" src="js/tooltipManager.js"></script>
 <script type="text/javascript" src="js/loadFile.js"></script>
+<script type="text/javascript" src="js/radarChartManager.js.js"></script>
+
 </body>
 
 </html>

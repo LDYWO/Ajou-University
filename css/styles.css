@@ -260,22 +260,6 @@ svg{
     font-weight: bold;
 }
 
-#datooltip{
-    position:fixed;
-    width: 210px;
-    height: 50px;
-    opacity: 0.8;
-    border-radius: 4px;
-    background-color: #efefef;
-    border: solid 1px #b7b7b7;
-}
-
-#datooltip p{
-    margin:0px;
-    font-size:12px;
-    font-weight: bold;
-}
-
 .select-box{
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
     font-size: 8px;

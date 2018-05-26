@@ -73,11 +73,8 @@ setupDragBehaviour = function(rvInst,dimensionnames) {
             .style("fill", "white");
 
         document.getElementById("weightRange").value = tef.weight;
-
-        tooltip.pop(this, '#datooltips', {overlay:true, position:4});
-
+        tooltip.pop(this, '#datooltip', {overlay:true, position:4});
         console.log(da[i].weight);
-
     }
 }
 
