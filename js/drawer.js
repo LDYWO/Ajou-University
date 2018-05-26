@@ -6,7 +6,6 @@ var twoPi = pi * 2;
 var arc;
 var tef;
 var cir;
-var initial_weight = 0;
 
 var shitfPressed = false;
 var colorAll = true;
@@ -74,14 +73,20 @@ var isNumeric = function( n ) {
 
 function updateWeight(weigh) {
     d3.select(this).on('input', function () {
-        var nWeight = event.target.value;
-        tef.weight = nWeight;
+        var nContr = event.target.value;
 
-        tef.updateBasedOnNewArc(cir);
+        tef.contribution = nContr;
 
         var cur_rvs=[];
         cur_rvs.push(rv0.da,rv1.da,rv2.da,rv3.da,rv4.da,rv5.da);
         updateNode(cur_rvs,true);
+
+        rv0.updateInst(true, rv0);
+        rv1.updateInst(true, rv1);
+        rv2.updateInst(true, rv2);
+        rv3.updateInst(true, rv3);
+        rv4.updateInst(true, rv4);
+        rv5.updateInst(true, rv5);
 
     });
 };
@@ -234,6 +239,24 @@ function startRadviz(fileName) {
 
         initializeInstGroup(csvdata);
 
+        d3.selectAll("#group-select option").remove();
+
+        var option = document.createElement("option");
+        option.text = 'select group';
+        option.value =100;
+        option.id='select-default';
+        var select = document.getElementById("group-select");
+        select.appendChild(option);
+
+        _.forEach($('.dimension-groups-box').children(),function (grop) {
+            var option = document.createElement("option");
+            option.text = grop.getAttribute('class');
+            option.value = grop.getAttribute('id');
+            option.id = grop.getAttribute('class')+"comparison";
+            var select = document.getElementById("group-select");
+            select.appendChild(option);
+        })
+
         rv0.x = svgWidth / 2;
         rv0.y = svgHeight / 2;
         rv0.thickness = 4;
@@ -299,6 +322,13 @@ function AddGroup() {
 
     d3.selectAll("#group-select option").remove();
 
+    var option = document.createElement("option");
+    option.text = 'select group';
+    option.value =100;
+    option.id='select-default';
+    var select = document.getElementById("group-select");
+    select.appendChild(option);
+
     _.forEach($('.dimension-groups-box').children(),function (grop) {
         var option = document.createElement("option");
         option.text = grop.getAttribute('class');
@@ -353,9 +383,9 @@ function updateNode(cur_rvs,instantly) {
             index[index.length]=i;
         }
     }
+
     for (var i = index.length -1; i >= 0; i--)
         cur_rvs.splice(index[i],1);
-
 
     var maxDist = 0;
     _.forEach(instGroup, function (n) {
@@ -364,8 +394,8 @@ function updateNode(cur_rvs,instantly) {
 
         _.forEach(cur_rvs, function (dimension) {
             _.forEach(dimension, function (d) {
-                x += d.anchorForceX * n.data[d.key];
-                y += d.anchorForceY * n.data[d.key];
+                x += d.x * n.data[d.key]*(1/(1+Math.exp(-d.contribution)));
+                y += d.y * n.data[d.key]*(1/(1+Math.exp(-d.contribution)));
             })
 
         });
@@ -378,8 +408,8 @@ function updateNode(cur_rvs,instantly) {
         var x = 0, y = 0;
         _.forEach(cur_rvs, function (dimension) {
             _.forEach(dimension, function (d) {
-                x += d.anchorForceX * p.data[d.key];
-                y += d.anchorForceY * p.data[d.key];
+                x += d.x * p.data[d.key]*(1/(1+Math.exp(-d.contribution)));
+                y += d.y * p.data[d.key]*(1/(1+Math.exp(-d.contribution)));
             })
         });
         if (!instantly) {
@@ -394,6 +424,7 @@ function updateNode(cur_rvs,instantly) {
                 cy: y/ maxDist * ($('svg').height()/2-35*groupcount),
             });
         }
+        console.log(p.circle);
 
         if(groupcount==0)
             p.circle.attr({
@@ -808,6 +839,7 @@ function dragRect() {
         select_item_count=0;
         d3.selectAll('#selectList #item-list').remove();
         d3.select("#radarChart").remove();
+
         var p = d3.mouse(this);
         if(p[0]>-200&&p[1]<200
             &&p[0]<200&&p[1]>-200)
@@ -839,6 +871,7 @@ function dragRect() {
             if(finalAttributes.x1<p.circle[0][0].getAttribute("cx")&&p.circle[0][0].getAttribute("cx")<finalAttributes.x2
                 &&finalAttributes.y1<p.circle[0][0].getAttribute("cy")&&p.circle[0][0].getAttribute("cy")<finalAttributes.y2)
             {
+                console.log(p.circle);
                 add_item(p);
                 createRadar(p);
             }
@@ -864,6 +897,7 @@ function dragRect() {
             select_item_count=0;
             item_name_list=[];
             d3.selectAll('.radar-chart-legend svg').remove();
+            $('#select-default').val("100").prop("selected", true);
             // trigger click event manually
             clicked();
         }
@@ -893,6 +927,7 @@ function removeSelectionBox() {
     d3.select('.selection').remove();
     d3.selectAll('#selectList #item-list').remove();
     document.getElementById('count').textContent = 0;
+    $('#select-default').val("100").prop("selected", true);
 
     if($('ul').hasClass('clicked')){
         $(this).removeClass('clicked');
@@ -929,6 +964,8 @@ function onDrop(event) {
     event.preventDefault();
     var data = event.dataTransfer.getData("Text");
     event.target.appendChild(document.getElementById(data));
+
+    $('#select-default').val("100").prop("selected", true);
 
     removeSelectionBox();
 
@@ -1066,32 +1103,38 @@ $("select").on("change", function(){
         var keys = $( this ).text();
         updateNodeColor(keys);
     });
-}).trigger( "change" );
-$("select").on("change", function(){
     $( ".group-select-box option:selected" ).each(function() {
-        var selected_group;
 
-        function Data() {
-            return{
-                'className':'',
-                'axes' : [],
-            }
+        if(select_item_count==0){
+            $('#select-default').val("100").prop("selected", true);
         }
-        selected_data=[];
-        _.forEach(selectList_point,function (p) {
-           _.forEach(item_name_list,function (i) {
-                // noinspection JSAnnotator
-               if(p.data[i.attr]==i.value){
-                   var data = Data();
-                    data.className=p.data[i.attr];
-                    selected_group=$("#group-select option:selected").text();
-                    _.forEach($('.dimension-groups-box .'+selected_group).children(),function (group) {
-                        data.axes.push({axis:group.getAttribute('id'),value:p.data[group.getAttribute('id')]});
-                    })
-                    selected_data.push(data);
+
+        var option = $( this ).text();
+        if(option!='select group'){
+            var selected_group;
+
+            function Data() {
+                return{
+                    'className':'',
+                    'axes' : [],
                 }
+            }
+            selected_data=[];
+            _.forEach(selectList_point,function (p) {
+                _.forEach(item_name_list,function (i) {
+                    // noinspection JSAnnotator
+                    if(p.data[i.attr]==i.value){
+                        var data = Data();
+                        data.className=p.data[i.attr];
+                        selected_group=$("#group-select option:selected").text();
+                        _.forEach($('.dimension-groups-box .'+selected_group).children(),function (group) {
+                            data.axes.push({axis:group.getAttribute('id'),value:p.data[group.getAttribute('id')]});
+                        })
+                        selected_data.push(data);
+                    }
+                })
             })
-        })
-        redrawRadar(selected_data);
+            redrawRadar(selected_data);
+        }
     });
 }).trigger( "change" );

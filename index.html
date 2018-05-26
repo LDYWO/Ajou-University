@@ -39,7 +39,6 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/d3.parcoords.css" />
     <link rel="stylesheet" href="css/d3.slider.css" />
-    <link rel="stylesheet" href="css/styles.css" />
     <link rel="stylesheet" href="css/tooltip.css" />
 </head>
 <body>
@@ -117,8 +116,9 @@
             <div class="mdl-card__actions mdl-card--border">
                 <div id="subview">
                     <div class="comparison-group">
-                        <text>Comparison of Perfume</text>
+                        <text>Comparison of Items</text>
                         <select class="group-select-box" id="group-select">
+                            <option id="select-default" value="100" selected>select group</option>
                         </select>
                         <div class="radar-container">
                             <div class="radar-chart"></div>
@@ -134,7 +134,7 @@
 
 <div style="display:none;">
     <div id="datooltip">
-        <input id="weightRange" class="mdl-slider mdl-js-slider" type="range" min="-5" max="5" value="3" tabindex="0" onmousedown='updateWeight(this)'>
+        <input id="weightRange" class="mdl-slider mdl-js-slider" type="range" min="-5" max="5" value="0" step="0.001" tabindex="0" onmousedown='updateWeight(this)'>
     </div>
 </div>
 
@@ -155,7 +155,6 @@
 <script type="text/javascript" src="js/tooltip.js"></script>
 <script type="text/javascript" src="js/tooltipManager.js"></script>
 <script type="text/javascript" src="js/loadFile.js"></script>
-<script type="text/javascript" src="js/radarChartManager.js.js"></script>
 
 </body>
 

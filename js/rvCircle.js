@@ -40,7 +40,8 @@ function RvCircle() {
         for (var i = 0; i < daCount; i++) {
             var thisDa = new Da();
             thisDa.arc = i / daCount * twoPi;
-            thisDa.weight = initial_weight;
+
+            thisDa.contribution = 1;
 
             unscaledX = Math.cos(thisDa.arc);
             unscaledY = Math.sin(thisDa.arc);
@@ -50,9 +51,6 @@ function RvCircle() {
 
             thisDa.x = unscaledX * (this.r)//this.x + unscaledX * (this.r + thisDa.r / 2);
             thisDa.y = unscaledY * (this.r) //this.y + unscaledY * (this.r + thisDa.r / 2);
-
-            thisDa.anchorForceX = unscaledX * (this.r)//this.x + unscaledX * (this.r + thisDa.r / 2);
-            thisDa.anchorForceY = unscaledY * (this.r) //this.y + unscaledY * (this.r + thisDa.r / 2);
 
             thisDa.labelX = unscaledX*(this.r)//this.x + unscaledX * (this.r + thisDa.r);
             thisDa.labelY = unscaledY*(this.r)-15//(this.y + unscaledY * (this.r + thisDa.r)) - 15;
@@ -97,9 +95,9 @@ function RvCircle() {
 
             return this.instanceRadius;
         }
-
         return this.r;
     }
+
     this.createDaGroup = function (groupname,name) {
 
         d3.selectAll("#" + name + "labelcircle").remove();
@@ -163,9 +161,10 @@ function RvCircle() {
                 var somaX = 0;
                 var somaY = 0;
 
-                _.forEach(cur_rv, function (rvanhor) {
-                    somaX += rvanhor.anchorForceX * n.data[rvanhor.key];
-                    somaY += rvanhor.anchorForceY * n.data[rvanhor.key];
+                _.forEach(cur_rv, function (rvanchor) {
+                    somaX += rvanchor.x * n.data[rvanchor.key]*(1/(1+Math.exp(-rvanchor.contribution)));
+                    somaY += rvanchor.y * n.data[rvanchor.key]*(1/(1+Math.exp(-rvanchor.contribution)));
+                    console.log(rvanchor.contribution);
                 })
 
                 var dist = Math.sqrt(somaX * somaX + somaY * somaY);
@@ -174,9 +173,9 @@ function RvCircle() {
 
             _.forEach(this.instGroup, function (p) {
                 var somaX = 0, somaY = 0;
-                _.forEach(cur_rv, function (rvanhor) {
-                    somaX += rvanhor.anchorForceX * p.data[rvanhor.key];
-                    somaY += rvanhor.anchorForceY * p.data[rvanhor.key];
+                _.forEach(cur_rv, function (rvanchor) {
+                    somaX += rvanchor.x * p.data[rvanchor.key]*(1/(1+Math.exp(-rvanchor.contribution)));
+                    somaY += rvanchor.y * p.data[rvanchor.key]*(1/(1+Math.exp(-rvanchor.contribution)));
                 })
                 p.circle.transition().duration(1000).attr({
                     cx: somaX / maxDist * ($('svg').height() / 2 - 30 * groupcount),
