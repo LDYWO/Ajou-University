@@ -9,5 +9,5 @@ app.get('/',function (req,res) {
     })
 });
 app.listen(80,function () {
-    console.l('connectec 80 port')
+    console.log('connected 80 port')
 });
