@@ -4,6 +4,9 @@ var useClass = true;
 var pi = Math.PI;
 var twoPi = pi * 2;
 var arc;
+var tef;
+var cir;
+var initial_weight = 0;
 
 var shitfPressed = false;
 var colorAll = true;
@@ -69,9 +72,18 @@ var isNumeric = function( n ) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
-CloseTooltip = function() {
-    console.log("hello!");
-    alert("hello");
+function updateWeight(weigh) {
+    d3.select(this).on('input', function () {
+        var nWeight = event.target.value;
+        tef.weight = nWeight;
+
+        tef.updateBasedOnNewArc(cir);
+
+        var cur_rvs=[];
+        cur_rvs.push(rv0.da,rv1.da,rv2.da,rv3.da,rv4.da,rv5.da);
+        updateNode(cur_rvs,true);
+
+    });
 };
 
 function destroyCurrent(){
@@ -357,8 +369,8 @@ function updateNode(cur_rvs,instantly) {
 
         _.forEach(cur_rvs, function (dimension) {
             _.forEach(dimension, function (d) {
-                x += d.x * n.data[d.key];
-                y += d.y * n.data[d.key];
+                x += d.anchorForceX * n.data[d.key];
+                y += d.anchorForceY * n.data[d.key];
             })
 
         });
@@ -371,8 +383,8 @@ function updateNode(cur_rvs,instantly) {
         var x = 0, y = 0;
         _.forEach(cur_rvs, function (dimension) {
             _.forEach(dimension, function (d) {
-                x += d.x * p.data[d.key];
-                y += d.y * p.data[d.key];
+                x += d.anchorForceX * p.data[d.key];
+                y += d.anchorForceY * p.data[d.key];
             })
         });
         if (!instantly) {

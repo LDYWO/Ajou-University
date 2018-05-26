@@ -16,14 +16,20 @@ function Da(){
     this.r;
     this.dimensionnames;
     this.anchorname;
-    //this.weight;
+    this.anchorForceX;
+    this.anchorForceY;
+    this.weight;
 
     this.updateBasedOnNewArc = function(rv) {
         //console.log(super);
         var arc = this.arc + rv.arc;
+        var Sigmoid = 1/(1+Math.exp(-this.weight));
 
         this.x = Math.cos(arc) * (rv.r);
         this.y = Math.sin(arc) * (rv.r);
+
+        this.anchorForceX = Math.cos(arc) * (rv.r) * Sigmoid;
+        this.anchorForceY = Math.sin(arc) * (rv.r) * Sigmoid;
 
         this.labelX =Math.cos(arc) * (rv.r);
         this.labelY = ((Math.sin(arc) * (rv.r))) - 15;

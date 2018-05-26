@@ -270,54 +270,10 @@ svg{
     border: solid 1px #b7b7b7;
 }
 
-#datooltip.hidden{
-    display:none;
-}
-
 #datooltip p{
     margin:0px;
     font-size:12px;
     font-weight: bold;
-}
-
-#datooltip_close {
-    background: #ddd;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    float: left;
-    height: 200px;
-    margin: 20px;
-    position: relative;
-    width: 150px;
-}
-
-.close-icon {
-    border:1px solid transparent;
-    background-color: transparent;
-    display: inline-block;
-    vertical-align: middle;
-    outline: 0;
-    cursor: pointer;
-}
-.close-icon:after {
-    content: "X";
-    display: block;
-    width: 12px;
-    height: 12px;
-    position: absolute;
-    background-color: rgb(117, 116, 117);
-    z-index:1;
-    right: 5px;
-    top: 0;
-    bottom: 30px;
-    margin: auto;
-    border-radius: 50%;
-    text-align: center;
-    color: white;
-    font-weight: normal;
-    font-size: 8px;
-    box-shadow: 0 0 2px #efefef;
-    cursor: pointer;
 }
 
 .select-box{

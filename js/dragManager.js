@@ -54,38 +54,31 @@ setupDragBehaviour = function(rvInst,dimensionnames) {
         d3.selectAll('#'+ name + 'labelcircle')
             .call(dragInst)
             .on("click",clicked);
-
     });
 
     function clicked(d, i) {
 
         if (d3.event.defaultPrevented) return;
 
+        var da = rvInst.da;
+
+        cir = rvInst;
+        tef = da[i];
+
         d3.select(this).transition()
             .style("fill", "white")
             .attr("r", 24)
             .transition()
             .attr("r", 7)
-            .style("fill", "black");
+            .style("fill", "white");
 
-        var datooltip = d3.select("#datooltip");
+        document.getElementById("weightRange").value = tef.weight;
 
-        d3.select(this)
-            .classed("selected", true);
+        tooltip.pop(this, '#datooltips', {overlay:true, position:4});
 
-        var coordinates = d3.mouse(parentG.node());
-        var bbox = parentG.node().getBoundingClientRect();
-
-        coordinates[0] += bbox.left;
-        coordinates[1] += bbox.top;
-
-        datooltip.style({
-            left: (coordinates[0] + 100) + "px",
-            top: (coordinates[1] + 120) + "px",
-        }).classed("hidden", false);
+        console.log(da[i].weight);
 
     }
-
 }
 
 createDragBehaviour = function(rv, circle, i) {
