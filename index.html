@@ -70,7 +70,7 @@
             <div class="mdl-card__actions mdl-card--border">
                 <text>Dimension Groups</text>
                 <div class="mdl-layout-spacer"></div>
-                <div class="dimension-groups-box" ondragstart="onDragStart(event)" ondragover="onDragOver(event)" ondrop="onDrop(event)"></div>
+                <div class="dimension-groups-box" ondragover="onDragOver(event)" ondrop="onDrop(event)"></div>
                 <div class="mdl-layout-spacer"></div>
                 <button class="add-button" onclick="AddGroup()">Add Group</button>
                 <div class="mdl-layout-spacer"></div>
@@ -113,8 +113,18 @@
                 <div id="selectList">
                 </div>
                 <div class="mdl-layout-spacer"></div>
-                <div class="radar-container">
-                    <div class="radar-chart"></div>
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+                <div id="subview">
+                    <div class="comparison-group">
+                        <text>Comparison of Perfume</text>
+                        <select class="group-select-box" id="group-select">
+                        </select>
+                        <div class="radar-container">
+                            <div class="radar-chart"></div>
+                            <div class="radar-chart-legend"></div>
+                        </div>
+                    </div>
                 </div>
                 <div id="barchart"></div>
             </div>
@@ -141,6 +151,7 @@
 <script type="text/javascript" src="js/rvCircle.js"></script>
 <script type="text/javascript" src="js/legend.js"></script>
 <script type="text/javascript" src="js/dragManager.js"></script>
+<script type="text/javascript" src="js/radarChartManager.js"></script>
 <script type="text/javascript" src="js/tooltip.js"></script>
 <script type="text/javascript" src="js/tooltipManager.js"></script>
 <script type="text/javascript" src="js/loadFile.js"></script>

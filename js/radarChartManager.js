@@ -88,7 +88,7 @@ function drawRadar(item_attr_val) {
             if(p.data[i.attr]==i.value){
                 var data = Data();
                 data.className=p.data[i.attr];
-                selected_group=$("#group-select option:selected").text();
+                var selected_group=$("#group-select option:selected").text();
                 _.forEach($('.dimension-groups-box .'+selected_group).children(),function (group) {
                     data.axes.push({axis:group.getAttribute('id'),value:p.data[group.getAttribute('id')]});
                 })
@@ -297,6 +297,7 @@ function appendRadarChartLegend() {
 
     console.log(selected_data)
     var legendcolor=d3.scale.category10()
+
     for(var i=0;i<selected_data.length;i++){
         var shift =i*9+3;
         var shift_text =(i+1)*9;

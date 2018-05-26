@@ -183,11 +183,6 @@ function startRadviz(fileName) {
         headersClass = d3.entries(csv[0]);
         headersClass = headersClass.slice(classIndex + 1, headersClass.length - 1);
 
-        /*csv = csv.map(function (d) {
-            d.mouseOver = "false";
-            return d;
-        });*/
-
         numericProps = [];
         categoricalVars = [];
         charVars = [];
@@ -813,7 +808,6 @@ function dragRect() {
         select_item_count=0;
         d3.selectAll('#selectList #item-list').remove();
         d3.select("#radarChart").remove();
-        d3.select(".comparison-select-box").style("display","none");
         var p = d3.mouse(this);
         if(p[0]>-200&&p[1]<200
             &&p[0]<200&&p[1]>-200)
