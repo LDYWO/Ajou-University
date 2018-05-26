@@ -69,7 +69,7 @@
             <div class="mdl-card__actions mdl-card--border">
                 <text>Dimension Groups</text>
                 <div class="mdl-layout-spacer"></div>
-                <div class="dimension-groups-box" ondragstart="onDragStart(event)" ondragover="onDragOver(event)" ondrop="onDrop(event)"></div>
+                <div class="dimension-groups-box" ondragover="onDragOver(event)" ondrop="onDrop(event)"></div>
                 <div class="mdl-layout-spacer"></div>
                 <button class="add-button" onclick="AddGroup()">Add Group</button>
                 <div class="mdl-layout-spacer"></div>
@@ -96,10 +96,6 @@
                     <g id="numeric"></g>
                 </div>
             </div>
-            <div id="datooltip" class="hidden">
-                <button class="close-icon" onclick="CloseTooltip()"></button>
-                <input class="mdl-slider mdl-js-slider" type="range" min="-5" max="5" value="3" tabindex="0" onmousedown='testfunc(this)'>
-            </div>
         </div>
     </div>
     <div class="mdl-cell mdl-cell--3-col">
@@ -124,7 +120,7 @@
         </div>
     </div>
 </div>
-
+</body>
 <script src="js/lodash.min.js"></script>
 <script src="js/jquery.min.js"></script>
 <script src="js/drawer.js"></script>
@@ -140,6 +136,5 @@
 <script type="text/javascript" src="js/dragManager.js"></script>
 <script type="text/javascript" src="js/tooltipManager.js"></script>
 <script type="text/javascript" src="js/loadFile.js"></script>
-</body>
 
 </html>

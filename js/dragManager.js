@@ -1,6 +1,3 @@
-/**
- * Created by igorcorrea on 03/12/2015.
- */
 setupDragBehaviour = function(rvInst,dimensionnames) {
 
     var dragInst = d3.behavior.drag()
@@ -137,5 +134,6 @@ createDragBehaviour = function(rv, circle, i) {
     var cur_rvs=[];
     cur_rvs.push(rv0.da,rv1.da,rv2.da,rv3.da,rv4.da,rv5.da);
     updateNode(cur_rvs,true);
+    removeSelectionBox();
 
 }

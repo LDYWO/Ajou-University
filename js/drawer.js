@@ -20,8 +20,10 @@ var classIndex;
 var headersClass = [];
 var classNames = [];
 var parcoords;
+var pre_csvdata;
 var csvdata;
 var contribSlider;
+var newSeries={};
 
 var rv0,rv1,rv2,rv3,rv4,rv5;
 
@@ -31,6 +33,9 @@ var charVars;
 
 var colorVar=[];
 var color;
+
+var item_name;
+var item_attr;
 
 var groupcount=0;
 var re = /[ \{\}\[\]\/?.,;:|*~`!^\-+┼<>@\#$%&\'\"\\=]/gi;
@@ -111,6 +116,8 @@ function startRadviz(fileName) {
 
     d3.csv(fileName, function (csv) {
 
+        pre_csvdata = csv;
+
         var addToDimensions = function(propertyList, parent) {
 
             var inputlist = d3.select(parent).selectAll("g").data(propertyList);
@@ -171,6 +178,7 @@ function startRadviz(fileName) {
 
         numericProps = [];
         categoricalVars = [];
+        charVars = [];
 
         d3.selectAll("option").remove();
         d3.select("#color-select").append("option").text("Color");
@@ -189,6 +197,9 @@ function startRadviz(fileName) {
 
                 if (isNumeric(csv[0][property])) {
                     numericProps.push(property);
+                }
+                else {
+                    charVars.push(property)
                 }
 
             }
@@ -278,6 +289,17 @@ function AddGroup() {
         .attr("class","group"+groupcount)
         .attr("id",groupcount);
     groupcount++;
+
+    d3.selectAll("#group-select option").remove();
+
+    _.forEach($('.dimension-groups-box').children(),function (grop) {
+        var option = document.createElement("option");
+        option.text = grop.getAttribute('class');
+        option.value = grop.getAttribute('id');
+        option.id = grop.getAttribute('class')+"comparison";
+        var select = document.getElementById("group-select");
+        select.appendChild(option);
+    })
 }
 function removeDimensionsButtons(){
     $('#0').empty();
@@ -516,22 +538,18 @@ function removeDimension(groupname) {
 function selectItem(item) {
 
     var item_id = item.getAttribute('id');
-    var item_name = item.getAttribute('perfumeName');
+    item_name = item.getAttribute('itemValue');
+    item_attr = item.getAttribute('itemAttribute');
     var checked = item.getAttribute('class');
-
-    console.log(item);
 
     if(checked=='not-checked'){
         select_item_count++;
         item.setAttribute('class','checked');
-        console.log('item checked');
-        console.log(select_item_count);
-
         if(select_item_count<=5)
         {
             pre_seleted_item_id.push(item_id);
-            item_name_list.push(item_name);
-            //Vis.appendselectedPerfumeChart();
+            item_name_list.push({attr:item_attr,value:item_name});
+            drawRadar(item_name_list);
         }
         else{
             $("#"+pre_seleted_item_id[pre_seleted_item_id.length-5]).prop('checked',false);
@@ -540,35 +558,52 @@ function selectItem(item) {
             pre_seleted_item_id.push(item_id);
             pre_seleted_item_id.splice(0,1);
 
-            console.log(pre_seleted_item_id);
-
             item_name_list=[];
             for(var i=0;i<pre_seleted_item_id.length;i++){
-                item_name_list.push($('#'+pre_seleted_item_id[i]).attr('itemName'));
+                item_name_list.push({attr:$('#'+pre_seleted_item_id[i]).attr('itemAttribute'),value:$('#'+pre_seleted_item_id[i]).attr('itemValue')});
             }
-            console.log(item_name_list);
 
-            //Vis.appendselectedPerfumeChart();
+            selected_data.shift();
 
+            drawRadar(item_name_list);
             select_item_count--;
-
         }
     }
     else{
         select_item_count--;
+        console.log("count::"+select_item_count)
         item.setAttribute('class','not-checked');
 
         pre_seleted_item_id.splice(pre_seleted_item_id.indexOf(item_id),1);
-        console.log(pre_seleted_item_id);
 
         item_name_list=[];
         for(var i=0;i<pre_seleted_item_id.length;i++){
-            item_name_list.push($('#'+pre_seleted_item_id[i]).attr('itemName'));
+            item_name_list.push({attr:$('#'+pre_seleted_item_id[i]).attr('itemAttribute'),value:$('#'+pre_seleted_item_id[i]).attr('itemValue')});
         }
-        console.log(item_name_list);
+        var selected_group;
 
-        //Vis.appendselectedPerfumeChart();
-
+        function Data() {
+            return{
+                'className':'',
+                'axes' : [],
+            }
+        }
+        selected_data=[];
+        _.forEach(selectList_point,function (p) {
+            _.forEach(item_name_list,function (i) {
+                // noinspection JSAnnotator
+                if(p.data[i.attr]==i.value){
+                    var data = Data();
+                    data.className=p.data[i.attr];
+                    selected_group=$("#group-select option:selected").text();
+                    _.forEach($('.dimension-groups-box .'+selected_group).children(),function (group) {
+                        data.axes.push({axis:group.getAttribute('id'),value:p.data[group.getAttribute('id')]});
+                    })
+                    selected_data.push(data);
+                }
+            })
+        })
+        redrawRadar(selected_data);
     }
 }
 function dragRect() {
@@ -672,7 +707,6 @@ function dragRect() {
 
     var count = 0;
 
-
     function add_item(p){
         // pre_set 에 있는 내용을 읽어와서 처리..
         var div = document.createElement('div');
@@ -713,7 +747,7 @@ function dragRect() {
         var names = [];
 
         for ( var i in keys) {
-            _.forEach(categoricalVars,function (cv) {
+            _.forEach(charVars,function (cv) {
                 if(keys[i]==cv){
                     content[content.length]= "\ "+keys[i]+ " : "+ p.data[keys[i]]+"\ ";
                     names[names.length]=keys[i];
@@ -723,8 +757,6 @@ function dragRect() {
         }
 
         span3.textContent = content;
-        // span3.textContent = p.data;
-        //span4.textContent = p.data["Designer"];
 
         span3.style.marginLeft="15px";
         span3.style.fontSize="10px";
@@ -733,8 +765,8 @@ function dragRect() {
         input.type ="checkbox";
         input.setAttribute('onclick','selectItem(this)');
         input.setAttribute('class','not-checked');
-        input.setAttribute('itemName',names);
-        input.setAttribute('itemData',p.data);
+        input.setAttribute('itemValue',p.data[names[0]]);
+        input.setAttribute('itemAttribute',names[0]);
 
         div2.className ="md-checkbox";
         label.htmlFor = "checkbox"+count;
@@ -764,17 +796,10 @@ function dragRect() {
         console.log("dragStart");
         document.getElementById('count').textContent = 0;
         count=0;
-        pre_seleted_perfume_id=[];
-        perfume_name_list=[];
-        select_perfume_count=0;
-        d3.selectAll("#img").style("display","none");
-        d3.selectAll("#img0").style("display","none");
-        d3.selectAll("#img1").style("display","none");
-        d3.selectAll("#img2").style("display","none");
-        d3.selectAll("#img3").style("display","none");
-        d3.selectAll("#img4").style("display","none");
+        pre_seleted_item_id=[];
+        item_name_list=[];
+        select_item_count=0;
         d3.selectAll('#selectList #item-list').remove();
-        d3.select("#barchart").remove();
         d3.select("#radarChart").remove();
         d3.select(".comparison-select-box").style("display","none");
         var p = d3.mouse(this);
@@ -803,11 +828,13 @@ function dragRect() {
         var finalAttributes = selectionRect.getCurrentAttributes();
         console.dir(finalAttributes);
 
+        selectList_point=[];
         _.forEach(instGroup, function (p) {
             if(finalAttributes.x1<p.circle[0][0].getAttribute("cx")&&p.circle[0][0].getAttribute("cx")<finalAttributes.x2
                 &&finalAttributes.y1<p.circle[0][0].getAttribute("cy")&&p.circle[0][0].getAttribute("cy")<finalAttributes.y2)
             {
                 add_item(p);
+                createRadar(p);
             }
         });
 
@@ -827,6 +854,10 @@ function dragRect() {
             if($('ul').hasClass('clicked')){
                 $(this).removeClass('clicked');
             }
+            selected_data=[];
+            select_item_count=0;
+            item_name_list=[];
+            d3.selectAll('.radar-chart-legend svg').remove();
             // trigger click event manually
             clicked();
         }
@@ -845,6 +876,23 @@ function dragRect() {
             .text("Clicked at " + d.toTimeString().substr(0,8) + ":" + d.getMilliseconds());
     }
 
+}
+function removeSelectionBox() {
+    item_name_list=[];
+    d3.selectAll('.radar-chart-legend svg').remove();
+    d3.selectAll('#selectList #item-list').remove();
+    d3.select("#radarChart").remove();
+    d3.select(".comparison-select-box").style("display","none");
+    d3.select('#select_rect').remove();
+    d3.select('.selection').remove();
+    d3.selectAll('#selectList #item-list').remove();
+    document.getElementById('count').textContent = 0;
+
+    if($('ul').hasClass('clicked')){
+        $(this).removeClass('clicked');
+    }
+    selected_data=[];
+    select_item_count=0;
 }
 
 $(document).ready(function(){
@@ -875,6 +923,8 @@ function onDrop(event) {
     event.preventDefault();
     var data = event.dataTransfer.getData("Text");
     event.target.appendChild(document.getElementById(data));
+
+    removeSelectionBox();
 
     var groupname = $('.dimension-groups-box').find('#'+data).parent().prop('className');
     var groupid = $('.dimension-groups-box').find('#'+data).parent().prop('id');
@@ -1009,5 +1059,33 @@ $("select").on("change", function(){
     $( ".select-box option:selected" ).each(function() {
         var keys = $( this ).text();
         updateNodeColor(keys);
+    });
+}).trigger( "change" );
+$("select").on("change", function(){
+    $( ".group-select-box option:selected" ).each(function() {
+        var selected_group;
+
+        function Data() {
+            return{
+                'className':'',
+                'axes' : [],
+            }
+        }
+        selected_data=[];
+        _.forEach(selectList_point,function (p) {
+           _.forEach(item_name_list,function (i) {
+                // noinspection JSAnnotator
+               if(p.data[i.attr]==i.value){
+                   var data = Data();
+                    data.className=p.data[i.attr];
+                    selected_group=$("#group-select option:selected").text();
+                    _.forEach($('.dimension-groups-box .'+selected_group).children(),function (group) {
+                        data.axes.push({axis:group.getAttribute('id'),value:p.data[group.getAttribute('id')]});
+                    })
+                    selected_data.push(data);
+                }
+            })
+        })
+        redrawRadar(selected_data);
     });
 }).trigger( "change" );
