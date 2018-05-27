@@ -41,7 +41,7 @@ function RvCircle() {
             var thisDa = new Da();
             thisDa.arc = i / daCount * twoPi;
 
-            thisDa.contribution = 1;
+            thisDa.contribution = 0;
 
             unscaledX = Math.cos(thisDa.arc);
             unscaledY = Math.sin(thisDa.arc);
