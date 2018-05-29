@@ -14,6 +14,37 @@
  * ocpu.seturl("https://user:secret/my.server.com/ocpu/library/pkg/R") // basic auth
  */
 
+ocpu.seturl("https://media-project.ocpu.io/MDS-Classifier/R"),
+
+//actual handler
+    $("#submitbutton").on("click", function(){
+
+        //create snippet argument
+        var x = new ocpu.Snippet($("#input").val());
+
+        //disable button
+        $("button").attr("disabled", "disabled");
+
+        //perform the request
+        var req = ocpu.rpc("cc", {
+            "x" : x,
+            "y" : x,
+        }, function(session){
+            session.getConsole(function(outtxt){
+                $("#output").text(outtxt);
+            });
+        });
+
+        //if R returns an error, alert the error message
+        req.fail(function(){
+            alert("Server error: " + req.responseText);
+        });
+
+        req.always(function(){
+            $("button").removeAttr("disabled");
+        });
+    });
+
 //Warning for the newbies
 if(!window.jQuery) {
   alert("Could not find jQuery! The HTML must include jquery.js before opencpu.js!");
