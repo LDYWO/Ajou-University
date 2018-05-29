@@ -106,6 +106,13 @@ circle.selected {
     color: #757475;
     font-size: 80%;
 }
+.cca-content{
+    padding:0%;
+    height:300px;
+}
+.test{
+    width:50%;
+}
 .filebox input[type="file"] {
     position: absolute;
     width: 1px;
