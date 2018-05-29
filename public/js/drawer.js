@@ -1068,7 +1068,7 @@ function addCCAresult() {
             url = resultsUrlPrefix + "/ocpu/library/base/R/identity/save";
 
         var items = pre_csvdata;
-        var replacer = (key, value) => value === null ? '' : value // specify how you want to handle null values here
+        var replacer = (key, value) => value === null ? '' : value
         var header = Object.keys(items[0])
         let csv = items.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
 
