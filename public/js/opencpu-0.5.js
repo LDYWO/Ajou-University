@@ -14,7 +14,7 @@
  * ocpu.seturl("https://user:secret/my.server.com/ocpu/library/pkg/R") // basic auth
  */
 
-ocpu.seturl("../R"),
+ocpu.seturl("https://media-project.ocpu.io/MDS-Classifier/R"),
 
 //actual handler
     $("#submitbutton").on("click", function(){
