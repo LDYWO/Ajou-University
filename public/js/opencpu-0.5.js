@@ -26,7 +26,7 @@ ocpu.seturl("https://media-project.ocpu.io/MDS-Classifier/R"),
         $("button").attr("disabled", "disabled");
 
         //perform the request
-        var req = ocpu.rpc("cc", {
+        var req = ocpu.call("cc", {
             "x" : x,
             "y" : x,
         }, function(session){
