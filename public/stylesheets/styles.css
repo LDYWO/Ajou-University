@@ -110,8 +110,9 @@ circle.selected {
     padding:0%;
     height:300px;
 }
-.test{
-    width:50%;
+.r-content{
+    float: left;
+    width:100%;
 }
 .filebox input[type="file"] {
     position: absolute;

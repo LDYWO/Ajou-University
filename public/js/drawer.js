@@ -1,5 +1,7 @@
 var color = d3.scale.category10();
 
+var file;
+
 var pi = Math.PI;
 var twoPi = pi * 2;
 var arc;
@@ -15,6 +17,7 @@ var daPositions = [];
 var labelPositions = [];
 
 var headers = [];
+var csvColnames=new Array();
 
 var classIndex;
 
@@ -25,9 +28,9 @@ var csvdata;
 
 var rv0,rv1,rv2,rv3,rv4,rv5;
 
-var categoricalVars;
-var numericProps;
-var charVars;
+var categoricalVars=[];
+var numericProps=[];
+var charVars=[];
 
 var colorVar=[];
 
@@ -175,6 +178,8 @@ function startRadviz(fileName) {
         d3.select("#color-select").append("option").text("Color");
 
         for (property in csv[0]) {
+            csvColnames.push(property);
+
             if (allValuesOf(csv, property).length <= 5) {
                 categoricalVars.push(property);
                 var option = document.createElement("option");
@@ -184,6 +189,7 @@ function startRadviz(fileName) {
                 var select = document.getElementById("color-select");
                 select.appendChild(option);
             }
+
             else{
 
                 if (isNumeric(csv[0][property])) {
@@ -192,7 +198,6 @@ function startRadviz(fileName) {
                 else {
                     charVars.push(property)
                 }
-
             }
         }
 
@@ -276,7 +281,8 @@ function startRadviz(fileName) {
 
 }
 function fileRead() {
-    var file = document.getElementById("csv").files[0];
+
+    file = document.getElementById("csv").files[0];
     if (file) {
         var reader = new FileReader();
         reader.onloadend = function(evt) {
@@ -848,7 +854,9 @@ function removeSelectionBox() {
     select_item_count=0;
 }
 
+
 $(document).ready(function(){
+
     var fileTarget = $('.filebox .upload-hidden');
 
     fileTarget.on('change', function(){
@@ -858,7 +866,7 @@ $(document).ready(function(){
         }
         else {
             // Old IE 파일명 추출
-            var filename = $(this).val().split('/').pop().split('\\').pop();
+            filename = $(this).val().split('/').pop().split('\\').pop();
         };
 
         $(this).siblings('.upload-name').val(filename);
@@ -1051,3 +1059,135 @@ $("select").on("change", function(){
         }
     });
 }).trigger( "change" );
+
+function addCCAresult() {
+
+    //Go R button Click Event Handler
+    $("#cmdGoR").click(function () {
+        var resultsUrlPrefix = "http://public.opencpu.org",
+            url = resultsUrlPrefix + "/ocpu/library/base/R/identity/save";
+
+        var items = pre_csvdata;
+        var replacer = (key, value) => value === null ? '' : value // specify how you want to handle null values here
+        var header = Object.keys(items[0])
+        let csv = items.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
+
+        //csv.unshift(header.join(','))
+        csv = csv.join(',\n');
+
+        var col_count=0, row_count=0;
+        for(var i=0;i<csvColnames.length;i++)
+            col_count++;
+        for(var i=0;i<instGroup.length;i++)
+            row_count++;
+
+        for(var i=0;i<csvColnames.length;i++){
+            csvColnames[i]="\""+csvColnames[i]+'\"';
+        }
+        csvColnames = csvColnames.join(',');
+
+        var num_names=[];
+        for(var i=0;i<numericProps.length;i++){
+            num_names[i]="\""+numericProps[i]+'\"';
+        }
+        num_names = num_names.join(',');
+
+        var group0=[],group1=[],group2=[],group3=[],group4=[],group5=[];
+        for(var i=0;i<groupcount;i++){
+            _.forEach($('.dimension-groups-box .group'+i).children(),function (group) {
+                switch (i){
+                    case 0:
+                        group0[group0.length] = '\"'+group.getAttribute('id')+'\"';
+                        break
+                    case 1:
+                        group1[group1.length] = '\"'+group.getAttribute('id')+'\"';
+                        break
+                    case 2:
+                        group2[group2.length] = '\"'+group.getAttribute('id')+'\"';
+                        break
+                    case 3:
+                        group3[group3.length] = '\"'+group.getAttribute('id')+'\"';
+                        break
+                    case 4:
+                        group4[group4.length] = '\"'+group.getAttribute('id')+'\"';
+                        break
+                    case 5:
+                        group5[group5.length] = '\"'+group.getAttribute('id')+'\"';
+                        break
+                }
+            });
+        }
+        group0 = group0.join(',');
+        group1 = group1.join(',');
+        group2 = group2.join(',');
+        group3 = group3.join(',');
+        group4 = group4.join(',');
+        group5 = group5.join(',');
+
+        var query="";
+        switch (groupcount){
+            case 1:
+                query="group0<-subset(x,select=c("+group0+"));";
+                break
+            case 2:
+                query="group0<-subset(x,select=c("+group0+")); group1<-subset(x,select=c("+group1+")); group0; group1; cancor(group0,group1)$cor; ";
+                break
+            case 3:
+                query="group0<-subset(x,select=c("+group0+")); group1<-subset(x,select=c("+group1+")); group2<-subset(x,select=c("+group2+")); " +
+                    "cancor(group0,group1)$cor; cancor(group0,group2)$cor; cancor(group1,group2)$cor;";
+                break
+            case 4:
+                query="group0<-subset(x,select=c("+group0+")); group1<-subset(x,select=c("+group1+")); " +
+                    "group2<-subset(x,select=c("+group2+")); group3<-subset(x,select=c("+group3+"));" +
+                    "cancor(group0,group1)$cor; cancor(group0,group2)$cor; cancor(group0,group3)$cor; " +
+                    "cancor(group1,group2)$cor; cancor(group1,group3)$cor; cancor(group2,group3)$cor;";
+                break
+            case 5:
+                query="group0<-subset(x,select=c("+group0+")); group1<-subset(x,select=c("+group1+")); " +
+                    "group2<-subset(x,select=c("+group2+")); group3<-subset(x,select=c("+group3+")); group4<-subset(x,select=c("+group4+"));" +
+                    "cancor(group0,group1)$cor; cancor(group0,group2)$cor; cancor(group0,group3)$cor; cancor(group0,group4)$cor;" +
+                    "cancor(group1,group2)$cor; cancor(group1,group3)$cor; cancor(group1,group4)$cor; cancor(group2,group3)$cor;" +
+                    "cancor(group2,group4)$cor; cancor(group3,group4)$cor;";
+                break
+            case 6:
+                query="group0<-subset(x,select=c("+group0+"); group1<-subset(x,select=c("+group1+"); " +
+                    "group2<-subset(x,select=c("+group2+"); group3<-subset(x,select=c("+group3+"); " +
+                    "group4<-subset(x,select=c("+group4+"); group5<-subset(x,select=c("+group5+");" +
+                    "cancor(group0,group1)$cor; cancor(group0,group2)$cor; cancor(group0,group3)$cor; cancor(group0,group4)$cor; cancor(group0,group5)$cor;" +
+                    "cancor(group1,group2)$cor; cancor(group1,group3)$cor; cancor(group1,group4)$cor; cancor(group1,group5)$cor; cancor(group2,group3)$cor;" +
+                    "cancor(group2,group4)$cor; cancor(group2,group5)$cor; cancor(group3,group4)$cor; cancor(group3,group5)$cor; cancor(group4,group5)$cor;";
+                break
+        }
+
+
+        var rCommands = $("#txtRCommands").val();
+        $.post(url,
+            {
+                x: 'x <- c('+csv+'); x<-matrix(x,'+col_count+','+row_count+'); x<-as.data.frame(x); x<-t(x); colnames(x)<-c('+csvColnames+'); x<-as.data.frame(x[,c('+num_names+')]); for (i in 1:length(x[1,])){if(length(as.numeric(x[,i][!is.na(x[,i])])[!is.na(as.numeric(x[,i][!is.na(x[,i])]))])==0){} else {x[,i]<-as.numeric(x[,i])}}; '+query
+            },
+            function (data) {
+
+                var statResultsLink = resultsUrlPrefix + data.toString().match(/.+\/stdout/m),
+                    chartLink = resultsUrlPrefix + data.toString().match(/.+\/graphics\/[1]/m);
+
+                //Add statistical (textual) results to results div
+                $('#results').append("<br/>");
+                $('<div/>', {
+                    id: 'statResults'
+                }).appendTo('#results');
+
+                $("#statResults").load(statResultsLink);
+
+                //Add charts results to results div
+                $('#results').append("<br/>");
+                /*$('<img/>', {
+                    id: 'chartResults',
+                    src: chartLink
+                }).appendTo('#results');*/
+
+            })
+            .error(function (jqXHR, status, error) {
+                alert(jqXHR.responseText);
+            });
+    });
+}

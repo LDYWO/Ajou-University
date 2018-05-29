@@ -131,11 +131,12 @@
 <div class="mdl-grid cca-content">
     <div class="mdl-cell mdl-cell--12-col">
         <div class="card-center mdl-card mdl-shadow--2dp">
-            <div class="test">
-                <h1>Posting Code Snippets</h1>
-                x: <input type="text" id="input" value="rnorm(1000)"> <br> <br>
-                <button id="submitbutton" type="button">Calc mean</button>
-                <pre><code id="output"></code></pre>
+            <div class="r-content">
+                <text>CCA for Groups</text>
+                <input type="button" value="CCA" id="cmdGoR" onclick="addCCAresult()"/>
+            </div>
+            <div class="r-content">
+                <div id="results"></div>
             </div>
         </div>
     </div>
@@ -153,7 +154,7 @@
 
 <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="//cdn.opencpu.org/opencpu-0.4.js"></script>
+<script src="//cdn.opencpu.org/opencpu-0.5.js"></script>
 
 <script type="text/javascript" src="js/da.js"></script>
 <script type="text/javascript" src="js/rvCircle.js"></script>
@@ -163,9 +164,7 @@
 <script type="text/javascript" src="js/tooltip.js"></script>
 <script type="text/javascript" src="js/loadFile.js"></script>
 <script type="text/javascript" src="js/radarChartManager.js"></script>
-<script type="text/javascript" src="js/nodeManager.js"></script>
 <script type="text/javascript" src="js/dimensionGroupsManger.js"></script>
-<script type="text/javascript" src="js/opencpu-0.5.js"></script>
 
 </body>
 

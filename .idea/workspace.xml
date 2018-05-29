@@ -2,8 +2,68 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="42804eaf-40be-4e2e-b314-587ff68596a4" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/DESCRIPTION" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MD5" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/NAMESPACE" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/R/cc.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/R/comput.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/R/estim.regul.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/R/img.estim.regul.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/R/img.matcor.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/R/loo.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/R/matcor.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/R/plt.cc.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/R/plt.indiv.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/R/plt.var.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/R/rcc.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/nutrimouse.rda" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/man/CCA-package.Rd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/man/cc.Rd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/man/comput.Rd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/man/estim.regul.Rd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/man/img.estim.regul.Rd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/man/img.matcor.Rd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/man/loo.Rd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/man/matcor.Rd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/man/nutrimouse.Rd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/man/plt.cc.Rd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/man/plt.indiv.Rd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/man/plt.var.Rd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/man/rcc.Rd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/DESCRIPTION" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/MD5" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/NAMESPACE" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/R/cc.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/R/comput.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/R/estim.regul.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/R/img.estim.regul.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/R/img.matcor.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/R/loo.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/R/matcor.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/R/plt.cc.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/R/plt.indiv.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/R/plt.var.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/R/rcc.R" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/data/nutrimouse.rda" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/js/nodeManager.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/js/opencpu-0.5.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/man/CCA-package.Rd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/man/cc.Rd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/man/comput.Rd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/man/estim.regul.Rd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/man/img.estim.regul.Rd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/man/img.matcor.Rd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/man/loo.Rd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/man/matcor.Rd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/man/nutrimouse.Rd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/man/plt.cc.Rd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/man/plt.indiv.Rd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/man/plt.var.Rd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/man/rcc.Rd" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/opencpu-0.5.js" afterPath="$PROJECT_DIR$/public/js/opencpu-0.5.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/index.html" afterPath="$PROJECT_DIR$/public/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/drawer.js" afterPath="$PROJECT_DIR$/public/js/drawer.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/stylesheets/styles.css" afterPath="$PROJECT_DIR$/public/stylesheets/styles.css" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -20,11 +80,9 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="141" column="6" lean-forward="true" selection-start-line="141" selection-start-column="6" selection-end-line="141" selection-end-column="6" />
+            <state relative-caret-position="900">
+              <caret line="138" column="40" lean-forward="true" selection-start-line="138" selection-start-column="40" selection-end-line="138" selection-end-column="40" />
               <folding>
-                <element signature="n#head#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
                 <element signature="n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
                 <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#div#3;n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -36,52 +94,54 @@
       <file leaf-file-name="styles.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/stylesheets/styles.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="702">
-              <caret line="110" column="13" lean-forward="false" selection-start-line="110" selection-start-column="13" selection-end-line="110" selection-end-column="13" />
+            <state relative-caret-position="882">
+              <caret line="114" column="13" lean-forward="false" selection-start-line="114" selection-start-column="13" selection-end-line="114" selection-end-column="13" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="drawer.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="drawer.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/js/drawer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1026">
-              <caret line="1052" column="23" lean-forward="false" selection-start-line="1052" selection-start-column="23" selection-end-line="1052" selection-end-column="23" />
+            <state relative-caret-position="249">
+              <caret line="1070" column="66" lean-forward="false" selection-start-line="1070" selection-start-column="23" selection-end-line="1070" selection-end-column="66" />
               <folding>
-                <element signature="e#1072#1265#0" expanded="false" />
-                <element signature="e#1297#1349#0" expanded="false" />
+                <element signature="e#1121#1314#0" expanded="false" />
+                <element signature="e#1346#1398#0" expanded="false" />
                 <element signature="n#!!block;n#updateWeight#0" expanded="false" />
                 <element signature="n#!!block;n#destroyCurrent#0" expanded="false" />
-                <element signature="n#!!block;n#startRadviz#0" expanded="false" />
-                <element signature="n#!!block;n#fileRead#0" expanded="false" />
-                <element signature="e#25733#26141#0" expanded="false" />
+                <element signature="e#2700#3848#0" expanded="false" />
+                <element signature="e#2980#3204#0" expanded="false" />
+                <element signature="e#3229#3755#0" expanded="false" />
+                <element signature="e#4118#4254#0" expanded="false" />
+                <element signature="n#!!block;n#updateNode#0" expanded="false" />
+                <element signature="n#!!block;n#appendNodesInfor#0" expanded="false" />
+                <element signature="n#!!block;n#updateNodeColor#0" expanded="false" />
+                <element signature="n#!!block;n#appendNodesColorInfor#0" expanded="false" />
+                <element signature="n#!!block;n#removeNodesColorInfor#0" expanded="false" />
+                <element signature="n#!!block;n#selectItem#0" expanded="false" />
+                <element signature="n#!!block;n#dragRect#0" expanded="false" />
+                <element signature="n#!!block;n#removeSelectionBox#0" expanded="false" />
                 <element signature="n#!!block;n#onDragStart#0" expanded="false" />
                 <element signature="n#!!block;n#onDragOver#0" expanded="false" />
                 <element signature="n#!!block;n#onDrop#0" expanded="false" />
-                <element signature="e#31107#32648#0" expanded="false" />
-                <element signature="e#31492#32505#0" expanded="false" />
+                <element signature="e#31192#32733#0" expanded="false" />
+                <element signature="e#31577#32590#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="opencpu-0.5.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/public/js/opencpu-0.5.js">
+      <file leaf-file-name="radarChartManager.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/js/radarChartManager.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="630">
-              <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cc.R" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/R/cc.R">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="786">
+              <caret line="84" column="16" lean-forward="true" selection-start-line="84" selection-start-column="16" selection-end-line="85" selection-end-column="46" />
+              <folding>
+                <element signature="n#!!block;n#createRadar#0" expanded="false" />
+                <element signature="e#3689#5139#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -92,14 +152,13 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="package_json" />
-        <option value="HTML File" />
         <option value="JavaScript File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>dimension</find>
       <find>parentG</find>
       <find>info</find>
       <find>card-left</find>
@@ -126,9 +185,10 @@
       <find>group-select-box</find>
       <find>debug</find>
       <find>tef</find>
-      <find>content</find>
       <find>ocpu</find>
+      <find>content</find>
       <find>updateNodeColor</find>
+      <find>csvColnames</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -167,12 +227,14 @@
         <option value="$PROJECT_DIR$/views/index.ejs" />
         <option value="$PROJECT_DIR$/package-lock.json" />
         <option value="$PROJECT_DIR$/package.json" />
-        <option value="$PROJECT_DIR$/public/js/nodeManager.js" />
-        <option value="$PROJECT_DIR$/public/stylesheets/styles.css" />
         <option value="$PROJECT_DIR$/public/js/opencpu.js" />
+        <option value="$PROJECT_DIR$/public/js/nodeManager.js" />
+        <option value="$PROJECT_DIR$/public/R/cc.js" />
+        <option value="$PROJECT_DIR$/public/js/opencpu-0.5.js" />
+        <option value="$PROJECT_DIR$/public/opencputest.html" />
+        <option value="$PROJECT_DIR$/public/stylesheets/styles.css" />
         <option value="$PROJECT_DIR$/public/index.html" />
         <option value="$PROJECT_DIR$/public/js/drawer.js" />
-        <option value="$PROJECT_DIR$/public/js/opencpu-0.5.js" />
       </list>
     </option>
   </component>
@@ -239,11 +301,6 @@
               <item name="MDS-Classifier" type="b2602c69:ProjectViewProjectNode" />
               <item name="MDS-Classifier" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="MDS-Classifier" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MDS-Classifier" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -265,6 +322,9 @@
       <recent name="C:\Users\user\Desktop\폴더\2018_4_1\미디어프로젝트\MDS-Classifier\js" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\user\Desktop\폴더\2018_4_1\미디어프로젝트\MDS-Classifier\public\R" />
+      <recent name="C:\Users\user\Desktop\폴더\2018_4_1\미디어프로젝트\MDS-Classifier\public" />
+      <recent name="DESCRIPTION MD5 NAMESPACE data R man" />
       <recent name="C:\Users\user\Desktop\폴더\2018_4_1\미디어프로젝트\MDS-Classifier\public\stylesheets" />
       <recent name="C:\Users\user\Desktop\폴더\2018_4_1\미디어프로젝트\MDS-Classifier" />
     </key>
@@ -329,7 +389,7 @@
       <workItem from="1527349556078" duration="3964000" />
       <workItem from="1527407763441" duration="7709000" />
       <workItem from="1527491904052" duration="1120000" />
-      <workItem from="1527555255246" duration="7690000" />
+      <workItem from="1527555255246" duration="31471000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1525503098498</created>
@@ -576,18 +636,26 @@
       <option name="project" value="LOCAL" />
       <updated>1527564944879</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="commit">
+      <created>1527565280617</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1527565280617</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="207927000" />
+    <option name="totallyTimeSpent" value="231708000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-16" y="-16" width="3232" height="1732" extended-state="6" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.198125" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2896875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32950708" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32950708" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32950708" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -599,7 +667,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32950708" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -639,22 +706,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="15" />
+      <option name="time" value="17" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/CCA-Manager.js" />
-    <entry file="file://$PROJECT_DIR$/public/js/da.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../opencpu-test/test-index.html" />
-    <entry file="file://$PROJECT_DIR$/test-index.html" />
     <entry file="file://$PROJECT_DIR$/node_modules/ejs/lib/ejs.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -688,13 +744,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="13" column="1" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="1" />
         </state>
       </provider>
     </entry>
@@ -736,14 +785,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/dragManager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="51" column="0" lean-forward="true" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/js/d3.slider.js" />
     <entry file="file://$PROJECT_DIR$/public/js/d3.parcoords.js" />
     <entry file="file://$PROJECT_DIR$/public/js/tooltipManager.js" />
@@ -751,17 +792,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/radarChartManager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="533">
-          <caret line="100" column="0" lean-forward="false" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!block;n#createRadar#0" expanded="false" />
-            <element signature="e#3689#5139#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -847,22 +877,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/nodeManager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="556" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/stylesheets/styles.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="702">
-          <caret line="110" column="13" lean-forward="false" selection-start-line="110" selection-start-column="13" selection-end-line="110" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/js/opencpu.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="531">
@@ -871,28 +885,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/drawer.js">
+    <entry file="file://$PROJECT_DIR$/R/rcc.R">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1026">
-          <caret line="1052" column="23" lean-forward="false" selection-start-line="1052" selection-start-column="23" selection-end-line="1052" selection-end-column="23" />
-          <folding>
-            <element signature="e#1072#1265#0" expanded="false" />
-            <element signature="e#1297#1349#0" expanded="false" />
-            <element signature="n#!!block;n#updateWeight#0" expanded="false" />
-            <element signature="n#!!block;n#destroyCurrent#0" expanded="false" />
-            <element signature="n#!!block;n#startRadviz#0" expanded="false" />
-            <element signature="n#!!block;n#fileRead#0" expanded="false" />
-            <element signature="e#25733#26141#0" expanded="false" />
-            <element signature="n#!!block;n#onDragStart#0" expanded="false" />
-            <element signature="n#!!block;n#onDragOver#0" expanded="false" />
-            <element signature="n#!!block;n#onDrop#0" expanded="false" />
-            <element signature="e#31107#32648#0" expanded="false" />
-            <element signature="e#31492#32505#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/R/rcc.R">
+    <entry file="file://$PROJECT_DIR$/public/js/dragManager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2295">
+          <caret line="51" column="0" lean-forward="true" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/nodeManager.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -908,13 +917,67 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/R/cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/R/cc.R">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/R/cc.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/opencpu-0.5.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-969">
+          <caret line="13" column="1" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/opencputest.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="471">
+          <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="63" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/stylesheets/styles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="882">
+          <caret line="114" column="13" lean-forward="false" selection-start-line="114" selection-start-column="13" selection-end-line="114" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="141" column="6" lean-forward="true" selection-start-line="141" selection-start-column="6" selection-end-line="141" selection-end-column="6" />
+        <state relative-caret-position="900">
+          <caret line="138" column="40" lean-forward="true" selection-start-line="138" selection-start-column="40" selection-end-line="138" selection-end-column="40" />
           <folding>
-            <element signature="n#head#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#div#3;n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -922,11 +985,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/opencpu-0.5.js">
+    <entry file="file://$PROJECT_DIR$/public/js/radarChartManager.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="786">
+          <caret line="84" column="16" lean-forward="true" selection-start-line="84" selection-start-column="16" selection-end-line="85" selection-end-column="46" />
+          <folding>
+            <element signature="n#!!block;n#createRadar#0" expanded="false" />
+            <element signature="e#3689#5139#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/drawer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="249">
+          <caret line="1070" column="66" lean-forward="false" selection-start-line="1070" selection-start-column="23" selection-end-line="1070" selection-end-column="66" />
+          <folding>
+            <element signature="e#1121#1314#0" expanded="false" />
+            <element signature="e#1346#1398#0" expanded="false" />
+            <element signature="n#!!block;n#updateWeight#0" expanded="false" />
+            <element signature="n#!!block;n#destroyCurrent#0" expanded="false" />
+            <element signature="e#2700#3848#0" expanded="false" />
+            <element signature="e#2980#3204#0" expanded="false" />
+            <element signature="e#3229#3755#0" expanded="false" />
+            <element signature="e#4118#4254#0" expanded="false" />
+            <element signature="n#!!block;n#updateNode#0" expanded="false" />
+            <element signature="n#!!block;n#appendNodesInfor#0" expanded="false" />
+            <element signature="n#!!block;n#updateNodeColor#0" expanded="false" />
+            <element signature="n#!!block;n#appendNodesColorInfor#0" expanded="false" />
+            <element signature="n#!!block;n#removeNodesColorInfor#0" expanded="false" />
+            <element signature="n#!!block;n#selectItem#0" expanded="false" />
+            <element signature="n#!!block;n#dragRect#0" expanded="false" />
+            <element signature="n#!!block;n#removeSelectionBox#0" expanded="false" />
+            <element signature="n#!!block;n#onDragStart#0" expanded="false" />
+            <element signature="n#!!block;n#onDragOver#0" expanded="false" />
+            <element signature="n#!!block;n#onDrop#0" expanded="false" />
+            <element signature="e#31192#32733#0" expanded="false" />
+            <element signature="e#31577#32590#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
