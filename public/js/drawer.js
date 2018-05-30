@@ -18,6 +18,7 @@ var labelPositions = [];
 
 var headers = [];
 var csvColnames=new Array();
+var csvColcount=[];
 
 var classIndex;
 
@@ -186,6 +187,7 @@ function startRadviz(fileName) {
 
         for (property in csv[0]) {
             csvColnames.push(property);
+            csvColcount.push(property);
 
             if (allValuesOf(csv, property).length <= 5) {
                 categoricalVars.push(property);
@@ -207,6 +209,11 @@ function startRadviz(fileName) {
                 }
             }
         }
+
+        for(var i=0;i<csvColnames.length;i++){
+            csvColnames[i]="\""+csvColnames[i]+'\"';
+        }
+        csvColnames = csvColnames.join(',');
 
         var springConstants = numericProps.map(function(){return d3.scale.linear().range([0, 1]);});
         springConstants.forEach(function(element, index, array){
@@ -929,6 +936,7 @@ function onDrop(event) {
         }
     }
 
+    var cur_rvs_all=[];
     var cur_rvs =[];
     if(groupid==0){
         rv0.color = $('.'+groupname).css("background-color");
@@ -938,6 +946,7 @@ function onDrop(event) {
 
         if(!rv0.da.length||!rv1.da.length||!rv2.da.length
             ||!rv3.da.length||!rv4.da.length||!rv5.da.length){
+            cur_rvs_all.push(rv0.path,rv1.path,rv2.path,rv3.path,rv4.path,rv5.path);
             cur_rvs.push(rv0.da,rv1.da,rv2.da,rv3.da,rv4.da,rv5.da);
             updateNode(cur_rvs,false);
 
@@ -954,6 +963,7 @@ function onDrop(event) {
 
         if(!rv0.da.length||!rv1.da.length||!rv2.da.length
             ||!rv3.da.length||!rv4.da.length||!rv5.da.length){
+            cur_rvs_all.push(rv0.path,rv1.path,rv2.path,rv3.path,rv4.path,rv5.path);
             cur_rvs.push(rv0.da,rv1.da,rv2.da,rv3.da,rv4.da,rv5.da);
             updateNode(cur_rvs,false);
         }
@@ -969,6 +979,7 @@ function onDrop(event) {
 
         if(!rv0.da.length||!rv1.da.length||!rv2.da.length
             ||!rv3.da.length||!rv4.da.length||!rv5.da.length){
+            cur_rvs_all.push(rv0.path,rv1.path,rv2.path,rv3.path,rv4.path,rv5.path);
             cur_rvs.push(rv0.da,rv1.da,rv2.da,rv3.da,rv4.da,rv5.da);
             updateNode(cur_rvs,false);
         }
@@ -984,6 +995,7 @@ function onDrop(event) {
 
         if(!rv0.da.length||!rv1.da.length||!rv2.da.length
             ||!rv3.da.length||!rv4.da.length||!rv5.da.length){
+            cur_rvs_all.push(rv0.path,rv1.path,rv2.path,rv3.path,rv4.path,rv5.path);
             cur_rvs.push(rv0.da,rv1.da,rv2.da,rv3.da,rv4.da,rv5.da);
             updateNode(cur_rvs,false);
         }
@@ -999,6 +1011,7 @@ function onDrop(event) {
 
         if(!rv0.da.length||!rv1.da.length||!rv2.da.length
             ||!rv3.da.length||!rv4.da.length||!rv5.da.length){
+            cur_rvs_all.push(rv0.path,rv1.path,rv2.path,rv3.path,rv4.path,rv5.path);
             cur_rvs.push(rv0.da,rv1.da,rv2.da,rv3.da,rv4.da,rv5.da);
             updateNode(cur_rvs,false);
         }
@@ -1014,6 +1027,7 @@ function onDrop(event) {
 
         if(!rv0.da.length||!rv1.da.length||!rv2.da.length
             ||!rv3.da.length||!rv4.da.length||!rv5.da.length){
+            cur_rvs_all.push(rv0.path,rv1.path,rv2.path,rv3.path,rv4.path,rv5.path);
             cur_rvs.push(rv0.da,rv1.da,rv2.da,rv3.da,rv4.da,rv5.da);
             updateNode(cur_rvs,false);
         }
@@ -1021,6 +1035,8 @@ function onDrop(event) {
             rv5.updateInst(false,rv5);
         setupDragBehaviour(rv5,dimensionnames);
     }
+    if(groupcount>1)
+        addCCAresult(cur_rvs_all);
 };
 $("select").on("change", function(){
     $( ".select-box option:selected" ).each(function() {
@@ -1067,134 +1083,844 @@ $("select").on("change", function(){
     });
 }).trigger( "change" );
 
-function addCCAresult() {
+function addCCAresult(cur_rvs_all) {
 
-    //Go R button Click Event Handler
-    $("#cmdGoR").click(function () {
-        var resultsUrlPrefix = "http://public.opencpu.org",
-            url = resultsUrlPrefix + "/ocpu/library/base/R/identity/save";
+    var rvs = cur_rvs_all;
+    var cca_info = d3.select("#cca-info");
 
-        var items = pre_csvdata;
-        var replacer = (key, value) => value === null ? '' : value
-        var header = Object.keys(items[0])
-        let csv = items.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
+    _.forEach(rvs,function (rv_path) {
+        if(rv_path!=undefined){
+            rv_path.on("mousedown", function (d) {
 
-        //csv.unshift(header.join(','))
-        csv = csv.join(',\n');
+                var resultsUrlPrefix = "http://public.opencpu.org",
+                    url = resultsUrlPrefix + "/ocpu/library/base/R/identity/save";
 
-        var col_count=0, row_count=0;
-        for(var i=0;i<csvColnames.length;i++)
-            col_count++;
-        for(var i=0;i<instGroup.length;i++)
-            row_count++;
+                var items = pre_csvdata;
+                var replacer = (key, value) => value === null ? '' : value
+                var header = Object.keys(items[0])
+                let csv = items.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
 
-        for(var i=0;i<csvColnames.length;i++){
-            csvColnames[i]="\""+csvColnames[i]+'\"';
-        }
-        csvColnames = csvColnames.join(',');
+                //csv.unshift(header.join(','))
+                csv = csv.join(',\n');
 
-        var num_names=[];
-        for(var i=0;i<numericProps.length;i++){
-            num_names[i]="\""+numericProps[i]+'\"';
-        }
-        num_names = num_names.join(',');
+                var col_count=0, row_count=0;
+                for(var i=0;i<csvColcount.length;i++)
+                    col_count++;
+                for(var i=0;i<instGroup.length;i++)
+                    row_count++;
 
-        var group0=[],group1=[],group2=[],group3=[],group4=[],group5=[];
-        for(var i=0;i<groupcount;i++){
-            _.forEach($('.dimension-groups-box .group'+i).children(),function (group) {
-                switch (i){
-                    case 0:
-                        group0[group0.length] = '\"'+group.getAttribute('id')+'\"';
-                        break
+                var num_names=[];
+                for(var i=0;i<numericProps.length;i++){
+                    num_names[i]="\""+numericProps[i]+'\"';
+                }
+                num_names = num_names.join(',');
+
+                var group0=[],group1=[],group2=[],group3=[],group4=[],group5=[];
+                for(var i=0;i<groupcount;i++){
+                    _.forEach($('.dimension-groups-box .group'+i).children(),function (group) {
+                        switch (i){
+                            case 0:
+                                group0[group0.length] = '\"'+group.getAttribute('id')+'\"';
+                                break
+                            case 1:
+                                group1[group1.length] = '\"'+group.getAttribute('id')+'\"';
+                                break
+                            case 2:
+                                group2[group2.length] = '\"'+group.getAttribute('id')+'\"';
+                                break
+                            case 3:
+                                group3[group3.length] = '\"'+group.getAttribute('id')+'\"';
+                                break
+                            case 4:
+                                group4[group4.length] = '\"'+group.getAttribute('id')+'\"';
+                                break
+                            case 5:
+                                group5[group5.length] = '\"'+group.getAttribute('id')+'\"';
+                                break
+                        }
+                    });
+                }
+                group0 = group0.join(',');
+                group1 = group1.join(',');
+                group2 = group2.join(',');
+                group3 = group3.join(',');
+                group4 = group4.join(',');
+                group5 = group5.join(',');
+
+                var query="";
+                switch (groupcount){
                     case 1:
-                        group1[group1.length] = '\"'+group.getAttribute('id')+'\"';
+                        query="group0<-subset(x,select=c("+group0+"));";
                         break
                     case 2:
-                        group2[group2.length] = '\"'+group.getAttribute('id')+'\"';
+                        query="group0<-subset(x,select=c("+group0+")); group1<-subset(x,select=c("+group1+")); a<-cancor(group0,group1)$cor;";
                         break
                     case 3:
-                        group3[group3.length] = '\"'+group.getAttribute('id')+'\"';
+                        query="group0<-subset(x,select=c("+group0+")); group1<-subset(x,select=c("+group1+")); group2<-subset(x,select=c("+group2+")); a<-cancor(group0,group1)$cor; b<-cancor(group0,group2)$cor; c<-cancor(group1,group2)$cor;";
                         break
                     case 4:
-                        group4[group4.length] = '\"'+group.getAttribute('id')+'\"';
+                        query="group0<-subset(x,select=c("+group0+")); group1<-subset(x,select=c("+group1+")); group2<-subset(x,select=c("+group2+")); group3<-subset(x,select=c("+group3+")); a<-cancor(group0,group1)$cor; b<-cancor(group0,group2)$cor; c<-cancor(group0,group3)$cor; d<-cancor(group1,group2)$cor; e<-cancor(group1,group3)$cor; f<-cancor(group2,group3)$cor;";
                         break
                     case 5:
-                        group5[group5.length] = '\"'+group.getAttribute('id')+'\"';
+                        query="group0<-subset(x,select=c("+group0+")); group1<-subset(x,select=c("+group1+")); group2<-subset(x,select=c("+group2+")); group3<-subset(x,select=c("+group3+")); group4<-subset(x,select=c("+group4+")); a<-cancor(group0,group1)$cor; b<-cancor(group0,group2)$cor; c<-cancor(group0,group3)$cor; d<-cancor(group0,group4)$cor; e<-cancor(group1,group2)$cor; f<-cancor(group1,group3)$cor; g<-cancor(group1,group4)$cor; h<-cancor(group2,group3)$cor; i<-cancor(group2,group4)$cor; j<-cancor(group3,group4)$cor;";
+                        break
+                    case 6:
+                        query="group0<-subset(x,select=c("+group0+")); group1<-subset(x,select=c("+group1+")); group2<-subset(x,select=c("+group2+")); group3<-subset(x,select=c("+group3+")); group4<-subset(x,select=c("+group4+")); group5<-subset(x,select=c("+group5+")); a<-cancor(group0,group1)$cor; b<-cancor(group0,group2)$cor; c<-cancor(group0,group3)$cor; d<-cancor(group0,group4)$cor; e<-cancor(group0,group5)$cor; f<-cancor(group1,group2)$cor; g<-cancor(group1,group3)$cor; h<-cancor(group1,group4)$cor; i<-cancor(group1,group5)$cor; j<-cancor(group2,group3)$cor; k<-cancor(group2,group4)$cor; l<-cancor(group2,group5)$cor; m<-cancor(group3,group4)$cor; n<-cancor(group3,group5)$cor; o<-cancor(group4,group5)$cor;";
                         break
                 }
-            });
-        }
-        group0 = group0.join(',');
-        group1 = group1.join(',');
-        group2 = group2.join(',');
-        group3 = group3.join(',');
-        group4 = group4.join(',');
-        group5 = group5.join(',');
 
-        var query="";
-        switch (groupcount){
-            case 1:
-                query="group0<-subset(x,select=c("+group0+"));";
-                break
-            case 2:
-                query="group0<-subset(x,select=c("+group0+")); group1<-subset(x,select=c("+group1+")); cancor(group0,group1)$cor; ";
-                break
-            case 3:
-                query="group0<-subset(x,select=c("+group0+")); group1<-subset(x,select=c("+group1+")); group2<-subset(x,select=c("+group2+")); " +
-                    "cancor(group0,group1)$cor; cancor(group0,group2)$cor; cancor(group1,group2)$cor;";
-                break
-            case 4:
-                query="group0<-subset(x,select=c("+group0+")); group1<-subset(x,select=c("+group1+")); " +
-                    "group2<-subset(x,select=c("+group2+")); group3<-subset(x,select=c("+group3+"));" +
-                    "cancor(group0,group1)$cor; cancor(group0,group2)$cor; cancor(group0,group3)$cor; " +
-                    "cancor(group1,group2)$cor; cancor(group1,group3)$cor; cancor(group2,group3)$cor;";
-                break
-            case 5:
-                query="group0<-subset(x,select=c("+group0+")); group1<-subset(x,select=c("+group1+")); " +
-                    "group2<-subset(x,select=c("+group2+")); group3<-subset(x,select=c("+group3+")); group4<-subset(x,select=c("+group4+"));" +
-                    "cancor(group0,group1)$cor; cancor(group0,group2)$cor; cancor(group0,group3)$cor; cancor(group0,group4)$cor;" +
-                    "cancor(group1,group2)$cor; cancor(group1,group3)$cor; cancor(group1,group4)$cor; cancor(group2,group3)$cor;" +
-                    "cancor(group2,group4)$cor; cancor(group3,group4)$cor;";
-                break
-            case 6:
-                query="group0<-subset(x,select=c("+group0+")); group1<-subset(x,select=c("+group1+")); " +
-                    "group2<-subset(x,select=c("+group2+")); group3<-subset(x,select=c("+group3+")); " +
-                    "group4<-subset(x,select=c("+group4+")); group5<-subset(x,select=c("+group5+"));" +
-                    "cancor(group0,group1)$cor; cancor(group0,group2)$cor; cancor(group0,group3)$cor; cancor(group0,group4)$cor; cancor(group0,group5)$cor;" +
-                    "cancor(group1,group2)$cor; cancor(group1,group3)$cor; cancor(group1,group4)$cor; cancor(group1,group5)$cor; cancor(group2,group3)$cor;" +
-                    "cancor(group2,group4)$cor; cancor(group2,group5)$cor; cancor(group3,group4)$cor; cancor(group3,group5)$cor; cancor(group4,group5)$cor;";
-                break
-        }
+                var rCommand ='x <- c('+csv+'); x<-matrix(x,'+col_count+','+row_count+'); x<-as.data.frame(x); x<-t(x); colnames(x)<-c('+csvColnames+'); x<-as.data.frame(x[,c('+num_names+')]); ' +
+                    'for (i in 1:length(x[1,])){if(length(as.numeric(x[,i][!is.na(x[,i])])[!is.na(as.numeric(x[,i][!is.na(x[,i])]))])==0){} else {x[,i]<-as.numeric(x[,i])}}; ' + query;
 
+                $.post(url,
+                    {
+                        x: rCommand
+                    },
+                    function (data) {
+                        var alink =resultsUrlPrefix + data.toString().match(/.+\/R\/a/m),
+                            blink =resultsUrlPrefix + data.toString().match(/.+\/R\/b/m),
+                            clink =resultsUrlPrefix + data.toString().match(/.+\/R\/c/m),
+                            dlink =resultsUrlPrefix + data.toString().match(/.+\/R\/d/m),
+                            elink =resultsUrlPrefix + data.toString().match(/.+\/R\/e/m),
+                            flink =resultsUrlPrefix + data.toString().match(/.+\/R\/f/m),
+                            glink =resultsUrlPrefix + data.toString().match(/.+\/R\/g/m),
+                            hlink =resultsUrlPrefix + data.toString().match(/.+\/R\/h/m),
+                            ilink =resultsUrlPrefix + data.toString().match(/.+\/R\/i/m),
+                            jlink =resultsUrlPrefix + data.toString().match(/.+\/R\/j/m),
+                            klink =resultsUrlPrefix + data.toString().match(/.+\/R\/k/m),
+                            llink =resultsUrlPrefix + data.toString().match(/.+\/R\/l/m),
+                            mlink =resultsUrlPrefix + data.toString().match(/.+\/R\/m/m),
+                            nlink =resultsUrlPrefix + data.toString().match(/.+\/R\/n/m),
+                            olink =resultsUrlPrefix + data.toString().match(/.+\/R\/o/m);
 
-        var rCommands = $("#txtRCommands").val();
-        $.post(url,
-            {
-                x: 'x <- c('+csv+'); x<-matrix(x,'+col_count+','+row_count+'); x<-as.data.frame(x); x<-t(x); colnames(x)<-c('+csvColnames+'); x<-as.data.frame(x[,c('+num_names+')]); for (i in 1:length(x[1,])){if(length(as.numeric(x[,i][!is.na(x[,i])])[!is.na(as.numeric(x[,i][!is.na(x[,i])]))])==0){} else {x[,i]<-as.numeric(x[,i])}}; '+query
-            },
-            function (data) {
+                    $('#results').empty();
 
-                var statResultsLink = resultsUrlPrefix + data.toString().match(/.+\/stdout/m),
-                    chartLink = resultsUrlPrefix + data.toString().match(/.+\/graphics\/[1]/m);
+                    switch (rv_path[0][0].getAttribute('id')){
+                        case 'group0path':
+                            switch (groupcount){
+                                case 1:
+                                    break
+                                case 2:
+                                    $('<text/>',{
+                                        id:'text'
+                                    }).appendTo("#results");
+                                    $('#text').text('group0 & group1');
 
-                //Add statistical (textual) results to results div
-                $('#results').append("<br/>");
-                $('<div/>', {
-                    id: 'statResults'
-                }).appendTo('#results');
+                                    $('<p/>', {
+                                        id: 'aResults'
+                                    }).appendTo('#results');
 
-                $("#statResults").load(statResultsLink);
+                                    $("#aResults").load(alink);
+                                    break
+                                case 3:
+                                    $('<text/>',{
+                                        id:'text1'
+                                    }).appendTo("#results");
+                                    $('#text1').text('group0 & group1');
+                                    $('<p/>', {
+                                        id: 'aResults'
+                                    }).appendTo('#results');
+                                    $("#aResults").load(alink);
 
-                //Add charts results to results div
-                $('#results').append("<br/>");
-                /*$('<img/>', {
-                    id: 'chartResults',
-                    src: chartLink
-                }).appendTo('#results');*/
+                                    $('<text/>',{
+                                        id:'text2'
+                                    }).appendTo("#results");
+                                    $('#text2').text('group0 & group2');
+                                    $('<p/>', {
+                                        id: 'bResults'
+                                    }).appendTo('#results');
+                                    $("#bResults").load(blink);
+                                    break
+                                case 4:
+                                    $('<text/>',{
+                                        id:'text1'
+                                    }).appendTo("#results");
+                                    $('#text1').text('group0 & group1');
+                                    $('<p/>', {
+                                        id: 'aResults'
+                                    }).appendTo('#results');
+                                    $("#aResults").load(alink);
 
+                                    $('<text/>',{
+                                        id:'text2'
+                                    }).appendTo("#results");
+                                    $('#text2').text('group0 & group2');
+                                    $('<p/>', {
+                                        id: 'bResults'
+                                    }).appendTo('#results');
+                                    $("#bResults").load(blink);
+
+                                    $('<text/>',{
+                                        id:'text3'
+                                    }).appendTo("#results");
+                                    $('#text3').text('group0 & group3');
+                                    $('<p/>', {
+                                        id: 'cResults'
+                                    }).appendTo('#results');
+                                    $("#cResults").load(clink);
+                                    break
+                                case 5:
+                                    $('<text/>',{
+                                        id:'text1'
+                                    }).appendTo("#results");
+                                    $('#text1').text('group0 & group1');
+                                    $('<p/>', {
+                                        id: 'aResults'
+                                    }).appendTo('#results');
+                                    $("#aResults").load(alink);
+
+                                    $('<text/>',{
+                                        id:'text2'
+                                    }).appendTo("#results");
+                                    $('#text2').text('group0 & group2');
+                                    $('<p/>', {
+                                        id: 'bResults'
+                                    }).appendTo('#results');
+                                    $("#bResults").load(blink);
+
+                                    $('<text/>',{
+                                        id:'text3'
+                                    }).appendTo("#results");
+                                    $('#text3').text('group0 & group3');
+                                    $('<p/>', {
+                                        id: 'cResults'
+                                    }).appendTo('#results');
+                                    $("#cResults").load(clink);
+
+                                    $('<text/>',{
+                                        id:'text4'
+                                    }).appendTo("#results");
+                                    $('#text4').text('group0 & group4');
+                                    $('<p/>', {
+                                        id: 'dResults'
+                                    }).appendTo('#results');
+                                    $("#dResults").load(dlink);
+                                    break
+                                case 6:
+                                    $('<text/>',{
+                                        id:'text1'
+                                    }).appendTo("#results");
+                                    $('#text1').text('group0 & group1');
+                                    $('<p/>', {
+                                        id: 'aResults'
+                                    }).appendTo('#results');
+                                    $("#aResults").load(alink);
+
+                                    $('<text/>',{
+                                        id:'text2'
+                                    }).appendTo("#results");
+                                    $('#text2').text('group0 & group2');
+                                    $('<p/>', {
+                                        id: 'bResults'
+                                    }).appendTo('#results');
+                                    $("#bResults").load(blink);
+
+                                    $('<text/>',{
+                                        id:'text3'
+                                    }).appendTo("#results");
+                                    $('#text3').text('group0 & group3');
+                                    $('<p/>', {
+                                        id: 'cResults'
+                                    }).appendTo('#results');
+                                    $("#cResults").load(clink);
+
+                                    $('<text/>',{
+                                        id:'text4'
+                                    }).appendTo("#results");
+                                    $('#text4').text('group0 & group4');
+                                    $('<p/>', {
+                                        id: 'dResults'
+                                    }).appendTo('#results');
+                                    $("#dResults").load(dlink);
+
+                                    $('<text/>',{
+                                        id:'text5'
+                                    }).appendTo("#results");
+                                    $('#text5').text('group0 & group5');
+                                    $('<p/>', {
+                                        id: 'eResults'
+                                    }).appendTo('#results');
+                                    $("#eResults").load(elink);
+                                    break
+                            }
+                            break
+                        case 'group1path':
+                            switch (groupcount){
+                                case 2:
+                                    $('<text/>',{
+                                        id:'text1'
+                                    }).appendTo("#results");
+                                    $('#text1').text('group1 & group0');
+                                    $('<p/>', {
+                                        id: 'aResults'
+                                    }).appendTo('#results');
+                                    $("#aResults").load(alink);
+                                    break
+                                case 3:
+                                    $('<text/>',{
+                                        id:'text1'
+                                    }).appendTo("#results");
+                                    $('#text1').text('group1 & group0');
+                                    $('<p/>', {
+                                        id: 'aResults'
+                                    }).appendTo('#results');
+                                    $("#aResults").load(alink);
+
+                                    $('<text/>',{
+                                        id:'text2'
+                                    }).appendTo("#results");
+                                    $('#text2').text('group1 & group2');
+                                    $('<p/>', {
+                                        id: 'cResults'
+                                    }).appendTo('#results');
+                                    $("#cResults").load(clink);
+                                    break
+                                case 4:
+                                    $('<text/>',{
+                                        id:'text1'
+                                    }).appendTo("#results");
+                                    $('#text1').text('group1 & group0');
+                                    $('<p/>', {
+                                        id: 'aResults'
+                                    }).appendTo('#results');
+                                    $("#aResults").load(alink);
+
+                                    $('<text/>',{
+                                        id:'text2'
+                                    }).appendTo("#results");
+                                    $('#text2').text('group1 & group2');
+                                    $('<p/>', {
+                                        id: 'dResults'
+                                    }).appendTo('#results');
+                                    $("#dResults").load(dlink);
+
+                                    $('<text/>',{
+                                        id:'text3'
+                                    }).appendTo("#results");
+                                    $('#text3').text('group1 & group3');
+                                    $('<p/>', {
+                                        id: 'eResults'
+                                    }).appendTo('#results');
+                                    $("#eResults").load(elink);
+                                    break
+                                case 5:
+                                    $('<text/>',{
+                                        id:'text1'
+                                    }).appendTo("#results");
+                                    $('#text1').text('group1 & group0');
+                                    $('<p/>', {
+                                        id: 'aResults'
+                                    }).appendTo('#results');
+                                    $("#aResults").load(alink);
+
+                                    $('<text/>',{
+                                        id:'text2'
+                                    }).appendTo("#results");
+                                    $('#text2').text('group1 & group2');
+                                    $('<p/>', {
+                                        id: 'eResults'
+                                    }).appendTo('#results');
+                                    $("#eResults").load(elink);
+
+                                    $('<text/>',{
+                                        id:'text3'
+                                    }).appendTo("#results");
+                                    $('#text3').text('group1 & group3');
+                                    $('<p/>', {
+                                        id: 'fResults'
+                                    }).appendTo('#results');
+                                    $("#fResults").load(flink);
+
+                                    $('<text/>',{
+                                        id:'text4'
+                                    }).appendTo("#results");
+                                    $('#text4').text('group1 & group4');
+                                    $('<p/>', {
+                                        id: 'gResults'
+                                    }).appendTo('#results');
+                                    $("#gResults").load(glink);
+                                    break
+                                case 6:
+                                    $('<text/>',{
+                                        id:'text1'
+                                    }).appendTo("#results");
+                                    $('#text1').text('group1 & group0');
+                                    $('<p/>', {
+                                        id: 'aResults'
+                                    }).appendTo('#results');
+                                    $("#aResults").load(alink);
+
+                                    $('<text/>',{
+                                        id:'text2'
+                                    }).appendTo("#results");
+                                    $('#text2').text('group1 & group2');
+                                    $('<p/>', {
+                                        id: 'fResults'
+                                    }).appendTo('#results');
+                                    $("#fResults").load(flink);
+
+                                    $('<text/>',{
+                                        id:'text3'
+                                    }).appendTo("#results");
+                                    $('#text3').text('group1 & group3');
+                                    $('<p/>', {
+                                        id: 'gResults'
+                                    }).appendTo('#results');
+                                    $("#gResults").load(glink);
+
+                                    $('<text/>',{
+                                        id:'text4'
+                                    }).appendTo("#results");
+                                    $('#text4').text('group1 & group4');
+                                    $('<p/>', {
+                                        id: 'hResults'
+                                    }).appendTo('#results');
+                                    $("#hResults").load(hlink);
+
+                                    $('<text/>',{
+                                        id:'text5'
+                                    }).appendTo("#results");
+                                    $('#text5').text('group1 & group5');
+                                    $('<p/>', {
+                                        id: 'iResults'
+                                    }).appendTo('#results');
+                                    $("#iResults").load(ilink);
+                                    break
+                            }
+                            break
+                        case 'group2path':
+                            switch (groupcount){
+                                case 3:
+                                    cca_info.append('g').attr('id','group0_group2');
+                                    cca_info.append('g').attr('id','group1_group2');
+                                    $('<text/>',{
+                                        id:'text1'
+                                    }).appendTo("#results");
+                                    $('#text1').text('group2 & group0');
+                                    $('<p/>', {
+                                        id: 'bResults'
+                                    }).appendTo('#results');
+                                    $("#bResults").load(blink);
+
+                                    $('<text/>',{
+                                        id:'text2'
+                                    }).appendTo("#results");
+                                    $('#text2').text('group2 & group1');
+                                    $('<p/>', {
+                                        id: 'cResults'
+                                    }).appendTo('#results');
+                                    $("#cResults").load(clink);
+                                    break
+                                case 4:
+                                    cca_info.append('g').attr('id','group0_group2');
+                                    cca_info.append('g').attr('id','group1_group2');
+                                    cca_info.append('g').attr('id','group2_group3');
+
+                                    $('<text/>',{
+                                        id:'text1'
+                                    }).appendTo("#results");
+                                    $('#text1').text('group2 & group0');
+                                    $('<p/>', {
+                                        id: 'bResults'
+                                    }).appendTo('#results');
+                                    $("#bResults").load(blink);
+
+                                    $('<text/>',{
+                                        id:'text2'
+                                    }).appendTo("#results");
+                                    $('#text2').text('group2 & group1');
+                                    $('<p/>', {
+                                        id: 'dResults'
+                                    }).appendTo('#results');
+                                    $("#dResults").load(dlink);
+
+                                    $('<text/>',{
+                                        id:'text3'
+                                    }).appendTo("#results");
+                                    $('#text3').text('group2 & group3');
+                                    $('<p/>', {
+                                        id: 'fResults'
+                                    }).appendTo('#results');
+                                    $("#fResults").load(flink);
+                                    break
+                                case 5:
+                                    cca_info.append('g').attr('id','group0_group2');
+                                    cca_info.append('g').attr('id','group1_group2');
+                                    cca_info.append('g').attr('id','group2_group3');
+                                    cca_info.append('g').attr('id','group2_group4');
+
+                                    $('<text/>',{
+                                        id:'text1'
+                                    }).appendTo("#results");
+                                    $('#text1').text('group2 & group0');
+                                    $('<p/>', {
+                                        id: 'bResults'
+                                    }).appendTo('#results');
+                                    $("#bResults").load(blink);
+
+                                    $('<text/>',{
+                                        id:'text2'
+                                    }).appendTo("#results");
+                                    $('#text2').text('group2 & group1');
+                                    $('<p/>', {
+                                        id: 'eResults'
+                                    }).appendTo('#results');
+                                    $("#eResults").load(elink);
+
+                                    $('<text/>',{
+                                        id:'text3'
+                                    }).appendTo("#results");
+                                    $('#text3').text('group2 & group3');
+                                    $('<p/>', {
+                                        id: 'hResults'
+                                    }).appendTo('#results');
+                                    $("#hResults").load(hlink);
+
+                                    $('<text/>',{
+                                        id:'text4'
+                                    }).appendTo("#results");
+                                    $('#text4').text('group2 & group4');
+                                    $('<p/>', {
+                                        id: 'iResults'
+                                    }).appendTo('#results');
+                                    $("#iResults").load(ilink);
+                                    break
+                                case 6:
+                                    cca_info.append('g').attr('id','group0_group2');
+                                    cca_info.append('g').attr('id','group1_group2');
+                                    cca_info.append('g').attr('id','group2_group3');
+                                    cca_info.append('g').attr('id','group2_group4');
+                                    cca_info.append('g').attr('id','group2_group5');
+
+                                    $('<text/>',{
+                                        id:'text1'
+                                    }).appendTo("#results");
+                                    $('#text1').text('group2 & group0');
+                                    $('<p/>', {
+                                        id: 'bResults'
+                                    }).appendTo('#results');
+                                    $("#bResults").load(blink);
+
+                                    $('<text/>',{
+                                        id:'text2'
+                                    }).appendTo("#results");
+                                    $('#text2').text('group2 & group1');
+                                    $('<p/>', {
+                                        id: 'fResults'
+                                    }).appendTo('#results');
+                                    $("#fResults").load(flink);
+
+                                    $('<text/>',{
+                                        id:'text3'
+                                    }).appendTo("#results");
+                                    $('#text3').text('group2 & group3');
+                                    $('<p/>', {
+                                        id: 'jResults'
+                                    }).appendTo('#results');
+                                    $("#jResults").load(jlink);
+
+                                    $('<text/>',{
+                                        id:'text4'
+                                    }).appendTo("#results");
+                                    $('#text4').text('group2 & group4');
+                                    $('<p/>', {
+                                        id: 'kResults'
+                                    }).appendTo('#results');
+                                    $("#kResults").load(klink);
+
+                                    $('<text/>',{
+                                        id:'text5'
+                                    }).appendTo("#results");
+                                    $('#text5').text('group2 & group5');
+                                    $('<p/>', {
+                                        id: 'lResults'
+                                    }).appendTo('#results');
+                                    $("#lResults").load(llink);
+                                    break
+                            }
+                            break
+                        case 'group3path':
+                            switch (groupcount){
+                                case 4:
+                                    $('<text/>',{
+                                        id:'text1'
+                                    }).appendTo("#results");
+                                    $('#text1').text('group3 & group0');
+                                    $('<p/>', {
+                                        id: 'cResults'
+                                    }).appendTo('#results');
+                                    $("#cResults").load(clink);
+
+                                    $('<text/>',{
+                                        id:'text2'
+                                    }).appendTo("#results");
+                                    $('#text2').text('group3 & group1');
+                                    $('<p/>', {
+                                        id: 'eResults'
+                                    }).appendTo('#results');
+                                    $("#eResults").load(elink);
+
+                                    $('<text/>',{
+                                        id:'text3'
+                                    }).appendTo("#results");
+                                    $('#text3').text('group3 & group2');
+                                    $('<p/>', {
+                                        id: 'fResults'
+                                    }).appendTo('#results');
+                                    $("#fResults").load(flink);
+                                    break
+                                case 5:
+                                    $('<text/>',{
+                                        id:'text1'
+                                    }).appendTo("#results");
+                                    $('#text1').text('group3 & group0');
+                                    $('<p/>', {
+                                        id: 'cResults'
+                                    }).appendTo('#results');
+                                    $("#cResults").load(clink);
+
+                                    $('<text/>',{
+                                        id:'text2'
+                                    }).appendTo("#results");
+                                    $('#text2').text('group3 & group1');
+                                    $('<p/>', {
+                                        id: 'fResults'
+                                    }).appendTo('#results');
+                                    $("#fResults").load(flink);
+
+                                    $('<text/>',{
+                                        id:'text3'
+                                    }).appendTo("#results");
+                                    $('#text3').text('group3 & group2');
+                                    $('<p/>', {
+                                        id: 'hResults'
+                                    }).appendTo('#results');
+                                    $("#hResults").load(hlink);
+
+                                    $('<text/>',{
+                                        id:'text4'
+                                    }).appendTo("#results");
+                                    $('#text4').text('group3 & group4');
+                                    $('<p/>', {
+                                        id: 'jResults'
+                                    }).appendTo('#results');
+                                    $("#jResults").load(jlink);
+                                    break
+                                case 6:
+                                    $('<text/>',{
+                                        id:'text1'
+                                    }).appendTo("#results");
+                                    $('#text1').text('group3 & group0');
+                                    $('<p/>', {
+                                        id: 'cResults'
+                                    }).appendTo('#results');
+                                    $("#cResults").load(clink);
+
+                                    $('<text/>',{
+                                        id:'text2'
+                                    }).appendTo("#results");
+                                    $('#text2').text('group3 & group1');
+                                    $('<p/>', {
+                                        id: 'gResults'
+                                    }).appendTo('#results');
+                                    $("#gResults").load(glink);
+
+                                    $('<text/>',{
+                                        id:'text3'
+                                    }).appendTo("#results");
+                                    $('#text3').text('group3 & group2');
+                                    $('<p/>', {
+                                        id: 'jResults'
+                                    }).appendTo('#results');
+                                    $("#jResults").load(jlink);
+
+                                    $('<text/>',{
+                                        id:'text4'
+                                    }).appendTo("#results");
+                                    $('#text4').text('group3 & group4');
+                                    $('<p/>', {
+                                        id: 'mResults'
+                                    }).appendTo('#results');
+                                    $("#mResults").load(mlink);
+
+                                    $('<text/>',{
+                                        id:'text5'
+                                    }).appendTo("#results");
+                                    $('#text5').text('group3 & group5');
+                                    $('<p/>', {
+                                        id: 'nResults'
+                                    }).appendTo('#results');
+                                    $("#nResults").load(nlink);
+                                    break
+                            }
+                            break
+                        case 'group4path':
+                            switch (groupcount){
+                                case 5:
+                                    $('<text/>',{
+                                        id:'text1'
+                                    }).appendTo("#results");
+                                    $('#text1').text('group4 & group0');
+                                    $('<p/>', {
+                                        id: 'dResults'
+                                    }).appendTo('#results');
+                                    $("#dResults").load(dlink);
+
+                                    $('<text/>',{
+                                        id:'text2'
+                                    }).appendTo("#results");
+                                    $('#text2').text('group4 & group1');
+                                    $('<p/>', {
+                                        id: 'gResults'
+                                    }).appendTo('#results');
+                                    $("#gResults").load(glink);
+
+                                    $('<text/>',{
+                                        id:'text3'
+                                    }).appendTo("#results");
+                                    $('#text3').text('group4 & group2');
+                                    $('<p/>', {
+                                        id: 'iResults'
+                                    }).appendTo('#results');
+                                    $("#iResults").load(ilink);
+
+                                    $('<text/>',{
+                                        id:'text4'
+                                    }).appendTo("#results");
+                                    $('#text4').text('group4 & group3');
+                                    $('<p/>', {
+                                        id: 'jResults'
+                                    }).appendTo('#results');
+                                    $("#jResults").load(jlink);
+                                    break
+                                case 6:
+                                    $('<text/>',{
+                                        id:'text1'
+                                    }).appendTo("#results");
+                                    $('#text1').text('group4 & group0');
+                                    $('<p/>', {
+                                        id: 'dResults'
+                                    }).appendTo('#results');
+                                    $("#dResults").load(dlink);
+
+                                    $('<text/>',{
+                                        id:'text2'
+                                    }).appendTo("#results");
+                                    $('#text2').text('group4 & group1');
+                                    $('<p/>', {
+                                        id: 'hResults'
+                                    }).appendTo('#results');
+                                    $("#hResults").load(hlink);
+
+                                    $('<text/>',{
+                                        id:'text3'
+                                    }).appendTo("#results");
+                                    $('#text3').text('group4 & group2');
+                                    $('<p/>', {
+                                        id: 'kResults'
+                                    }).appendTo('#results');
+                                    $("#kResults").load(klink);
+
+                                    $('<text/>',{
+                                        id:'text4'
+                                    }).appendTo("#results");
+                                    $('#text4').text('group4 & group3');
+                                    $('<p/>', {
+                                        id: 'mResults'
+                                    }).appendTo('#results');
+                                    $("#mResults").load(mlink);
+
+                                    $('<text/>',{
+                                        id:'text5'
+                                    }).appendTo("#results");
+                                    $('#text5').text('group4 & group5');
+                                    $('<p/>', {
+                                        id: 'oResults'
+                                    }).appendTo('#results');
+                                    $("#oResults").load(olink);
+                                    break
+                            }
+                            break
+                        case 'group5path':
+                            switch (groupcount){
+                                case 6:
+                                    cca_info.append('g').attr('id','group0_group5');
+                                    cca_info.append('g').attr('id','group1_group5');
+                                    cca_info.append('g').attr('id','group2_group5');
+                                    cca_info.append('g').attr('id','group3_group5');
+                                    cca_info.append('g').attr('id','group4_group5');
+
+                                    $('<text/>',{
+                                        id:'text1'
+                                    }).appendTo("#results");
+                                    $('#text1').text('group5 & group0');
+                                    $('<p/>', {
+                                        id: 'eResults'
+                                    }).appendTo('#results');
+                                    $("#eResults").load(elink);
+
+                                    $('<text/>',{
+                                        id:'text2'
+                                    }).appendTo("#results");
+                                    $('#text2').text('group5 & group1');
+                                    $('<p/>', {
+                                        id: 'iResults'
+                                    }).appendTo('#results');
+                                    $("#iResults").load(ilink);
+
+                                    $('<text/>',{
+                                        id:'text3'
+                                    }).appendTo("#results");
+                                    $('#text3').text('group5 & group2');
+                                    $('<p/>', {
+                                        id: 'lResults'
+                                    }).appendTo('#results');
+                                    $("#lResults").load(llink);
+
+                                    $('<text/>',{
+                                        id:'text4'
+                                    }).appendTo("#results");
+                                    $('#text4').text('group5 & group3');
+                                    $('<p/>', {
+                                        id: 'nResults'
+                                    }).appendTo('#results');
+                                    $("#nResults").load(nlink);
+
+                                    $('<text/>',{
+                                        id:'text5'
+                                    }).appendTo("#results");
+                                    $('#text5').text('group5 & group4');
+                                    $('<p/>', {
+                                        id: 'oResults'
+                                    }).appendTo('#results');
+                                    $("#oResults").load(olink);
+                                    break
+                            }
+                            break
+                    }
+
+                    })
+                    .error(function (jqXHR, status, error) {
+                        alert(jqXHR.responseText);
+                    });
+
+                var coordinates = rv_path.node();
+
+                var x = coordinates.getBoundingClientRect().x;
+                var y = coordinates.getBoundingClientRect().y;
+
+                console.log(coordinates.getBoundingClientRect());
+
+                cca_info.style({
+                    left: (x) + "px",
+                    top: (y) + "px",
+                }).classed("hidden", false);
             })
-            .error(function (jqXHR, status, error) {
-                alert(jqXHR.responseText);
+            .on("mouseout", function (d) {
+                var cca_info = d3.select("#cca-info");
+                cca_info.classed("hidden", true);
             });
+        }
     });
+
 }

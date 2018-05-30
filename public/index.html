@@ -27,7 +27,7 @@
     <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
     <meta name="msapplication-TileColor" content="#3372DF">
 
-    <link rel="shortcut icon" href="images/favicon.png">
+    <link rel="shortcut icon" href="images/favicon_2.png">
 
     <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
     <!--
@@ -58,15 +58,15 @@
         <div class="card-left mdl-card mdl-shadow--2dp">
             <div class="mdl-card__title">
                 <img class="control-panel-img" src="images/control_panel.png"/>
-                <text font-style="Roboto">Control Panel</text>
+                <text style="font-family: Roboto; font-weight: bold;">Control Panel</text>
             </div>
             <div class="mdl-card__actions mdl-card--border">
-                <text>Available Dimensions</text>
+                <text style="font-family: Roboto;">Available Dimensions</text>
                 <div class="mdl-layout-spacer"></div>
                 <div class="dimensions-box" ondragstart="onDragStart(event)"></div>
             </div>
             <div class="mdl-card__actions mdl-card--border">
-                <text>Dimension Groups</text>
+                <text style="font-family: Roboto;">Dimension Groups</text>
                 <div class="mdl-layout-spacer"></div>
                 <div class="dimension-groups-box" ondragover="onDragOver(event)" ondrop="onDrop(event)"></div>
                 <div class="mdl-layout-spacer"></div>
@@ -74,9 +74,9 @@
                 <div class="mdl-layout-spacer"></div>
             </div>
             <div class="mdl-card__actions mdl-card--border">
-                <text>Color of nodes</text>
+                <text style="font-family: Roboto;">Color of nodes</text>
                 <div class="mdl-layout-spacer"></div>
-                <div class="color-box">
+                <div style="font-family: Roboto;" class="color-box">
                     <select id="color-select" class="select-box">
                         <option selected>Color</option>
                     </select>
@@ -95,17 +95,20 @@
                     <g id="numeric"></g>
                 </div>
             </div>
+            <div id="cca-info" class="hidden">
+                <g id="results"></g>
+            </div>
         </div>
     </div>
     <div class="mdl-cell mdl-cell--3-col">
         <div class="card-right mdl-card mdl-shadow--2dp">
             <div class="mdl-card__title">
                 <img class="data-detail-img" src="images/rating.png"/>
-                <text>Data Detail</text>
+                <text style="font-family: Roboto; font-weight: bold;">Data Detail</text>
             </div>
             <div class="mdl-card__actions mdl-card--border">
                 <div class="comparison-group">
-                    <text>Selected</text>
+                    <text style="font-family: Roboto;">Selected</text>
                     <text id="count" style="padding-left:0px; float: right; border-bottom: 1px groove #bababa;">0</text>
                 </div>
                 <div id="selectList">
@@ -115,9 +118,9 @@
             <div class="mdl-card__actions mdl-card--border">
                 <div id="subview">
                     <div class="comparison-group">
-                        <text>Comparison of Items</text>
+                        <text style="font-family: Roboto;">Comparison of Items</text>
                         <div class="radar-box">
-                        <select class="group-select-box" id="group-select">
+                        <select style="font-family: Roboto;" class="group-select-box" id="group-select">
                             <option id="select-default" value="100">select group</option>
                         </select>
                         </div>
@@ -127,19 +130,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="mdl-grid cca-content">
-    <div class="mdl-cell mdl-cell--12-col">
-        <div class="card-center mdl-card mdl-shadow--2dp">
-            <div class="r-content">
-                <text>CCA for Groups</text>
-                <input type="button" value="CCA" id="cmdGoR" onclick="addCCAresult()"/>
-            </div>
-            <div class="r-content">
-                <div id="results"></div>
             </div>
         </div>
     </div>

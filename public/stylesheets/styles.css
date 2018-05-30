@@ -154,7 +154,7 @@ circle.selected {
     padding: .5em .75em;
     width: 500px;
     height: 5px;
-    margin-left: 50px;
+    margin-left: 270px;
     font-size: 10px;
     font-family: inherit;
     line-height: normal;
@@ -174,7 +174,7 @@ circle.selected {
     border-color: #757475;
 }
 .add-button {
-    background-color: #bababa;
+    background-color: #757475;
     border: none;
     color: white;
     padding:3%;
@@ -184,6 +184,8 @@ circle.selected {
     font-size: 10px;
     width:100%;
     margin-top: 3%;
+    font-family: Roboto;
+    font-weight: bold;
 }
 .dimensions-box{
     display: none;
@@ -285,6 +287,25 @@ svg{
     font-weight: bold;
 }
 
+#cca-info{
+    position:fixed;
+    width:200px;
+    height:auto;
+    padding:10px;
+    background-color:white;
+    border-radius:10px;
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.4);
+}
+
+#cca-info.hidden{
+    display:none;
+}
+
+#cca-info p{
+    margin:0px;
+    font-size:12px;
+    font-weight: bold;
+}
 .select-box{
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
     font-size: 8px;
@@ -470,156 +491,12 @@ rect.selection {
     margin-right: 15%;
 }
 
-#winter {
-    font-weight: normal;
-}
-
-header h1 a {
-    font-family: Lato;
-}
-
-html body header {
-    font-variant: small-caps;
-    font-weight: bold;
-}
-
-nav ol li {
-    background-color: #ffffff;
-    color: #db2cdb;
-    font-size: 20px;
-}
-
-div.mdl-card__title text {
-    font-weight: bold;
+.sub-title{
     font-family: Roboto;
-    color: #5e5e5e;
-}
-
-div.mdl-card__actions.mdl-card--border text {
-    font-family: Roboto;
-    color: #000000;
-}
-
-text.sub-title {
-    font-size: 10px;
-    font-family: Roboto;
+    font-size:10px;
     color: #666666;
     font-weight: normal;
     margin-left: 5px;
-}
-
-text.mdl-card__title-text.mdl-color-text--grey-500 {
-    font-size: 24px;
-    font-family: Roboto;
-    color: #666666;
-}
-
-input.upload-name {
-    border-top-width: 1px;
-    border-left-width: 1px;
-    border-bottom-width: 1px;
-    border-right-width: 1px;
-    border-color: #aeaeae;
-    color: #000000;
-    background-color: #efefef;
-    font-family: Roboto;
-    margin-right: 3px;
-    font-size: 12px;
-    font-variant: normal;
-    margin-top: 1px;
-    margin-left: 30px;
-    border-style: solid;
-}
-
-div.filebox.bs3-primary label {
-    border-color: #aeaeae;
-    border-top-width: 1px;
-    border-left-width: 1px;
-    border-right-width: 1px;
-    border-bottom-width: 1px;
-    background-color: #666666;
-    color: #ffffff;
-    font-family: Roboto;
-    font-size: 8px;
-    border-style: solid;
-    text-transform: capitalize;
-}
-
-div.comparison-group text {
-    font-family: Helvetica;
-}
-
-button.add-button {
-    background-color: #666666;
-    color: #ffffff;
-    border-top-width: 1px;
-    border-left-width: 1px;
-    border-bottom-width: 1px;
-    border-right-width: 1px;
-    font-family: Roboto;
-    font-weight: bold;
-    text-transform: uppercase;
-    border-color: #000000;
-    border-style: none;
-    text-decoration: underline;
-}
-
-select.select-box {
-    font-family: Roboto;
-    font-size: 8px;
-    color: #6e6e6e;
-    background-color: #ffffff;
-    border-top-width: 1px;
-    border-left-width: 1px;
-    border-bottom-width: 1px;
-    border-right-width: 1px;
-    border-color: #000000;
-    border-style: groove;
-}
-
-select.group-select-box {
-    font-family: Roboto;
-    font-size: 8px;
-    color: #6e6e6e;
-    background-color: #ffffff;
-    border-style: groove;
-    border-top-width: 1px;
-    border-left-width: 1px;
-    border-bottom-width: 1px;
-    border-right-width: 1px;
-    border-color: #000000;
-    height: 15px;
-}
-
-#radarchart-colorInfor text {
-    font-family: Roboto;
-    font-size: 10px;
-    font-weight: normal;
-}
-
-#radarChart {
-    margin-left: 30px;
-}
-
-div.radar-chart-legend svg {
-    font-family: Helvetica;
-    margin-left: 50px;
-}
-
-div.filebox.bs3-primary {
-    margin-left: 355px;
-}
-
-div.dimensions-box {
-    background-color: #efefef;
-}
-
-#selectList {
-    background-color: #ffffff;
-}
-
-div.dimension-groups-box {
-    background-color: #efefef;
 }
 
 
