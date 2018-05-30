@@ -1130,7 +1130,7 @@ function addCCAresult() {
                 query="group0<-subset(x,select=c("+group0+"));";
                 break
             case 2:
-                query="group0<-subset(x,select=c("+group0+")); group1<-subset(x,select=c("+group1+")); group0; group1; cancor(group0,group1)$cor; ";
+                query="group0<-subset(x,select=c("+group0+")); group1<-subset(x,select=c("+group1+")); cancor(group0,group1)$cor; ";
                 break
             case 3:
                 query="group0<-subset(x,select=c("+group0+")); group1<-subset(x,select=c("+group1+")); group2<-subset(x,select=c("+group2+")); " +
@@ -1150,9 +1150,9 @@ function addCCAresult() {
                     "cancor(group2,group4)$cor; cancor(group3,group4)$cor;";
                 break
             case 6:
-                query="group0<-subset(x,select=c("+group0+"); group1<-subset(x,select=c("+group1+"); " +
-                    "group2<-subset(x,select=c("+group2+"); group3<-subset(x,select=c("+group3+"); " +
-                    "group4<-subset(x,select=c("+group4+"); group5<-subset(x,select=c("+group5+");" +
+                query="group0<-subset(x,select=c("+group0+")); group1<-subset(x,select=c("+group1+")); " +
+                    "group2<-subset(x,select=c("+group2+")); group3<-subset(x,select=c("+group3+")); " +
+                    "group4<-subset(x,select=c("+group4+")); group5<-subset(x,select=c("+group5+"));" +
                     "cancor(group0,group1)$cor; cancor(group0,group2)$cor; cancor(group0,group3)$cor; cancor(group0,group4)$cor; cancor(group0,group5)$cor;" +
                     "cancor(group1,group2)$cor; cancor(group1,group3)$cor; cancor(group1,group4)$cor; cancor(group1,group5)$cor; cancor(group2,group3)$cor;" +
                     "cancor(group2,group4)$cor; cancor(group2,group5)$cor; cancor(group3,group4)$cor; cancor(group3,group5)$cor; cancor(group4,group5)$cor;";
