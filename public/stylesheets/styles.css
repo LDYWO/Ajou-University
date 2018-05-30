@@ -469,3 +469,157 @@ rect.selection {
     height: 50px;
     margin-right: 15%;
 }
+
+#winter {
+    font-weight: normal;
+}
+
+header h1 a {
+    font-family: Lato;
+}
+
+html body header {
+    font-variant: small-caps;
+    font-weight: bold;
+}
+
+nav ol li {
+    background-color: #ffffff;
+    color: #db2cdb;
+    font-size: 20px;
+}
+
+div.mdl-card__title text {
+    font-weight: bold;
+    font-family: Roboto;
+    color: #5e5e5e;
+}
+
+div.mdl-card__actions.mdl-card--border text {
+    font-family: Roboto;
+    color: #000000;
+}
+
+text.sub-title {
+    font-size: 10px;
+    font-family: Roboto;
+    color: #666666;
+    font-weight: normal;
+    margin-left: 5px;
+}
+
+text.mdl-card__title-text.mdl-color-text--grey-500 {
+    font-size: 24px;
+    font-family: Roboto;
+    color: #666666;
+}
+
+input.upload-name {
+    border-top-width: 1px;
+    border-left-width: 1px;
+    border-bottom-width: 1px;
+    border-right-width: 1px;
+    border-color: #aeaeae;
+    color: #000000;
+    background-color: #efefef;
+    font-family: Roboto;
+    margin-right: 3px;
+    font-size: 12px;
+    font-variant: normal;
+    margin-top: 1px;
+    margin-left: 30px;
+    border-style: solid;
+}
+
+div.filebox.bs3-primary label {
+    border-color: #aeaeae;
+    border-top-width: 1px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    background-color: #666666;
+    color: #ffffff;
+    font-family: Roboto;
+    font-size: 8px;
+    border-style: solid;
+    text-transform: capitalize;
+}
+
+div.comparison-group text {
+    font-family: Helvetica;
+}
+
+button.add-button {
+    background-color: #666666;
+    color: #ffffff;
+    border-top-width: 1px;
+    border-left-width: 1px;
+    border-bottom-width: 1px;
+    border-right-width: 1px;
+    font-family: Roboto;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-color: #000000;
+    border-style: none;
+    text-decoration: underline;
+}
+
+select.select-box {
+    font-family: Roboto;
+    font-size: 8px;
+    color: #6e6e6e;
+    background-color: #ffffff;
+    border-top-width: 1px;
+    border-left-width: 1px;
+    border-bottom-width: 1px;
+    border-right-width: 1px;
+    border-color: #000000;
+    border-style: groove;
+}
+
+select.group-select-box {
+    font-family: Roboto;
+    font-size: 8px;
+    color: #6e6e6e;
+    background-color: #ffffff;
+    border-style: groove;
+    border-top-width: 1px;
+    border-left-width: 1px;
+    border-bottom-width: 1px;
+    border-right-width: 1px;
+    border-color: #000000;
+    height: 15px;
+}
+
+#radarchart-colorInfor text {
+    font-family: Roboto;
+    font-size: 10px;
+    font-weight: normal;
+}
+
+#radarChart {
+    margin-left: 30px;
+}
+
+div.radar-chart-legend svg {
+    font-family: Helvetica;
+    margin-left: 50px;
+}
+
+div.filebox.bs3-primary {
+    margin-left: 355px;
+}
+
+div.dimensions-box {
+    background-color: #efefef;
+}
+
+#selectList {
+    background-color: #ffffff;
+}
+
+div.dimension-groups-box {
+    background-color: #efefef;
+}
+
+
