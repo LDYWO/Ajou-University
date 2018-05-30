@@ -1,7 +1,3 @@
-/**
- * Created by igorcorrea on 03/12/2015.
- */
-
 function RvCircle() {
     this.path;
     this.x;
@@ -113,6 +109,7 @@ function RvCircle() {
             .append("circle")
             .attr('class', groupname + 'labelcircle')
             .attr('id',name+'labelcircle')
+            .attr("cursor","crosshair")
             .attr("cx", function (d) {
                 return d.x;
             })

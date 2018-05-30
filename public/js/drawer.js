@@ -74,12 +74,18 @@ function updateWeight() {
 
         tef.contribution = nContr;
 
+        var r = parseFloat(nContr) + 7.000;
+
+        cir.transition()
+            .attr("r", r);
+
         var cur_rvs=[];
         cur_rvs.push(rv0.da,rv1.da,rv2.da,rv3.da,rv4.da,rv5.da);
         updateNode(cur_rvs,true);
 
     });
 };
+
 function destroyCurrent(){
     svgContainer.selectAll("*").remove();
 
@@ -139,6 +145,7 @@ function startRadviz(fileName) {
                     "color": "white",
                     "display": "inline-block",
                     "font-size": "7px",
+                    "font-family":"Roboto",
                     "line-height": "normal",
                     "text-align": "center",
                     "cursor": "pointer",

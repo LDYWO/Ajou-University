@@ -43,7 +43,8 @@
 <div class="mdl-grid card-title">
     <div class="mdl-cell mdl-cell--12-col">
         <div class="mdl-card__title mdl-shadow--2dp">
-            <text class="mdl-card__title-text mdl-color-text--grey-500">Multidimensional Data Set Classifier</text>
+            <text class="mdl-card__title-text mdl-color-text--grey-500">Multidimensional Data Set Classifier |</text>
+            <text class="sub-title">Interactive Visualization <br/>and Analysis Tool</text>
             <div class="filebox bs3-primary">
                 <input class="upload-name" value="no file selected" disabled="disabled">
                 <label for="csv">upload</label>
@@ -57,7 +58,7 @@
         <div class="card-left mdl-card mdl-shadow--2dp">
             <div class="mdl-card__title">
                 <img class="control-panel-img" src="images/control_panel.png"/>
-                <text>Control Panel</text>
+                <text font-style="Roboto">Control Panel</text>
             </div>
             <div class="mdl-card__actions mdl-card--border">
                 <text>Available Dimensions</text>
@@ -115,9 +116,11 @@
                 <div id="subview">
                     <div class="comparison-group">
                         <text>Comparison of Items</text>
+                        <div class="radar-box">
                         <select class="group-select-box" id="group-select">
-                            <option id="select-default" value="100" selected>select group</option>
+                            <option id="select-default" value="100">select group</option>
                         </select>
+                        </div>
                         <div class="radar-container">
                             <div class="radar-chart"></div>
                             <div class="radar-chart-legend"></div>

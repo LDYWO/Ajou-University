@@ -1,7 +1,3 @@
-/**
- * Created by igorcorrea on 03/12/2015.
- */
-
 function Da(){
     this.x;
     this.y;

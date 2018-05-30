@@ -50,6 +50,8 @@ setupDragBehaviour = function(rvInst,dimensionnames) {
             }
         });
 
+
+
     _.forEach(dimensionnames,function (name) {
         d3.selectAll('#'+ name + 'labelcircle')
             .call(dragInst)
@@ -62,17 +64,20 @@ setupDragBehaviour = function(rvInst,dimensionnames) {
 
         var da = rvInst.da;
 
-        cir = rvInst;
         tef = da[i];
+
+        cir = d3.select(this);
+
+        document.getElementById("weightRange").value = tef.contribution;
+
+        var r = parseFloat(tef.contribution ) + 7.000;
 
         d3.select(this).transition()
             .style("fill", "white")
             .attr("r", 24)
             .transition()
-            .attr("r", 7)
-            .style("fill", "black");
-
-        document.getElementById("weightRange").value = tef.contribution;
+            .attr("r", r)
+            .style("fill", "white");
 
         tooltip.pop(this, '#datooltip', {overlay:true, position:4});
 
