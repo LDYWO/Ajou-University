@@ -7,8 +7,8 @@ function createRadar(point){
 function drawRadar() {
     RadarChart.defaultConfig.color = function() {};
     RadarChart.defaultConfig.radius = 3;
-    RadarChart.defaultConfig.w = 190;
-    RadarChart.defaultConfig.h = 190;
+    RadarChart.defaultConfig.w = 170;
+    RadarChart.defaultConfig.h = 170;
 
     var margin = {
         top: 10,
@@ -26,8 +26,8 @@ function drawRadar() {
     var chart = RadarChart.chart();
     var cfg = chart.config({
         containerClass: 'radar-chart', // target with css, the default stylesheet targets .radar-chart
-        w: 190,
-        h: 190,
+        w: 170,
+        h: 170,
         factor: 0.8,
         factorLegend: 0.95,
         levels: 3,
@@ -96,7 +96,7 @@ function drawRadar() {
     d3.select("#radarChart").remove();
 
     var svg = d3.select('.radar-chart').append('svg').attr("id","radarChart");
-    svg.attr('width', 190).attr('height', 190);
+    svg.attr('width', 170).attr('height', 170);
     svg.append('g').classed('single', 1).datum(selected_data).call(chart);
 
     appendRadarChartLegend();
@@ -104,8 +104,8 @@ function drawRadar() {
 function redrawRadar(reselected_data) {
     RadarChart.defaultConfig.color = function() {};
     RadarChart.defaultConfig.radius = 3;
-    RadarChart.defaultConfig.w = 190;
-    RadarChart.defaultConfig.h = 190;
+    RadarChart.defaultConfig.w = 170;
+    RadarChart.defaultConfig.h = 170;
 
     var margin = {
         top: 10,
@@ -123,8 +123,8 @@ function redrawRadar(reselected_data) {
     var chart = RadarChart.chart();
     var cfg = chart.config({
         containerClass: 'radar-chart', // target with css, the default stylesheet targets .radar-chart
-        w: 190,
-        h: 190,
+        w: 170,
+        h: 170,
         factor: 0.8,
         factorLegend: 0.95,
         levels: 3,
@@ -171,7 +171,7 @@ function redrawRadar(reselected_data) {
     d3.select("#radarChart").remove();
 
     var svg = d3.select('.radar-chart').append('svg').attr("id","radarChart");
-    svg.attr('width', 190).attr('height', 190);
+    svg.attr('width', 170).attr('height', 170);
     svg.append('g').classed('single', 1).datum(reselected_data).call(chart);
 
     if(select_item_count!=0)

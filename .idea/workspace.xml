@@ -2,16 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="42804eaf-40be-4e2e-b314-587ff68596a4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/2_16px.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/2_1x.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/2_32px.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/2_48px.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/2_64px.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/favicon_1.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/favicon_2.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/index.html" afterPath="$PROJECT_DIR$/public/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/drawer.js" afterPath="$PROJECT_DIR$/public/js/drawer.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/radarChartManager.js" afterPath="$PROJECT_DIR$/public/js/radarChartManager.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/stylesheets/styles.css" afterPath="$PROJECT_DIR$/public/stylesheets/styles.css" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -26,11 +18,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+            <state relative-caret-position="540">
+              <caret line="39" column="60" lean-forward="true" selection-start-line="39" selection-start-column="60" selection-end-line="39" selection-end-column="60" />
               <folding>
                 <element signature="n#style#0;n#text#0;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#text#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -52,8 +44,8 @@
       <file leaf-file-name="styles.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/stylesheets/styles.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
-              <caret line="223" column="29" lean-forward="false" selection-start-line="223" selection-start-column="23" selection-end-line="223" selection-end-column="29" />
+            <state relative-caret-position="432">
+              <caret line="425" column="13" lean-forward="false" selection-start-line="425" selection-start-column="13" selection-end-line="425" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -62,11 +54,14 @@
       <file leaf-file-name="drawer.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/js/drawer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19800">
-              <caret line="1039" column="2" lean-forward="false" selection-start-line="1039" selection-start-column="2" selection-end-line="1039" selection-end-column="2" />
+            <state relative-caret-position="819">
+              <caret line="499" column="1" lean-forward="true" selection-start-line="499" selection-start-column="1" selection-end-line="499" selection-end-column="1" />
               <folding>
                 <element signature="e#1141#1334#0" expanded="false" />
                 <element signature="e#1366#1418#0" expanded="false" />
+                <element signature="n#!!block;n#updateWeight#0" expanded="false" />
+                <element signature="n#!!block;n#destroyCurrent#0" expanded="false" />
+                <element signature="n#!!block;n#startRadviz#0" expanded="false" />
                 <element signature="e#4281#4417#0" expanded="false" />
                 <element signature="n#!!block;n#fileRead#0" expanded="false" />
                 <element signature="n#!!block;n#updateNode#0" expanded="false" />
@@ -80,8 +75,10 @@
                 <element signature="e#26180#26585#0" expanded="false" />
                 <element signature="n#!!block;n#onDragStart#0" expanded="false" />
                 <element signature="n#!!block;n#onDragOver#0" expanded="false" />
+                <element signature="n#!!block;n#onDrop#0" expanded="false" />
                 <element signature="e#32141#33682#0" expanded="false" />
                 <element signature="e#32526#33539#0" expanded="false" />
+                <element signature="n#!!block;n#addCCAresult#0" expanded="false" />
                 <element signature="e#34773#34852#0" expanded="false" />
                 <element signature="e#35029#36226#0" expanded="false" />
                 <element signature="e#36532#39006#0" expanded="false" />
@@ -89,61 +86,21 @@
                 <element signature="e#41067#48564#0" expanded="false" />
                 <element signature="e#48670#56085#0" expanded="false" />
                 <element signature="e#56191#64254#0" expanded="false" />
-                <element signature="e#56244#57390#0" expanded="false" />
                 <element signature="e#64360#70221#0" expanded="false" />
                 <element signature="e#70327#74715#0" expanded="false" />
-                <element signature="e#70380#72284#0" expanded="false" />
-                <element signature="e#72317#74685#0" expanded="false" />
                 <element signature="e#74821#77698#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dragManager.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/js/dragManager.js">
+      <file leaf-file-name="radarChartManager.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/js/radarChartManager.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2295">
-              <caret line="51" column="0" lean-forward="false" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+            <state relative-caret-position="831">
+              <caret line="126" column="14" lean-forward="false" selection-start-line="126" selection-start-column="14" selection-end-line="126" selection-end-column="14" />
               <folding>
-                <marker date="1527701843638" expanded="true" signature="2169:2247" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="da.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/js/da.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="900">
-              <caret line="20" column="40" lean-forward="false" selection-start-line="20" selection-start-column="40" selection-end-line="20" selection-end-column="40" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dimensionGroupsManger.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/js/dimensionGroupsManger.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="48" column="13" lean-forward="false" selection-start-line="48" selection-start-column="4" selection-end-line="48" selection-end-column="13" />
-              <folding>
-                <element signature="n#!!block;n#AddGroup#0" expanded="false" />
-                <element signature="n#!!block;n#removeDimensionsButtons#0" expanded="false" />
-                <element signature="n#!!block;n#removeDimensionGroups#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="rvCircle.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/js/rvCircle.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1215">
-              <caret line="27" column="38" lean-forward="false" selection-start-line="27" selection-start-column="38" selection-end-line="27" selection-end-column="38" />
-              <folding>
-                <element signature="e#4508#6113#0" expanded="false" />
-                <marker date="1527701843672" expanded="false" signature="3362:4459" ph="{...}" />
+                <element signature="n#!!block;n#createRadar#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -162,7 +119,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>groupcount</find>
       <find>re</find>
       <find>rotate</find>
       <find>rect</find>
@@ -179,7 +135,6 @@
       <find>select-box</find>
       <find>createRa</find>
       <find>radar</find>
-      <find>radar-con</find>
       <find>radar-cha</find>
       <find>group-select</find>
       <find>group-select-box</find>
@@ -192,6 +147,8 @@
       <find>group2</find>
       <find>add</find>
       <find>group1</find>
+      <find>radar-chart</find>
+      <find>radar-con</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -225,7 +182,6 @@
         <option value="$PROJECT_DIR$/bin/www" />
         <option value="$PROJECT_DIR$/public/js/rvCircle.js" />
         <option value="$PROJECT_DIR$/public/js/tooltipManager.js" />
-        <option value="$PROJECT_DIR$/public/js/radarChartManager.js" />
         <option value="$PROJECT_DIR$/public/js/dimensionGroupsManger.js" />
         <option value="$PROJECT_DIR$/views/index.ejs" />
         <option value="$PROJECT_DIR$/package-lock.json" />
@@ -235,9 +191,10 @@
         <option value="$PROJECT_DIR$/public/R/cc.js" />
         <option value="$PROJECT_DIR$/public/js/opencpu-0.5.js" />
         <option value="$PROJECT_DIR$/public/opencputest.html" />
+        <option value="$PROJECT_DIR$/public/index.html" />
         <option value="$PROJECT_DIR$/public/js/drawer.js" />
         <option value="$PROJECT_DIR$/public/stylesheets/styles.css" />
-        <option value="$PROJECT_DIR$/public/index.html" />
+        <option value="$PROJECT_DIR$/public/js/radarChartManager.js" />
       </list>
     </option>
   </component>
@@ -295,6 +252,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -311,13 +269,18 @@
               <item name="MDS-Classifier" type="b2602c69:ProjectViewProjectNode" />
               <item name="MDS-Classifier" type="462c0819:PsiDirectoryNode" />
               <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MDS-Classifier" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MDS-Classifier" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
               <item name="stylesheets" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -405,7 +368,8 @@
       <workItem from="1527491904052" duration="1120000" />
       <workItem from="1527555255246" duration="32287000" />
       <workItem from="1527644035423" duration="270000" />
-      <workItem from="1527703973277" duration="3001000" />
+      <workItem from="1527703973277" duration="3497000" />
+      <workItem from="1527720609537" duration="919000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1525503098498</created>
@@ -680,11 +644,18 @@
       <option name="project" value="LOCAL" />
       <updated>1527590659468</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="icon 수정">
+      <created>1527707609047</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1527707609047</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="237429000" />
+    <option name="totallyTimeSpent" value="238844000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-16" y="-16" width="3232" height="1732" extended-state="6" />
@@ -714,7 +685,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="second commit." />
     <MESSAGE value="commit." />
     <MESSAGE value="drag and drop" />
     <MESSAGE value="drag and drop2" />
@@ -739,7 +709,8 @@
     <MESSAGE value="Add CCA package" />
     <MESSAGE value="commit" />
     <MESSAGE value="CCA 추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="CCA 추가" />
+    <MESSAGE value="icon 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="icon 수정" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -748,13 +719,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/node_modules/ejs/lib/ejs.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/body-parser/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -814,17 +778,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/stylesheets/d3.parcoords.css" />
-    <entry file="file://$PROJECT_DIR$/public/js/rvCircle.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1215">
-          <caret line="27" column="38" lean-forward="false" selection-start-line="27" selection-start-column="38" selection-end-line="27" selection-end-column="38" />
-          <folding>
-            <element signature="e#4508#6113#0" expanded="false" />
-            <marker date="1527701843672" expanded="false" signature="3362:4459" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/js/d3.slider.js" />
     <entry file="file://$PROJECT_DIR$/public/js/d3.parcoords.js" />
     <entry file="file://$PROJECT_DIR$/public/js/tooltipManager.js" />
@@ -840,18 +793,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/dimensionGroupsManger.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="48" column="13" lean-forward="false" selection-start-line="48" selection-start-column="4" selection-end-line="48" selection-end-column="13" />
-          <folding>
-            <element signature="n#!!block;n#AddGroup#0" expanded="false" />
-            <element signature="n#!!block;n#removeDimensionsButtons#0" expanded="false" />
-            <element signature="n#!!block;n#removeDimensionGroups#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -909,16 +850,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/js/opencpu.js" />
     <entry file="file://$PROJECT_DIR$/R/rcc.R" />
-    <entry file="file://$PROJECT_DIR$/public/js/dragManager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2295">
-          <caret line="51" column="0" lean-forward="false" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
-          <folding>
-            <marker date="1527701843638" expanded="true" signature="2169:2247" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/js/nodeManager.js" />
     <entry file="file://$PROJECT_DIR$/R/cc.R" />
     <entry file="file://$PROJECT_DIR$/public/R/cc" />
@@ -933,68 +864,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/opencputest.html" />
-    <entry file="file://$PROJECT_DIR$/public/js/radarChartManager.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3690">
-          <caret line="84" column="16" lean-forward="false" selection-start-line="84" selection-start-column="16" selection-end-line="85" selection-end-column="46" />
-          <folding>
-            <element signature="n#!!block;n#createRadar#0" expanded="false" />
-            <element signature="e#3689#5139#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/drawer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19800">
-          <caret line="1039" column="2" lean-forward="false" selection-start-line="1039" selection-start-column="2" selection-end-line="1039" selection-end-column="2" />
-          <folding>
-            <element signature="e#1141#1334#0" expanded="false" />
-            <element signature="e#1366#1418#0" expanded="false" />
-            <element signature="e#4281#4417#0" expanded="false" />
-            <element signature="n#!!block;n#fileRead#0" expanded="false" />
-            <element signature="n#!!block;n#updateNode#0" expanded="false" />
-            <element signature="n#!!block;n#appendNodesInfor#0" expanded="false" />
-            <element signature="n#!!block;n#updateNodeColor#0" expanded="false" />
-            <element signature="n#!!block;n#appendNodesColorInfor#0" expanded="false" />
-            <element signature="n#!!block;n#removeNodesColorInfor#0" expanded="false" />
-            <element signature="n#!!block;n#selectItem#0" expanded="false" />
-            <element signature="n#!!block;n#dragRect#0" expanded="false" />
-            <element signature="n#!!block;n#removeSelectionBox#0" expanded="false" />
-            <element signature="e#26180#26585#0" expanded="false" />
-            <element signature="n#!!block;n#onDragStart#0" expanded="false" />
-            <element signature="n#!!block;n#onDragOver#0" expanded="false" />
-            <element signature="e#32141#33682#0" expanded="false" />
-            <element signature="e#32526#33539#0" expanded="false" />
-            <element signature="e#34773#34852#0" expanded="false" />
-            <element signature="e#35029#36226#0" expanded="false" />
-            <element signature="e#36532#39006#0" expanded="false" />
-            <element signature="e#40953#77754#0" expanded="false" />
-            <element signature="e#41067#48564#0" expanded="false" />
-            <element signature="e#48670#56085#0" expanded="false" />
-            <element signature="e#56191#64254#0" expanded="false" />
-            <element signature="e#56244#57390#0" expanded="false" />
-            <element signature="e#64360#70221#0" expanded="false" />
-            <element signature="e#70327#74715#0" expanded="false" />
-            <element signature="e#70380#72284#0" expanded="false" />
-            <element signature="e#72317#74685#0" expanded="false" />
-            <element signature="e#74821#77698#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/stylesheets/styles.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="223" column="29" lean-forward="false" selection-start-line="223" selection-start-column="23" selection-end-line="223" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+        <state relative-caret-position="540">
+          <caret line="39" column="60" lean-forward="true" selection-start-line="39" selection-start-column="60" selection-end-line="39" selection-end-column="60" />
           <folding>
             <element signature="n#style#0;n#text#0;n#div#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#text#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -1008,6 +881,106 @@
             <element signature="n#style#0;n#text#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#select#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/dragManager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2295">
+          <caret line="51" column="0" lean-forward="false" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+          <folding>
+            <marker date="1527701843638" expanded="true" signature="2169:2247" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/da.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="900">
+          <caret line="20" column="40" lean-forward="false" selection-start-line="20" selection-start-column="40" selection-end-line="20" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/dimensionGroupsManger.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="48" column="13" lean-forward="false" selection-start-line="48" selection-start-column="4" selection-end-line="48" selection-end-column="13" />
+          <folding>
+            <element signature="n#!!block;n#AddGroup#0" expanded="false" />
+            <element signature="n#!!block;n#removeDimensionsButtons#0" expanded="false" />
+            <element signature="n#!!block;n#removeDimensionGroups#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/rvCircle.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1215">
+          <caret line="27" column="38" lean-forward="false" selection-start-line="27" selection-start-column="38" selection-end-line="27" selection-end-column="38" />
+          <folding>
+            <element signature="e#4508#6113#0" expanded="false" />
+            <marker date="1527701843672" expanded="false" signature="3362:4459" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/stylesheets/styles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="425" column="13" lean-forward="false" selection-start-line="425" selection-start-column="13" selection-end-line="425" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/drawer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="819">
+          <caret line="499" column="1" lean-forward="true" selection-start-line="499" selection-start-column="1" selection-end-line="499" selection-end-column="1" />
+          <folding>
+            <element signature="e#1141#1334#0" expanded="false" />
+            <element signature="e#1366#1418#0" expanded="false" />
+            <element signature="n#!!block;n#updateWeight#0" expanded="false" />
+            <element signature="n#!!block;n#destroyCurrent#0" expanded="false" />
+            <element signature="n#!!block;n#startRadviz#0" expanded="false" />
+            <element signature="e#4281#4417#0" expanded="false" />
+            <element signature="n#!!block;n#fileRead#0" expanded="false" />
+            <element signature="n#!!block;n#updateNode#0" expanded="false" />
+            <element signature="n#!!block;n#appendNodesInfor#0" expanded="false" />
+            <element signature="n#!!block;n#updateNodeColor#0" expanded="false" />
+            <element signature="n#!!block;n#appendNodesColorInfor#0" expanded="false" />
+            <element signature="n#!!block;n#removeNodesColorInfor#0" expanded="false" />
+            <element signature="n#!!block;n#selectItem#0" expanded="false" />
+            <element signature="n#!!block;n#dragRect#0" expanded="false" />
+            <element signature="n#!!block;n#removeSelectionBox#0" expanded="false" />
+            <element signature="e#26180#26585#0" expanded="false" />
+            <element signature="n#!!block;n#onDragStart#0" expanded="false" />
+            <element signature="n#!!block;n#onDragOver#0" expanded="false" />
+            <element signature="n#!!block;n#onDrop#0" expanded="false" />
+            <element signature="e#32141#33682#0" expanded="false" />
+            <element signature="e#32526#33539#0" expanded="false" />
+            <element signature="n#!!block;n#addCCAresult#0" expanded="false" />
+            <element signature="e#34773#34852#0" expanded="false" />
+            <element signature="e#35029#36226#0" expanded="false" />
+            <element signature="e#36532#39006#0" expanded="false" />
+            <element signature="e#40953#77754#0" expanded="false" />
+            <element signature="e#41067#48564#0" expanded="false" />
+            <element signature="e#48670#56085#0" expanded="false" />
+            <element signature="e#56191#64254#0" expanded="false" />
+            <element signature="e#64360#70221#0" expanded="false" />
+            <element signature="e#70327#74715#0" expanded="false" />
+            <element signature="e#74821#77698#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/radarChartManager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="831">
+          <caret line="126" column="14" lean-forward="false" selection-start-line="126" selection-start-column="14" selection-end-line="126" selection-end-column="14" />
+          <folding>
+            <element signature="n#!!block;n#createRadar#0" expanded="false" />
           </folding>
         </state>
       </provider>
